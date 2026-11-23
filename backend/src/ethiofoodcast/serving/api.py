@@ -55,7 +55,8 @@ class ArtifactsMissing(RuntimeError):
 def _read_json(path: Path):
     if not path.exists():
         raise ArtifactsMissing(
-            f"{path.name} not found. Run: python pipelines/10_export_ui.py"
+            f"{path.name} not found in {path.parent}. The model and dashboard files "
+            "ship with the repository; restore them with: git checkout -- backend/artifacts"
         )
     with open(path, encoding="utf-8") as handle:
         return json.load(handle)
@@ -72,7 +73,8 @@ class Service:
         path = bundle_path or BUNDLE_PATH
         if not path.exists():
             raise ArtifactsMissing(
-                f"{path.name} not found. Run: python pipelines/10_export_ui.py"
+                f"{path.name} not found in {path.parent}. The model and dashboard files "
+                "ship with the repository; restore them with: git checkout -- backend/artifacts"
             )
         self.bundle: ModelBundle = load(path)
         # Prefer the schema carried inside the bundle: reading the global file

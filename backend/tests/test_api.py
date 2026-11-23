@@ -13,7 +13,7 @@ from ethiofoodcast.serving.api import BUNDLE_PATH, ArtifactsMissing, Service
 
 pytestmark = pytest.mark.skipif(
     not BUNDLE_PATH.exists(),
-    reason="artifacts not built; run pipelines/10_export_ui.py",
+    reason="model artifacts missing from backend/artifacts/",
 )
 
 
@@ -23,7 +23,7 @@ def service():
 
 
 def test_missing_artifacts_give_an_actionable_message(tmp_path):
-    with pytest.raises(ArtifactsMissing, match="10_export_ui"):
+    with pytest.raises(ArtifactsMissing, match="git checkout -- backend/artifacts"):
         Service(bundle_path=tmp_path / "absent.joblib")
 
 

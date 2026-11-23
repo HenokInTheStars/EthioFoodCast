@@ -1,15 +1,15 @@
 # EthioFoodCast — serving requirements
 #
-# This is what the Streamlit developer installs. It is everything needed to
-# import `backend.py`, load `artifacts/model_bundle.joblib`, score households
-# and run the test suite — and nothing else. Retraining the model needs the
-# extra packages in requirements-dev.txt.
+# Everything needed to import the `backend` package, load the model files in
+# backend/artifacts/, score households, serve the HTTP API and run
+# backend/tests/. Python 3.11 or 3.12. Retraining the model needs the raw
+# survey data and training pipeline, which are not part of this repository.
 #
 # THE SCIKIT-LEARN PIN IS LOAD-BEARING. The bundle is a pickle of fitted
 # scikit-learn objects. Installing a different minor version does not warn and
 # recover — it fails at load with an AttributeError deep inside pickle
 # (1.9 removed the private class 1.6 wrote into the ColumnTransformer). Do not
-# relax this bound without re-running pipelines/10_export_ui.py.
+# relax this bound unless the model files are re-exported under the new version.
 
 numpy>=1.26,<2.3
 pandas~=2.2.3

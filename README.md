@@ -12,7 +12,7 @@ dependency ratio, livestock units and per-person values are calculated.
 
 ## Run
 
-Needs Python 3.11. The first run creates the repository-root `.venv` and installs
+Needs Python 3.11 or 3.12 (the Docker image uses 3.11). The first run creates the repository-root `.venv` and installs
 `backend\requirements.txt` (a few minutes, internet needed); later runs start at once:
 
 ```bat

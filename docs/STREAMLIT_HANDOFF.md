@@ -10,7 +10,7 @@ see `GRAPH_BACKEND_HANDOFF.md`).
 
 ## Five-minute start
 
-Needs Python 3.11. From the repository root, `backend\start_api.bat` creates
+Needs Python 3.11 or 3.12. From the repository root, `backend\start_api.bat` creates
 `.venv` and installs `backend\requirements.txt` on the first run (a few minutes,
 internet needed).
 

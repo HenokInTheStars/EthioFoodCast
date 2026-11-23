@@ -2,7 +2,7 @@
   "name": "ethiofoodcast-web",
   "version": "0.1.0",
   "private": true,
-  "description": "EthioFoodCast decision-support workspace (Next.js). See ../FRONTEND_DESIGN.md.",
+  "description": "EthioFoodCast decision-support workspace (Next.js). See ../docs/FRONTEND_DESIGN.md.",
   "scripts": {
     "predev": "node scripts/copy-data.mjs",
     "dev": "next dev --port 3001",

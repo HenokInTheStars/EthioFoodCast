@@ -1,8 +1,9 @@
 # Graph backend (GCN ensemble) — frontend contract preserved
 
 Existing Service methods, input_schema(), defaults(), prediction response keys,
-batch output columns, legacy dashboard data and no-area requests keep their
-behaviour. The original ExtraTrees bundle remains the compatibility fallback.
+batch output columns and no-area requests keep their behaviour. The legacy
+dashboard method names still work but now return the deployed GCN's data (see
+below). The original ExtraTrees bundle remains the compatibility fallback.
 
 The graph model needs a specific supported survey area. Region alone is not
 enough.
@@ -91,9 +92,10 @@ deployed GCN, so every figure is out-of-sample for this model. Files live in
 | `cluster_profiles()` | Segment profiles (raw means and z-scores) |
 | `regions()`, `field_labels()` | Region names for `w4_region`; readable labels for every field |
 
-The legacy tree dashboard methods (`performance()`, `global_drivers()`,
-`scored_households()`, `regional_summary()`, `risk_distribution()`) are
-unchanged and still describe the ExtraTrees model.
+The legacy dashboard method names (`performance()`, `global_drivers()`,
+`scored_households()`, `regional_summary()`, `risk_distribution()`) are kept for
+compatibility. They return the same deployed GCN data as the `graph_*` methods
+above (held-out households), not the ExtraTrees model's figures.
 
 ## Optional HTTP API
 

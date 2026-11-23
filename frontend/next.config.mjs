@@ -6,7 +6,7 @@ import { dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 
 // Pin the file-tracing root to this directory. Without it Next walks up looking
-// for lockfiles and, if it finds one above web/ (a stray npm run in the Python
+// for lockfiles and, if it finds one above frontend/ (a stray npm run in the Python
 // backend directory leaves exactly that), it traces from there instead. That
 // silently changes the standalone layout the Dockerfile copies from: server.js
 // ends up nested one level down and `node server.js` cannot find it.

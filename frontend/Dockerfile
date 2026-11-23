@@ -17,12 +17,10 @@ FROM node:22-bookworm-slim AS deps
 ENV NEXT_TELEMETRY_DISABLED=1
 WORKDIR /app/frontend
 
-# package-lock.json is gitignored, so a fresh clone has no lockfile and `npm ci`
-# would fail. Use it when it exists (reproducible) and fall back to `npm install`
-# otherwise, so this image builds both in CI and from a working copy.
-COPY frontend/package.json frontend/package-lock.json* ./
-RUN if [ -f package-lock.json ]; then npm ci --no-audit --no-fund; \
-    else npm install --no-audit --no-fund; fi
+# package-lock.json is committed, so `npm ci` installs exactly the locked
+# versions and fails if package.json and the lockfile disagree.
+COPY frontend/package.json frontend/package-lock.json ./
+RUN npm ci --no-audit --no-fund
 
 FROM node:22-bookworm-slim AS builder
 
@@ -48,9 +46,12 @@ COPY docs/ ./docs/
 # scripts/copy-data.mjs reads only allowlisted JSON from backend/artifacts
 # (see frontend/scripts/copy-data.mjs). Model pickles and per-household rows
 # elsewhere in backend/artifacts/ are deliberately not copied into the image:
-# the image must not contain them.
+# the image must not contain them. public_evidence holds the official-source
+# metadata (titles, dates and URLs only) listed on the Evidence page; without it
+# copy-data silently writes an empty source list.
 COPY backend/artifacts/ui_graph ./backend/artifacts/ui_graph
 COPY backend/artifacts/ui ./backend/artifacts/ui
+COPY backend/artifacts/public_evidence ./backend/artifacts/public_evidence
 
 # Regenerates frontend/data (checked against the manifest) and then builds. A missing
 # or malformed artifact fails here, at build time, instead of rendering an

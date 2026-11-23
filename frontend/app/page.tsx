@@ -11,7 +11,7 @@ import { int, num, pct, rampClass } from "@/lib/format";
 
 /**
  * The overview. Everything here is read from the build artifacts at build time
- * (npm run data -> web/data/), so this page renders with no backend running:
+ * (npm run data -> frontend/data/), so this page renders with no backend running:
  * a reader must be able to see what the model does and how well it does it
  * without starting a service.
  *

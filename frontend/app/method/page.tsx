@@ -10,7 +10,7 @@ import { int, num, pct } from "@/lib/format";
  * Two honesty constraints, both forced by the artifacts rather than chosen:
  *
  * 1. The brief names three figures for this page, but no PNG is exported into
- *    `web/data/`, so nothing here points at a missing image. The confusion
+ *    `frontend/data/`, so nothing here points at a missing image. The confusion
  *    matrix is counted from the tn/fp/fn/tp the artifact does carry rather than
  *    back-computed from a rate.
  * 2. The diet-focused benchmark scores 0.7971 against the deployed form's

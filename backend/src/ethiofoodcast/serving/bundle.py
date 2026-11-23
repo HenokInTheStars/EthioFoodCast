@@ -262,8 +262,7 @@ def load(path: Path) -> ModelBundle:
             f"version mismatch: the bundle is a pickle of fitted scikit-learn "
             f"objects and only loads under the version that wrote it. You have "
             f"{_sklearn_version()}. Install the pinned set with "
-            f"`pip install -r requirements.txt`, or rebuild the bundle for your "
-            f"version with `python pipelines/10_export_ui.py`. "
+            f"`pip install -r backend/requirements.txt` (Python 3.11 or 3.12). "
             f"Underlying error: {type(exc).__name__}: {exc}"
         ) from exc
 
@@ -274,6 +273,6 @@ def load(path: Path) -> ModelBundle:
         bundle.metadata["environment_warning"] = (
             f"Bundle was fitted under scikit-learn {built_with}; "
             f"{_sklearn_version()} is installed. Predictions may differ. "
-            f"Install the pinned version from requirements.txt."
+            f"Install the pinned version from backend/requirements.txt."
         )
     return bundle
