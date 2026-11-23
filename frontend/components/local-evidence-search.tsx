@@ -1,6 +1,20 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+/**
+ * The evidence workspace, in four tabs:
+ *   Search documents  local, offline keyword search over bundled project docs
+ *   Ask AI            one question box; general (unverified) or cited answers
+ *   My library        files kept in this browser only (OfflineEvidenceLibrary)
+ *   Official sources  publisher links and metadata, never full text
+ *
+ * Rules that do not change with the layout:
+ *   - Project documents and library files are never sent to Groq.
+ *   - Every AI request needs fresh consent; consent resets after each request.
+ *   - General answers are labelled unverified. Cited answers stay disabled until
+ *     the server reports approved sources and passages.
+ */
+import { useEffect, useId, useMemo, useRef, useState } from "react";
+import type { KeyboardEvent } from "react";
 import { z } from "zod";
 
 import projectDocuments from "@/data/evidence/project-documents.json";
@@ -46,11 +60,13 @@ const sourceSnapshot = officialSources as {
   sources: OfficialSource[];
 };
 const groqApprovedSourceCount = sourceSnapshot.sources.filter(isSourceApprovedForGroq).length;
+const officialItemCount = sourceSnapshot.sources.reduce((total, source) => total + source.items.length, 0);
 const STOP_WORDS = new Set([
   "a", "an", "and", "are", "as", "at", "be", "by", "for", "from", "how",
   "in", "is", "it", "of", "on", "or", "that", "the", "this", "to", "was",
   "what", "when", "where", "which", "who", "with",
 ]);
+const SUGGESTED_SEARCHES = ["evaluation caveats", "area context", "threshold", "PSNP", "offline use", "risk bands"];
 
 type GroqAvailability = {
   available: boolean;
@@ -59,15 +75,10 @@ type GroqAvailability = {
   passageCount: number;
 };
 
-type GroqAnswer = {
-  text: string;
-  citations: { label: string; url: string }[];
-};
-
-type GeneralAnswer = {
-  text: string;
-  warning: string;
-};
+type AiMode = "general" | "cited";
+type AiAnswer =
+  | { mode: "general"; text: string; warning: string }
+  | { mode: "cited"; text: string; citations: { label: string; url: string }[] };
 
 const groqAnswerSchema = z.object({
   answer: z.string(),
@@ -76,12 +87,23 @@ const groqAnswerSchema = z.object({
     url: z.string().url(),
   })),
 });
+const generalAnswerSchema = z.object({
+  answer: z.string(),
+  verified: z.literal(false),
+  warning: z.string(),
+});
+const failureSchema = z.object({ error: z.string() });
 
 function termsFor(query: string): string[] {
   return [...new Set(
     (query.toLocaleLowerCase().match(/[\p{L}\p{N}]+/gu) ?? [])
       .filter((term) => term.length > 1 && !STOP_WORDS.has(term)),
   )];
+}
+
+/** Markdown emphasis and code marks read as noise in a plain-text excerpt. */
+function readable(markdown: string): string {
+  return markdown.replace(/\*\*(.+?)\*\*/g, "$1").replace(/`([^`]+)`/g, "$1");
 }
 
 function searchDocuments(query: string): SearchResult[] {
@@ -107,43 +129,176 @@ function searchDocuments(query: string): SearchResult[] {
     .slice(0, 6);
 }
 
+const TABS = [
+  { id: "search", label: "Search documents", hint: `${documents.length} passages` },
+  { id: "ask", label: "Ask AI", hint: "Groq, with consent" },
+  { id: "library", label: "My library", hint: "This device only" },
+  { id: "sources", label: "Official sources", hint: `${officialItemCount} links` },
+] as const;
+type TabId = (typeof TABS)[number]["id"];
+
 export function LocalEvidenceSearch() {
+  const baseId = useId();
+  const [tab, setTab] = useState<TabId>("search");
+  const tabRefs = useRef<(HTMLButtonElement | null)[]>([]);
+
+  // Deep links: /copilot#ask opens the Ask AI tab.
+  useEffect(() => {
+    const fromHash = window.location.hash.replace("#", "");
+    if (TABS.some((entry) => entry.id === fromHash)) setTab(fromHash as TabId);
+  }, []);
+
+  function select(next: TabId, focus = false) {
+    setTab(next);
+    window.history.replaceState(null, "", `#${next}`);
+    if (focus) tabRefs.current[TABS.findIndex((entry) => entry.id === next)]?.focus();
+  }
+
+  function onTabKey(event: KeyboardEvent<HTMLButtonElement>, index: number) {
+    const last = TABS.length - 1;
+    const target =
+      event.key === "ArrowRight" ? (index === last ? 0 : index + 1)
+        : event.key === "ArrowLeft" ? (index === 0 ? last : index - 1)
+          : event.key === "Home" ? 0
+            : event.key === "End" ? last
+              : null;
+    if (target === null) return;
+    event.preventDefault();
+    const entry = TABS[target];
+    if (entry) select(entry.id, true);
+  }
+
+  return (
+    <div className="evidence-workspace">
+      <div className="tabs" role="tablist" aria-label="Evidence tools">
+        {TABS.map((entry, index) => (
+          <button
+            key={entry.id}
+            ref={(element) => {
+              tabRefs.current[index] = element;
+            }}
+            type="button"
+            role="tab"
+            id={`${baseId}-tab-${entry.id}`}
+            aria-selected={tab === entry.id}
+            aria-controls={`${baseId}-panel-${entry.id}`}
+            tabIndex={tab === entry.id ? 0 : -1}
+            className={tab === entry.id ? "tab active" : "tab"}
+            onClick={() => select(entry.id)}
+            onKeyDown={(event) => onTabKey(event, index)}
+          >
+            <span className="tab-label">{entry.label}</span>
+            <span className="tab-hint">{entry.hint}</span>
+          </button>
+        ))}
+      </div>
+
+      {TABS.map((entry) => (
+        <div
+          key={entry.id}
+          role="tabpanel"
+          id={`${baseId}-panel-${entry.id}`}
+          aria-labelledby={`${baseId}-tab-${entry.id}`}
+          hidden={tab !== entry.id}
+          className="tab-panel"
+        >
+          {entry.id === "search" ? <SearchPanel /> : null}
+          {entry.id === "ask" ? <AskPanel /> : null}
+          {entry.id === "library" ? <OfflineEvidenceLibrary /> : null}
+          {entry.id === "sources" ? <SourcesPanel /> : null}
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function SearchPanel() {
   const [query, setQuery] = useState("");
-  const [question, setQuestion] = useState("");
-  const [generalQuestion, setGeneralQuestion] = useState("");
-  const [consent, setConsent] = useState(false);
-  const [availability, setAvailability] = useState<GroqAvailability | null>(null);
-  const [answer, setAnswer] = useState<GroqAnswer | null>(null);
-  const [answerError, setAnswerError] = useState("");
-  const [answerWorking, setAnswerWorking] = useState(false);
-  const [generalConsent, setGeneralConsent] = useState(false);
-  const [generalAnswer, setGeneralAnswer] = useState<GeneralAnswer | null>(null);
-  const [generalAnswerError, setGeneralAnswerError] = useState("");
-  const [generalAnswerWorking, setGeneralAnswerWorking] = useState(false);
-  const [testConsent, setTestConsent] = useState(false);
-  const [testWorking, setTestWorking] = useState(false);
-  const [testResult, setTestResult] = useState("");
-  const [testError, setTestError] = useState("");
   const results = useMemo(() => searchDocuments(query), [query]);
   const hasSearch = termsFor(query).length > 0;
+
+  return (
+    <section aria-labelledby="search-heading">
+      <div className="panel-intro">
+        <h2 id="search-heading">Search project documents</h2>
+        <p>
+          Searches the project&apos;s own documentation on this device, with no network or AI call. Each result
+          cites the document and section it came from.
+        </p>
+      </div>
+
+      <div className="search-input evidence-search">
+        <svg viewBox="0 0 20 20" aria-hidden="true" focusable="false">
+          <circle cx="8.5" cy="8.5" r="5.5" fill="none" stroke="currentColor" strokeWidth="1.8" />
+          <path d="M13 13l4 4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+        </svg>
+        <input
+          type="search"
+          value={query}
+          onChange={(event) => setQuery(event.target.value)}
+          placeholder="Search for a topic, for example evaluation caveats"
+          aria-label="Search project documents"
+          aria-describedby="local-evidence-status"
+        />
+      </div>
+
+      <div className="suggestions" aria-label="Suggested searches">
+        <span className="suggestions-label">Try</span>
+        {SUGGESTED_SEARCHES.map((suggestion) => (
+          <button key={suggestion} type="button" className="suggestion" onClick={() => setQuery(suggestion)}>
+            {suggestion}
+          </button>
+        ))}
+      </div>
+
+      <p id="local-evidence-status" className="search-status" role="status" aria-live="polite">
+        {!hasSearch
+          ? `${documents.length} passages from ${localDocumentCount} project documents are available offline.`
+          : results.length
+            ? `${results.length} matching passage${results.length === 1 ? "" : "s"}, best match first.`
+            : "No matching passages. Try a shorter or different word."}
+      </p>
+
+      {results.length > 0 ? (
+        <ol className="search-results">
+          {results.map((result) => (
+            <li key={result.id} className="search-result">
+              <p className="search-result-source">
+                <span className="source-doc">{result.source}</span>
+                <span className="source-section">{result.section}</span>
+              </p>
+              <p className="search-result-content">{readable(result.content)}</p>
+            </li>
+          ))}
+        </ol>
+      ) : null}
+    </section>
+  );
+}
+
+function AskPanel() {
+  const [mode, setMode] = useState<AiMode>("general");
+  const [question, setQuestion] = useState("");
+  const [consent, setConsent] = useState(false);
+  const [availability, setAvailability] = useState<GroqAvailability | null>(null);
+  const [answer, setAnswer] = useState<AiAnswer | null>(null);
+  const [error, setError] = useState("");
+  const [working, setWorking] = useState(false);
+  const citedAvailable = availability?.available === true;
 
   useEffect(() => {
     const controller = new AbortController();
     async function loadAvailability() {
       try {
-        const response = await fetch("/api/copilot/answer", {
-          signal: controller.signal,
-          cache: "no-store",
-        });
-        const data = await response.json() as GroqAvailability;
-        setAvailability(data);
-      } catch (error) {
+        const response = await fetch("/api/copilot/answer", { signal: controller.signal, cache: "no-store" });
+        setAvailability((await response.json()) as GroqAvailability);
+      } catch (caught) {
         if (controller.signal.aborted) return;
         setAvailability({
           available: false,
-          reason: error instanceof Error
-            ? `Could not check Groq readiness: ${error.message}`
-            : "Could not check Groq readiness.",
+          reason: caught instanceof Error
+            ? `Could not check readiness: ${caught.message}`
+            : "Could not check readiness.",
           sourceCount: 0,
           passageCount: 0,
         });
@@ -153,50 +308,201 @@ export function LocalEvidenceSearch() {
     return () => controller.abort();
   }, []);
 
-  async function requestAnswer(event: React.FormEvent<HTMLFormElement>) {
+  async function ask(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    if (!consent || !availability?.available || answerWorking) return;
+    if (!consent || working || question.trim().length < 3) return;
+    if (mode === "cited" && !citedAvailable) return;
 
-    setAnswerWorking(true);
-    setConsent(false);
+    setWorking(true);
+    setConsent(false); // consent is per request
     setAnswer(null);
-    setAnswerError("");
+    setError("");
     try {
-      const response = await fetch("/api/copilot/answer", {
+      const response = await fetch(mode === "cited" ? "/api/copilot/answer" : "/api/copilot/general-answer", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ question, consent: true }),
       });
       const data: unknown = await response.json();
       if (!response.ok) {
-        const failure = z.object({ error: z.string() }).safeParse(data);
-        setAnswerError(
-          failure.success ? failure.data.error : "The answer request failed.",
-        );
+        const failure = failureSchema.safeParse(data);
+        setError(failure.success ? failure.data.error : "The request failed.");
+      } else if (mode === "cited") {
+        const parsed = groqAnswerSchema.safeParse(data);
+        if (parsed.success) setAnswer({ mode: "cited", text: parsed.data.answer, citations: parsed.data.citations });
+        else setError("The server returned an invalid answer format.");
       } else {
-        const result = groqAnswerSchema.safeParse(data);
-        if (!result.success) {
-          setAnswerError("The server returned an invalid answer format.");
-        } else {
-          setAnswer({ text: result.data.answer, citations: result.data.citations });
-        }
+        const parsed = generalAnswerSchema.safeParse(data);
+        if (parsed.success) setAnswer({ mode: "general", text: parsed.data.answer, warning: parsed.data.warning });
+        else setError("The server returned an invalid answer format.");
       }
-    } catch (error) {
-      setAnswerError(error instanceof Error
-        ? `Could not request an answer: ${error.message}`
-        : "Could not request an answer.");
+    } catch (caught) {
+      setError(caught instanceof Error ? `Could not reach the server: ${caught.message}` : "Could not reach the server.");
     } finally {
-      setAnswerWorking(false);
+      setWorking(false);
     }
   }
 
-  async function testGroqConnection() {
-    if (!testConsent || testWorking) return;
-    setTestWorking(true);
-    setTestResult("");
-    setTestError("");
-    setTestConsent(false);
+  return (
+    <section aria-labelledby="ask-heading">
+      <div className="panel-intro">
+        <h2 id="ask-heading">Ask an AI assistant</h2>
+        <p>
+          Questions are answered by Groq, an external AI service, only after you consent to each request. Project
+          documents and files in your library are never sent.
+        </p>
+      </div>
 
+      <div className="ai-modes" role="radiogroup" aria-label="Answer type">
+        <button
+          type="button"
+          role="radio"
+          aria-checked={mode === "general"}
+          className={mode === "general" ? "ai-mode active" : "ai-mode"}
+          onClick={() => {
+            setMode("general");
+            setConsent(false);
+          }}
+        >
+          <span className="ai-mode-title">General answer</span>
+          <span className="ai-mode-text">From the model&apos;s general knowledge. Unverified and uncited.</span>
+          <span className="ai-mode-state available">Available</span>
+        </button>
+        <button
+          type="button"
+          role="radio"
+          aria-checked={mode === "cited"}
+          aria-disabled={!citedAvailable}
+          className={`ai-mode${mode === "cited" ? " active" : ""}${citedAvailable ? "" : " unavailable"}`}
+          onClick={() => {
+            setMode("cited");
+            setConsent(false);
+          }}
+        >
+          <span className="ai-mode-title">Cited answer</span>
+          <span className="ai-mode-text">Grounded in approved official passages, with citations.</span>
+          <span className={citedAvailable ? "ai-mode-state available" : "ai-mode-state"}>
+            {availability === null ? "Checking…" : citedAvailable ? "Available" : "Not yet available"}
+          </span>
+        </button>
+      </div>
+
+      {mode === "cited" && !citedAvailable ? (
+        <div className="notice ai-unavailable" role="status">
+          <strong>Cited answers are not available yet.</strong>{" "}
+          {availability?.reason ?? "Checking whether approved sources are configured…"} {groqApprovedSourceCount} of{" "}
+          {sourceSnapshot.sources.length} official sources are cleared for AI processing. See “How AI answers are
+          controlled” below.
+        </div>
+      ) : (
+        <form className="ai-form" onSubmit={(event) => void ask(event)}>
+          <label htmlFor="ai-question" className="ai-label">
+            Your question
+          </label>
+          <textarea
+            id="ai-question"
+            value={question}
+            onChange={(event) => setQuestion(event.target.value)}
+            maxLength={500}
+            rows={4}
+            required
+            minLength={3}
+            placeholder="For example: What does the Productive Safety Net Programme provide?"
+          />
+          <div className="ai-form-meta">
+            <span>{question.length}/500</span>
+          </div>
+          <label className="consent">
+            <input type="checkbox" checked={consent} onChange={(event) => setConsent(event.target.checked)} />
+            <span>
+              {mode === "cited"
+                ? "Send this question and the matching approved public passages to Groq for this one request."
+                : "Send only this question to Groq for this one request."}{" "}
+              I have not included names or any personal, household or confidential information.
+            </span>
+          </label>
+          <div className="ai-actions">
+            <button type="submit" disabled={!consent || question.trim().length < 3 || working}>
+              {working ? "Waiting for Groq…" : mode === "cited" ? "Ask with citations" : "Ask (unverified)"}
+            </button>
+            <span className="small faint">Consent resets after every request.</span>
+          </div>
+        </form>
+      )}
+
+      {error ? (
+        <div className="error ai-result" role="alert">
+          <strong>No answer.</strong> {error}
+        </div>
+      ) : null}
+
+      {answer ? (
+        <article className={`ai-result ai-answer ${answer.mode}`} aria-live="polite">
+          <header>
+            <span className={answer.mode === "general" ? "badge" : "badge verified"}>
+              {answer.mode === "general" ? "Unverified · no sources checked" : "Cited answer"}
+            </span>
+          </header>
+          <p className="ai-answer-text">{answer.text}</p>
+          {answer.mode === "cited" ? (
+            <>
+              <h3>Sources used</h3>
+              <ol>
+                {answer.citations.map((citation) => (
+                  <li key={`${citation.url}:${citation.label}`}>
+                    <a href={citation.url} target="_blank" rel="noreferrer">{citation.label}</a>
+                  </li>
+                ))}
+              </ol>
+            </>
+          ) : (
+            <p className="small muted">{answer.warning}</p>
+          )}
+          <p className="small faint">
+            AI answers can be wrong. Check important or time-sensitive claims with an authoritative source. Never use
+            an answer to decide assistance eligibility or make household-level decisions.
+          </p>
+        </article>
+      ) : null}
+
+      <details className="disclosure">
+        <summary>How AI answers are controlled</summary>
+        <ul>
+          <li>
+            A cited answer uses only reviewed public passages held on the server. A source needs verified reuse
+            rights and a separate external-AI approval; the Ministry of Agriculture, WFP and FAO records are
+            currently blocked, so cited answers stay off.
+          </li>
+          <li>Project documents and files in your library are never sent, even when they match a search.</li>
+          <li>A general answer sends only your question and is always labelled unverified.</li>
+        </ul>
+        <h3>What is needed to switch on cited answers</h3>
+        <ol>
+          <li>Approved, versioned source documents with clear reuse rights.</li>
+          <li>Separate external-AI approval for each source, and fresh consent for each request.</li>
+          <li>A deployment choice for document storage, retrieval and the language model.</li>
+          <li>Ingestion that keeps page-level citations and reports missing or stale sources.</li>
+          <li>Review tests that check every generated claim against the retrieved passages.</li>
+        </ol>
+      </details>
+
+      <ConnectionTest />
+    </section>
+  );
+}
+
+function ConnectionTest() {
+  const [consent, setConsent] = useState(false);
+  const [working, setWorking] = useState(false);
+  const [result, setResult] = useState("");
+  const [error, setError] = useState("");
+
+  async function run() {
+    if (!consent || working) return;
+    setWorking(true);
+    setResult("");
+    setError("");
+    setConsent(false);
     try {
       const response = await fetch("/api/copilot/groq-test", {
         method: "POST",
@@ -205,338 +511,109 @@ export function LocalEvidenceSearch() {
       });
       const data: unknown = await response.json();
       if (!response.ok) {
-        const failure = z.object({ error: z.string() }).safeParse(data);
-        setTestError(failure.success ? failure.data.error : "Groq connection test failed.");
+        const failure = failureSchema.safeParse(data);
+        setError(failure.success ? failure.data.error : "Groq connection test failed.");
       } else {
-        const result = z.object({ ok: z.literal(true), model: z.string(), reply: z.string() })
-          .safeParse(data);
-        if (!result.success) {
-          setTestError("Groq returned an unexpected test response.");
-        } else if (result.data.reply !== "OK") {
-          setTestError("Groq responded, but did not return the expected “OK” reply.");
-        } else {
-          setTestResult(`Connection successful. ${result.data.model} replied “OK”.`);
-        }
+        const parsed = z.object({ ok: z.literal(true), model: z.string(), reply: z.string() }).safeParse(data);
+        if (!parsed.success) setError("Groq returned an unexpected test response.");
+        else if (parsed.data.reply !== "OK") setError("Groq responded, but did not return the expected “OK”.");
+        else setResult(`Connected. ${parsed.data.model} replied “OK”.`);
       }
-    } catch (error) {
-      setTestError(error instanceof Error
-        ? `Could not run the Groq test: ${error.message}`
-        : "Could not run the Groq test.");
+    } catch (caught) {
+      setError(caught instanceof Error ? `Could not run the test: ${caught.message}` : "Could not run the test.");
     } finally {
-      setTestWorking(false);
-    }
-  }
-
-  async function requestGeneralAnswer(event: React.FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    if (!generalConsent || generalAnswerWorking) return;
-
-    setGeneralAnswerWorking(true);
-    setGeneralConsent(false);
-    setGeneralAnswer(null);
-    setGeneralAnswerError("");
-    try {
-      const response = await fetch("/api/copilot/general-answer", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ question: generalQuestion, consent: true }),
-      });
-      const data: unknown = await response.json();
-      if (!response.ok) {
-        const failure = z.object({ error: z.string() }).safeParse(data);
-        setGeneralAnswerError(
-          failure.success ? failure.data.error : "The general answer request failed.",
-        );
-      } else {
-        const result = z.object({
-          answer: z.string(),
-          verified: z.literal(false),
-          warning: z.string(),
-        }).safeParse(data);
-        if (!result.success) {
-          setGeneralAnswerError("The server returned an invalid answer format.");
-        } else {
-          setGeneralAnswer({ text: result.data.answer, warning: result.data.warning });
-        }
-      }
-    } catch (error) {
-      setGeneralAnswerError(error instanceof Error
-        ? `Could not request a general answer: ${error.message}`
-        : "Could not request a general answer.");
-    } finally {
-      setGeneralAnswerWorking(false);
+      setWorking(false);
     }
   }
 
   return (
-    <section className="readiness-panel local-evidence" aria-labelledby="local-evidence-heading">
-      <div className="readiness-heading">
-        <span className="tag">Local-only search</span>
-        <h2 id="local-evidence-heading">Search project documents</h2>
-      </div>
+    <details className="disclosure">
+      <summary>Diagnostics: test the Groq connection</summary>
       <p className="small muted">
-        Search the project&apos;s bundled documentation without a network or model call. Production
-        installs cache this page and its assets after you open it online; the development server
-        does not enable offline support. Results cite source sections. Internal project documents
-        are never sent to Groq.
+        Sends one fixed prompt (“Reply with exactly: OK”) to check the server&apos;s key, model and network. It
+        sends no question, passages, documents or files.
       </p>
-
-      <section className="library-warning" aria-labelledby="groq-gate-heading">
-        <h3 id="groq-gate-heading">
-          Groq sharing gate: {availability?.available ? "ready" : "closed"}
-        </h3>
-        <p className="small">
-          {groqApprovedSourceCount} official source
-          {groqApprovedSourceCount === 1 ? " is" : "s are"} explicitly cleared for external AI
-          processing. A source requires verified reuse rights and a separate external-AI approval;
-          the current MoA, WFP, and FAO records are blocked. No public-source passages are currently
-          cleared for Groq.
-        </p>
-        <p className="small">
-          The endpoint only retrieves reviewed public-source passages from its server-side corpus.
-          Project documents and offline uploads are excluded, even if they appear in local search.
-        </p>
-      </section>
-
-      <section className="groq-answer" aria-labelledby="groq-answer-heading">
-        <h3 id="groq-answer-heading">Ask the online evidence copilot</h3>
-        <p className="small muted">
-          When enabled, your question and matching cited public-source passages are sent to Groq.
-          Review each source and consent separately for every request.
-        </p>
-        <p className="small faint" role="status" aria-live="polite">
-          {availability
-            ? availability.reason
-            : "Checking whether approved sources and server configuration are available…"}
-        </p>
-        <section className="general-answer-panel" aria-labelledby="general-answer-heading">
-          <h4 id="general-answer-heading">Ask without verified sources</h4>
-          <p className="small muted">
-            This mode sends only your question to Groq. It does not include FAO text, project
-            documents, or offline uploads. The reply is general AI output, not verified research
-            and not a cited RAG answer.
-          </p>
-          <form className="groq-answer-form" onSubmit={(event) => void requestGeneralAnswer(event)}>
-            <label className="local-evidence-query">
-              Your question
-              <textarea
-                value={generalQuestion}
-                onChange={(event) => setGeneralQuestion(event.target.value)}
-                maxLength={500}
-                rows={3}
-                required
-                minLength={3}
-                aria-describedby="general-answer-consent-note"
-              />
-            </label>
-            <label className="library-consent">
-              <input
-                type="checkbox"
-                checked={generalConsent}
-                onChange={(event) => setGeneralConsent(event.target.checked)}
-              />
-              I consent to sending this question to Groq. I will not include personal, household,
-              or confidential information.
-            </label>
-            <p id="general-answer-consent-note" className="small faint">
-              This question is separate from the local search box and the cited-answer form below.
-            </p>
-            <button
-              className="button"
-              type="submit"
-              disabled={!generalConsent || generalQuestion.trim().length < 3 || generalAnswerWorking}
-            >
-              {generalAnswerWorking ? "Generating unverified answer…" : "Ask Groq (unverified)"}
-            </button>
-          </form>
-          {generalAnswerError ? (
-            <p className="library-error" role="alert">{generalAnswerError}</p>
-          ) : null}
-          {generalAnswer ? (
-            <div className="general-answer-result" aria-live="polite">
-              <strong className="tag">Unverified · no source check</strong>
-              <p className="small">{generalAnswer.warning}</p>
-              <p className="groq-answer-text">{generalAnswer.text}</p>
-              <p className="small faint">
-                Verify important or time-sensitive claims with an authoritative source. This answer
-                must not be used to determine assistance eligibility or make household-level decisions.
-              </p>
-            </div>
-          ) : null}
-        </section>
-        <div className="groq-connection-test">
-          <h4>Test Groq connection</h4>
-          <p className="small muted">
-            Sends one fixed “Reply with exactly: OK” prompt to Groq. It does not send your question,
-            source passages, project documents, or offline uploads. This only checks API access; it
-            does not enable cited answers.
-          </p>
-          <label className="library-consent">
-            <input
-              type="checkbox"
-              checked={testConsent}
-              onChange={(event) => setTestConsent(event.target.checked)}
-            />
-            I understand this sends a generic connection-test prompt to Groq.
-          </label>
-          <button
-            className="button button-secondary"
-            type="button"
-            disabled={!testConsent || testWorking}
-            onClick={() => void testGroqConnection()}
-          >
-            {testWorking ? "Testing Groq…" : "Run connection test"}
-          </button>
-          {testResult ? <p className="library-status" role="status">{testResult}</p> : null}
-          {testError ? <p className="library-error" role="alert">{testError}</p> : null}
-        </div>
-        <form className="groq-answer-form" onSubmit={(event) => void requestAnswer(event)}>
-          <label className="local-evidence-query">
-            Question for the copilot
-            <textarea
-              value={question}
-              onChange={(event) => setQuestion(event.target.value)}
-              maxLength={500}
-              rows={3}
-              required
-              minLength={3}
-              aria-describedby="groq-consent-note"
-            />
-          </label>
-          <label className="library-consent">
-            <input
-              type="checkbox"
-              checked={consent}
-              onChange={(event) => setConsent(event.target.checked)}
-            />
-            I consent to sending this question and the retrieved approved public passages to Groq
-            for this request. My local project documents and offline uploads will not be sent.
-          </label>
-          <p id="groq-consent-note" className="small faint">
-            Consent resets after every request. Never include personal, household, or confidential
-            information in the question.
-          </p>
-          <button
-            className="button"
-            type="submit"
-            disabled={!availability?.available || !consent || question.trim().length < 3 || answerWorking}
-          >
-            {answerWorking ? "Requesting answer…" : "Ask Groq with citations"}
-          </button>
-        </form>
-        {answerError ? <p className="library-error" role="alert">{answerError}</p> : null}
-        {answer ? (
-          <div className="groq-answer-result" aria-live="polite">
-            <h4>Answer</h4>
-            <p className="groq-answer-text">{answer.text}</p>
-            <h4>Sources used</h4>
-            <ol>
-              {answer.citations.map((citation) => (
-                <li key={`${citation.url}:${citation.label}`}>
-                  <a href={citation.url} target="_blank" rel="noreferrer">{citation.label}</a>
-                </li>
-              ))}
-            </ol>
-            <p className="small faint">
-              AI-generated answers can be wrong. Check the cited source before relying on a claim.
-            </p>
-          </div>
-        ) : null}
-      </section>
-
-      <label className="local-evidence-query">
-        Search terms
-        <input
-          type="search"
-          value={query}
-          onChange={(event) => setQuery(event.target.value)}
-          placeholder="For example: evaluation caveats or area context"
-          aria-describedby="local-evidence-status"
-        />
+      <label className="consent">
+        <input type="checkbox" checked={consent} onChange={(event) => setConsent(event.target.checked)} />
+        <span>I understand this sends a fixed test prompt to Groq.</span>
       </label>
+      <button type="button" className="secondary" disabled={!consent || working} onClick={() => void run()}>
+        {working ? "Testing…" : "Run connection test"}
+      </button>
+      {result ? <p className="library-status" role="status">{result}</p> : null}
+      {error ? <p className="error ai-result" role="alert">{error}</p> : null}
+    </details>
+  );
+}
 
-      <p id="local-evidence-status" className="small faint" role="status" aria-live="polite">
-        {!hasSearch
-          ? `${documents.length} passages from ${localDocumentCount} project documents are bundled with the app.`
-          : results.length
-            ? `${results.length} matching passages shown.`
-            : "No matching passages found in the offline project documents."}
-      </p>
-
-      {results.length > 0 ? (
-        <div className="local-evidence-results">
-          {results.map((result) => (
-            <article className="card local-evidence-result" key={result.id}>
-              <p className="small faint">{result.citation}</p>
-              <p className="local-evidence-content">{result.content}</p>
-            </article>
-          ))}
-        </div>
-      ) : null}
-
-      <section className="official-source-list" aria-labelledby="official-source-heading">
-        <h3 id="official-source-heading">Official source updates</h3>
-        <p className="small muted">
-          Only official publisher links and metadata are listed here. Full text and PDFs remain
-          disabled until reuse rights are verified; source sync is manual.
+function SourcesPanel() {
+  return (
+    <section aria-labelledby="sources-heading">
+      <div className="panel-intro">
+        <h2 id="sources-heading">Official source updates</h2>
+        <p>
+          Links and titles from official publishers. Full text and PDFs are not copied into the app until reuse
+          rights are verified, and the list is refreshed manually
+          {sourceSnapshot.retrieved_at ? ` (last checked ${new Date(sourceSnapshot.retrieved_at).toLocaleDateString()})` : ""}.
         </p>
-        {sourceSnapshot.sources.length === 0 ? (
-          <p className="small faint">
-            No source metadata has been synced yet. Run <code>python scripts/sync_official_sources.py</code>,
-            then rebuild the web data.
-          </p>
-        ) : (
-          sourceSnapshot.sources.map((source) => (
-            <div className="official-source" key={source.id}>
-              <div>
-                <a href={source.publisher_url} target="_blank" rel="noreferrer">
-                  {source.name}
-                </a>
-                <span className="tag">
-                  {source.rights_status === "verified"
-                    ? "reuse verified"
-                    : source.rights_status === "conditional"
-                      ? "reuse has conditions"
-                      : "metadata only"}
-                </span>
-                <span className="tag">
-                  {isSourceApprovedForGroq(source) ? "Groq sharing approved" : "Groq sharing blocked"}
-                </span>
-                <p className="small faint">
-                  {source.content_type} listing checked: {new Date(source.retrieved_at).toLocaleString()}
-                  {" "}· reuse rights {source.rights_status}
-                </p>
-                {source.rights_notes ? <p className="small muted">{source.rights_notes}</p> : null}
-                {source.reuse_terms_url ? (
-                  <a className="small" href={source.reuse_terms_url} target="_blank" rel="noreferrer">
-                    Review reuse terms
+      </div>
+      {sourceSnapshot.sources.length === 0 ? (
+        <p className="notice small">
+          No source metadata has been synced yet. Run <code>python scripts/sync_official_sources.py</code>, then
+          rebuild the frontend data.
+        </p>
+      ) : (
+        <div className="source-cards">
+          {sourceSnapshot.sources.map((source) => (
+            <article className="source-card" key={source.id}>
+              <header>
+                <h3>
+                  <a href={source.publisher_url} target="_blank" rel="noreferrer">
+                    {source.name}
                   </a>
-                ) : null}
-              </div>
+                </h3>
+                <div className="source-badges">
+                  <span className={source.rights_status === "verified" ? "badge verified" : "badge"}>
+                    {source.rights_status === "verified"
+                      ? "Reuse verified"
+                      : source.rights_status === "conditional"
+                        ? "Reuse has conditions"
+                        : "Metadata only"}
+                  </span>
+                  <span className={isSourceApprovedForGroq(source) ? "badge verified" : "badge"}>
+                    {isSourceApprovedForGroq(source) ? "AI sharing approved" : "AI sharing blocked"}
+                  </span>
+                </div>
+              </header>
+              {source.rights_notes ? <p className="small muted">{source.rights_notes}</p> : null}
               {source.items.length > 0 ? (
-                <ul className="official-source-items">
+                <ul className="source-items">
                   {source.items.map((item) => (
                     <li key={item.id}>
                       <a href={item.url} target="_blank" rel="noreferrer">{item.title}</a>
-                      <span className="small faint">
+                      <span>
                         {item.content_type}
-                        {item.published_at
-                          ? ` · ${new Date(item.published_at).toLocaleDateString()}`
-                          : " · date unavailable"}
-                        {item.language === "am" ? " · Amharic title" : ""}
+                        {item.published_at ? ` · ${new Date(item.published_at).toLocaleDateString()}` : ""}
+                        {item.language === "am" ? " · Amharic" : ""}
                       </span>
                     </li>
                   ))}
                 </ul>
               ) : (
-                <p className="small faint">No listing entries were available at the last sync.</p>
+                <p className="small faint">No entries were listed at the last check.</p>
               )}
-            </div>
-          ))
-        )}
-      </section>
-
-      <OfflineEvidenceLibrary />
+              <footer>
+                <span>Checked {new Date(source.retrieved_at).toLocaleDateString()}</span>
+                {source.reuse_terms_url ? (
+                  <a href={source.reuse_terms_url} target="_blank" rel="noreferrer">
+                    Reuse terms
+                  </a>
+                ) : null}
+              </footer>
+            </article>
+          ))}
+        </div>
+      )}
     </section>
   );
 }
