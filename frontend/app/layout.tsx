@@ -42,7 +42,7 @@ const FOOTER_LINKS = [
   {
     heading: "Explore",
     links: [
-      { href: "/situation", label: "Situation" },
+      { href: "/situation", label: "Risk overview" },
       { href: "/segments", label: "Household profiles" },
       { href: "/areas", label: "Survey areas" },
       { href: "/spatial", label: "Regional map" },
@@ -51,7 +51,7 @@ const FOOTER_LINKS = [
   {
     heading: "About",
     links: [
-      { href: "/method", label: "Method and evaluation" },
+      { href: "/method", label: "How it works" },
       { href: "/copilot", label: "Evidence desk" },
     ],
   },
@@ -85,6 +85,10 @@ export default function RootLayout({ children }: { children: ReactNode }) {
               <p>
                 Decision support for prioritising household food-security follow-up in Ethiopia. Scores rank
                 households for a human assessment; they are not eligibility decisions.
+              </p>
+              <p className="footer-team">
+                Built by <strong>Henok Solomon</strong>, <strong>Niyat Debesay</strong> and{" "}
+                <strong>Amina Aman</strong>.
               </p>
             </div>
             {FOOTER_LINKS.map((group) => (
