@@ -95,9 +95,8 @@ export function PlanClient() {
   return (
     <>
       <p className="muted">
-        {int(households.length)} <strong>anonymised held-out historical households</strong> with
-        surrogate ids, scored by the deployed model. This is not a live beneficiary register: no name
-        was ever in the data and nobody here can be identified.
+        {int(households.length)} <strong>anonymous test households</strong>, each with a random ID. No
+        names were ever collected, so nobody here can be identified.
       </p>
 
       <div className="filters">
@@ -118,9 +117,9 @@ export function PlanClient() {
           </select>
         </label>
         <label>
-          Band
+          Risk level
           <select value={band} onChange={(event) => setBand(event.target.value)}>
-            <option value="all">All bands</option>
+            <option value="all">All levels</option>
             {BANDS.map((entry) => (
               <option key={entry} value={entry}>
                 {entry}
@@ -175,7 +174,7 @@ export function PlanClient() {
           <tr>
             <th>Rank</th>
             <th>Score</th>
-            <th>Band</th>
+            <th>Risk level</th>
             <th>Region / area</th>
             <th>Profile</th>
           </tr>
@@ -223,7 +222,7 @@ export function PlanClient() {
                           ))}
                         </ul>
                         <p className="small faint">
-                          Areas to check in a real questionnaire, not a decision.
+                          Topics for the visit, not a decision.
                         </p>
                       </div>
                     </div>
@@ -239,8 +238,7 @@ export function PlanClient() {
         <p className="muted">No household matches these filters.</p>
       ) : (
         <p className="small faint">
-          Select a row to see what moved its score and what it triggers. Rank is the largest glyph on
-          purpose: percentile beats percentage when the list is the product.
+          Select a row to see what moved its score and what to cover in a follow-up visit.
         </p>
       )}
     </>

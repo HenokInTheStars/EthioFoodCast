@@ -56,18 +56,17 @@ export default function AreasPage() {
 
   return (
     <>
-      <h1>The surveyed areas, and how their names were derived</h1>
+      <h1>Survey areas</h1>
       <p className="muted">
-        The model uses the surveyed area as graph context, so the names matter to the score. They were
-        derived by matching survey codes to administrative boundaries, and that match is only
-        sometimes verified. Every label carries “(approx.)” because of it.
+        Every household is scored together with the area where it was surveyed. Area names were matched from
+        survey codes to official boundaries; where the match is not confirmed, the name carries “(approx.)”.
       </p>
 
       <div className="grid" style={{ marginBottom: "var(--rhythm)" }}>
         <div className="card">
           <h3>Surveyed areas</h3>
           <div className="stat">{int(areas.length)}</div>
-          <div className="small faint">used as graph context for scoring</div>
+          <div className="small faint">used when scoring a household</div>
         </div>
         <div className="card">
           <h3>Zone name verified</h3>
@@ -82,11 +81,6 @@ export default function AreasPage() {
           <div className="small faint">
             {int(woredaVerified)} of {int(areas.length)} areas
           </div>
-        </div>
-        <div className="card">
-          <h3>With coordinates</h3>
-          <div className="stat">{int(Number(summary.with_coordinates ?? 0))}</div>
-          <div className="small faint">held internally but not exported, so no map is drawn</div>
         </div>
       </div>
 
@@ -175,8 +169,7 @@ export default function AreasPage() {
         {Number(summary.areas_without_zone_name ?? 0) > 0
           ? `${int(Number(summary.areas_without_zone_name))} areas have no zone name at all and show only a region. `
           : ""}
-        A real choropleth would need an external boundary file, so area-level cards are the honest
-        default here.
+        Area locations are never shown, only names.
       </p>
     </>
   );

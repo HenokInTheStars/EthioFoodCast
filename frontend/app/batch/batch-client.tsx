@@ -147,9 +147,9 @@ export function BatchClient() {
 
       {unrecognised.length > 0 ? (
         <p className="small notice">
-          <strong>Outside the deployed form:</strong> {unrecognised.join(", ")}. These columns were passed
-          through unchanged and did not affect the scores. Check spelling if you expected one to be a model
-          answer.
+          <strong>Not interview questions:</strong> {unrecognised.join(", ")}. These columns were passed
+          through unchanged and did not affect the scores. Check the spelling if you expected one to be a
+          question.
         </p>
       ) : null}
 
@@ -170,9 +170,9 @@ export function BatchClient() {
               <tr>
                 <th>Rank</th>
                 <th>Score</th>
-                <th>Band</th>
+                <th>Risk level</th>
                 <th>Profile</th>
-                <th>Areas to cover</th>
+                <th>Follow-up topics</th>
               </tr>
             </thead>
             <tbody>
@@ -201,18 +201,17 @@ export function BatchClient() {
         <>
           <h2 style={{ marginTop: "var(--rhythm)" }}>What the file needs</h2>
           <p className="small">
-            One <code>area_id</code> column, and as many of the 14 graph-form answers as you have.
-            Nine of 14 are enough to score. Unanswered questions are imputed rather than read as zero,
-            so a partly filled row still produces a score with less behind it — never a refusal.
+            One <code>area_id</code> column, and as many of the 14 interview answers as you have. Nine of
+            14 are enough to score. Blank answers are estimated by the model, never read as zero, so a
+            partly filled row still gets a score, with less behind it.
           </p>
           <SufficiencyMeter supplied={0} needed={9} expected={14} showProvenance />
         </>
       )}
 
       <p className="small faint">
-        A row without a recognised <code>area_id</code> cannot be scored by the graph model, so it
-        comes back unscored rather than ranked last. An unscored household must not appear on an
-        assessment list.
+        A row without a recognised <code>area_id</code> cannot be scored, so it comes back unscored rather
+        than ranked last. Leave unscored households off a visit list.
       </p>
     </>
   );

@@ -38,13 +38,13 @@ export function SufficiencyMeter({
       </div>
       <p className="small faint">
         {sufficient
-          ? "Enough answers to score. Every extra question the model had reduces how much it had to impute."
-          : `Too few answers to score. At least ${needed} of ${expected} are needed; unanswered questions are imputed, never read as zero.`}
+          ? "Enough answers to score. Every extra answer means less for the model to estimate."
+          : `Too few answers to score. At least ${needed} of ${expected} are needed; blank answers are estimated, never read as zero.`}
       </p>
       {showProvenance ? (
         <p className="small faint">
-          Minimum of {needed} was fixed before scoring, from the form the deployed graph model was
-          trained on, not chosen per household.
+          The minimum of {needed} was fixed in advance from how the model was tested, not chosen per
+          household.
         </p>
       ) : null}
     </div>

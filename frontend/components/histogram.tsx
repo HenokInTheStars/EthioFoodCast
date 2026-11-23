@@ -53,14 +53,14 @@ export function Histogram({
             className="histogram-threshold"
             style={{ left: `${((thresholdIndex + 1) / counts.length) * 100}%` }}
           >
-            <span className="small">flag threshold {threshold?.toFixed(2)}</span>
+            <span className="small">cut-off {threshold?.toFixed(2)}</span>
           </div>
         ) : null}
       </div>
       <figcaption className="small faint">
         {edges[0]?.toFixed(1)} to {edges[edges.length - 1]?.toFixed(1)} score,{" "}
         {int(counts.reduce((total, count) => total + count, 0))} households. Households to the right
-        of the line are the ones the model flags for follow-up.
+        of the line are flagged for a follow-up visit.
       </figcaption>
     </figure>
   );

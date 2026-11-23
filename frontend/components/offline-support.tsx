@@ -43,28 +43,15 @@ export function OfflineSupport() {
     };
   }, []);
 
-  const label = !browserOnline
-    ? "Offline"
-    : apiReachable === true
-      ? "Online"
-      : apiReachable === false
-        ? "Scoring service unavailable"
-        : "Checking connection";
-  const productionBuild = process.env.NODE_ENV === "production";
-  const guidance = !productionBuild
-    ? "Offline page caching is enabled in production builds. Assessment drafts remain on this device; scoring requires internet and is never queued."
-    : controlled
-      ? "Offline app support is enabled. Open the assessment once while online before field use so its page is cached. Drafts stay on this device; scoring requires internet and is never queued."
-      : "Offline app support is starting. Open the assessment while online before field use so its page is cached. Drafts stay on this device; scoring requires internet and is never queued.";
+  // Silent while everything works; a banner only when the connection is lost.
+  if (browserOnline && apiReachable !== false) return null;
 
+  const productionBuild = process.env.NODE_ENV === "production";
   return (
-    <span
-      className={`offline-support ${browserOnline && apiReachable ? "online" : "offline"}`}
-      role="status"
-      aria-live="polite"
-      title={guidance}
-    >
-      {label}
-    </span>
+    <div className="offline-banner" role="status" aria-live="polite">
+      <strong>{browserOnline ? "Scoring service unavailable." : "You are offline."}</strong>{" "}
+      Pages you have opened still work and answers stay on this device. Scoring needs a connection and is never
+      queued.{productionBuild && !controlled ? " Offline support is still starting." : ""}
+    </div>
   );
 }

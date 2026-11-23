@@ -475,7 +475,7 @@ export function AssessForm({ schema, meta, areas, apiBase }: Props) {
                     setAreaId(id);
                     invalidateResult();
                   }}
-                  help="Names are approximate; check the verification labels. Across the evaluation set, area context accounts for about 40.2% of total model sensitivity; that is not an individual household's share."
+                  help="Search by woreda, zone or region. Names marked (approx.) are not confirmed, so check the zone and woreda. The survey area has a strong effect on the score."
                 />
               </div>
             ) : step.id === REVIEW_STEP ? (
@@ -496,7 +496,7 @@ export function AssessForm({ schema, meta, areas, apiBase }: Props) {
                 {!enough ? (
                   <p className="notice small" role="status">
                     {answeredCount} of {fields.length} questions answered. At least {meta.min_answers} are needed for
-                    a score; unanswered questions are imputed, never read as zero.
+                    a score; blank answers are estimated, never read as zero.
                   </p>
                 ) : null}
               </div>
@@ -878,7 +878,7 @@ function ResultCard({
         <div className="result-band">
           <span className="result-band-label">Risk band</span>
           <span className="result-band-value">{result.risk_band}</span>
-          <span className="result-band-note">descriptive, not calibrated</span>
+          <span className="result-band-note">a label for the score</span>
         </div>
         <div className="result-summary">
           <p className="result-eyebrow">Assessment result</p>
@@ -886,17 +886,17 @@ function ResultCard({
           <p className="result-lede">
             {scored
               ? result.flagged
-                ? "The score is above the model's operating threshold, so this household would be on the list for a human follow-up assessment."
-                : "The score is below the model's operating threshold. A low score is not evidence that the household is food secure."
+                ? "The score is above the follow-up cut-off, so this household would be on the list for a visit by a trained assessor."
+                : "The score is below the follow-up cut-off. A low score does not prove the household is food secure."
               : `Only ${int(result.n_predictive_supplied)} questions were answered about the household; at least ${int(meta.min_answers)} are needed. Answer more questions and score again.`}
           </p>
           {scored && result.probability !== null ? (
             <ScoreScale probability={result.probability} threshold={result.threshold} showNumbers={lens !== "field"} />
           ) : null}
           <ul className="result-facts">
-            <li>{num(riskDistribution.observed_rate * 100, 0)}% of evaluated households were food insecure</li>
-            <li>Bands describe the score; they are not calibrated categories</li>
-            <li>Reasons are model sensitivities, not causes</li>
+            <li>{num(riskDistribution.observed_rate * 100, 0)}% of test households were food insecure</li>
+            <li>The risk level is a label for the score, not a certainty</li>
+            <li>Reasons show what moved the score, not what causes hardship</li>
           </ul>
         </div>
       </div>
@@ -908,7 +908,7 @@ function ResultCard({
             {householdFactors.length > 0 ? (
               <ul className="reasons">{householdFactors.map(factorRow)}</ul>
             ) : (
-              <p className="small muted">No household answer was among the strongest sensitivities.</p>
+              <p className="small muted">No single household answer moved the score much.</p>
             )}
             <p className="small faint">
               Each line leaves one answer unknown and scores again with everything else fixed. The lines do not add
@@ -982,15 +982,15 @@ function ResultCard({
             </dd>
           </div>
           <div>
-            <dt>Band meaning</dt>
+            <dt>Risk level</dt>
             <dd>{result.band_meaning}</dd>
           </div>
           {scored ? (
             <div>
-              <dt>Model score</dt>
+              <dt>Score</dt>
               <dd>
                 {num(result.probability, 4)}
-                {result.threshold === null ? "" : ` (threshold ${num(result.threshold, 3)})`}
+                {result.threshold === null ? "" : ` (follow-up cut-off ${num(result.threshold, 2)})`}
               </dd>
             </div>
           ) : null}

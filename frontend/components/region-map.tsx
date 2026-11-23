@@ -295,10 +295,10 @@ export function RegionMap() {
             <h3>{activeSummary?.region ?? activeRegion?.shapeName ?? "Region summary"}</h3>
             {!activeSummary || activeSummary.suppressed ? (
               <>
-                <span className="tag">Withheld or unavailable</span>
+                <span className="tag">No figure</span>
                 <p className="small muted">
-                  {activeSummary?.note ?? "No reportable summary is available."} A blank map cell
-                  is not zero risk.
+                  {activeSummary?.note ?? "Too few households to report."} No figure does not mean no
+                  risk.
                 </p>
               </>
             ) : (
@@ -308,25 +308,24 @@ export function RegionMap() {
                     ? num(activeSummary[metric], 2)
                     : pct(activeSummary[metric], 1)}
                 </p>
-                <p className="small">{metricLabel} · {int(activeSummary.n)} held-out households</p>
+                <p className="small">{metricLabel} · {int(activeSummary.n)} test households</p>
                 <dl className="detail-list region-map-stat-list">
-                  <div><dt>Mean model score</dt><dd>{num(activeSummary.mean_risk, 2)}</dd></div>
-                  <div><dt>Observed food insecurity</dt><dd>{pct(activeSummary.observed_rate, 1)}</dd></div>
+                  <div><dt>Average score</dt><dd>{num(activeSummary.mean_risk, 2)}</dd></div>
+                  <div><dt>Food insecure</dt><dd>{pct(activeSummary.observed_rate, 1)}</dd></div>
                   <div><dt>Flagged for follow-up</dt><dd>{pct(activeSummary.flagged_share, 1)}</dd></div>
-                  <div><dt>High score band</dt><dd>{pct(activeSummary.high_share, 1)}</dd></div>
+                  <div><dt>High risk level</dt><dd>{pct(activeSummary.high_share, 1)}</dd></div>
                   <div><dt>Survey areas</dt><dd>{int(activeSummary.n_areas)}</dd></div>
                 </dl>
                 <p className="small faint">
                   Largest profile: {activeSummary.top_cluster ?? "Not available"}.
                   {activeSummary.agricultural_accuracy !== undefined
-                    ? ` Evaluation accuracy: ${pct(activeSummary.agricultural_accuracy, 1)}.`
+                    ? ` Accuracy in testing: ${pct(activeSummary.agricultural_accuracy, 1)}.`
                     : ""}
                 </p>
               </>
             )}
             <p className="small faint">
-              Regional average only; not a prediction for an individual household or a current
-              condition estimate.
+              Regional averages from past survey data, not a forecast for any household today.
             </p>
           </div>
         </div>
@@ -339,11 +338,10 @@ export function RegionMap() {
           <span className="legend-gradient" aria-hidden="true" />
           {formatMetric(metricMax, metric)}
         </li>
-        <li><span className="legend-swatch legend-suppressed" /> Withheld / unavailable</li>
+        <li><span className="legend-swatch legend-suppressed" /> No figure (not surveyed or too few households)</li>
       </ul>
       <p className="small faint">
-        Colour is a relative comparison across reportable regions, not an eligibility category or a
-        calibrated risk band. Boundary: simplified geoBoundaries Ethiopia ADM1 (2016), sourced from
+        Colours compare the regions shown with each other; they are not categories of need. Boundaries: simplified geoBoundaries Ethiopia ADM1 (2016), sourced from
         Open Africa / Code for Ethiopia.{" "}
         <a href="https://www.geoboundaries.org/api/current/gbOpen/ETH/ADM1/" target="_blank" rel="noreferrer">
           Boundary details

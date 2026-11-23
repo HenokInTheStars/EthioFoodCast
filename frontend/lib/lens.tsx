@@ -22,9 +22,9 @@ import {
 export type Lens = "field" | "desk" | "review";
 
 export const LENSES: { id: Lens; label: string; hint: string }[] = [
-  { id: "field", label: "Field", hint: "Printed card, plain words, fewest details" },
-  { id: "desk", label: "Desk", hint: "Rank table, capacity, CSV" },
-  { id: "review", label: "Review", hint: "Full factors, calibration, provenance" },
+  { id: "field", label: "Simple", hint: "Plain words and the fewest details; best on a phone or printed" },
+  { id: "desk", label: "Compact", hint: "Tighter tables, more rows on screen" },
+  { id: "review", label: "Detailed", hint: "Every figure, with its exact value and data source" },
 ];
 
 export const LENS_KEY = "efc.lens";

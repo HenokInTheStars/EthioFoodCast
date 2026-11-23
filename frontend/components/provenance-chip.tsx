@@ -49,7 +49,7 @@ export function ProvenanceChip({ source, protocol, generatedAt, note }: Provenan
           {generatedAt ? (
             <span className="small faint">
               {" "}
-              artifact generated {generatedAt.slice(0, 10)}
+              data generated {generatedAt.slice(0, 10)}
             </span>
           ) : null}
           {note ? <span className="small provenance-note">{note}</span> : null}

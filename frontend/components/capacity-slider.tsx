@@ -54,10 +54,9 @@ export function CapacitySlider({
       </p>
       {typeof historicalPrecision === "number" ? (
         <p className="small precision-note">
-          <strong>Historical benchmark, not a forecast:</strong> {Math.round(historicalPrecision * 100)}%
-          of the top quarter were food insecure in past evaluation. This request covers{" "}
-          {coverage.toFixed(0)}%. Precision falls as coverage widens, and no validated
-          precision-at-capacity curve has been measured for this list.
+          <strong>A past result, not a promise:</strong> in testing, {Math.round(historicalPrecision * 100)}%
+          of the top quarter of the list were food insecure. This selection covers {coverage.toFixed(0)}%;
+          the wider the selection, the lower that share is likely to be.
         </p>
       ) : null}
     </div>

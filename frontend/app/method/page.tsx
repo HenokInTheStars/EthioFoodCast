@@ -39,6 +39,7 @@ const comparison = comparisonData as {
 
 const performance = performanceData as {
   model: string;
+  training: { households: number };
   holdout_seed0: {
     accuracy: number;
     precision: number;
@@ -103,13 +104,19 @@ export default function MethodPage() {
 
   return (
     <>
-      <h1>What the model is, and how well it does</h1>
-      <p className="muted">{performance.model}</p>
+      <h1>How it works</h1>
+      <p className="muted">
+        EthioFoodCast uses a graph neural network: a model that learns from a household&apos;s own answers and
+        also from patterns in its survey area and the areas around it. Five of these models are trained and their
+        scores averaged. They learned from {int(performance.training.households)} farming households surveyed in
+        2018/19 and were tested on households they had never seen, against what actually happened to those
+        households in 2021/22.
+      </p>
 
-      <h2>Confusion matrix on the held-out set</h2>
+      <h2>Right and wrong calls on the test households</h2>
       <p className="small muted">
-        {int(total)} held-out households, flag threshold {num(performance.threshold, 3)}. Counted from
-        the artifact, not back-computed from a rate.
+        {int(total)} test households, with households scoring above {num(performance.threshold, 2)} flagged for a
+        visit.
       </p>
       <table className="confusion">
         <thead>
@@ -122,13 +129,13 @@ export default function MethodPage() {
         <tbody>
           <tr>
             <th scope="row">Flagged by the model</th>
-            <td className="tabular strong">{int(holdout.tp)} true positive</td>
-            <td className="tabular">{int(holdout.fp)} false positive</td>
+            <td className="tabular strong">{int(holdout.tp)} correctly flagged</td>
+            <td className="tabular">{int(holdout.fp)} flagged unnecessarily</td>
           </tr>
           <tr>
             <th scope="row">Not flagged</th>
-            <td className="tabular">{int(holdout.fn)} false negative</td>
-            <td className="tabular">{int(holdout.tn)} true negative</td>
+            <td className="tabular">{int(holdout.fn)} missed</td>
+            <td className="tabular">{int(holdout.tn)} correctly not flagged</td>
           </tr>
         </tbody>
       </table>
@@ -139,7 +146,7 @@ export default function MethodPage() {
         nothing to find.
       </p>
 
-      <h2 style={{ marginTop: "var(--rhythm)" }}>Held-out metrics</h2>
+      <h2 style={{ marginTop: "var(--rhythm)" }}>How accurate it is</h2>
       <div className="grid">
         <div className="card">
           <h3>Accuracy</h3>
@@ -159,24 +166,25 @@ export default function MethodPage() {
         <div className="card">
           <h3>ROC AUC</h3>
           <div className="stat">{num(holdout.roc_auc, 3)}</div>
-          <div className="small faint">ranking quality, independent of threshold</div>
+          <div className="small faint">how well it ranks likely cases above unlikely ones (1.0 is perfect, 0.5 is guessing)</div>
         </div>
       </div>
       <p className="small faint">
-        Five-split means: accuracy {num(performance.five_split.accuracy_mean, 3)} (sd{" "}
-        {num(performance.five_split.accuracy_sd, 3)}), ROC AUC{" "}
-        {num(performance.five_split.roc_auc_mean, 3)}, precision{" "}
-        {num(performance.five_split.precision_mean, 3)}, recall{" "}
-        {num(performance.five_split.recall_mean, 3)}. Brier {num(holdout.brier, 3)}.
+        Averaged over five independent tests: accuracy {pct(performance.five_split.accuracy_mean, 1)} (give or
+        take {pct(performance.five_split.accuracy_sd, 1)}), ROC AUC {num(performance.five_split.roc_auc_mean, 2)},
+        precision {pct(performance.five_split.precision_mean, 1)}, recall{" "}
+        {pct(performance.five_split.recall_mean, 1)}.
       </p>
 
-      <h2 style={{ marginTop: "var(--rhythm)" }}>Against the other families</h2>
-      <p className="small muted">{comparison.protocol}</p>
+      <h2 style={{ marginTop: "var(--rhythm)" }}>Compared with other approaches</h2>
+      <p className="small muted">
+        Four kinds of model, all trained and tested the same way on the same five splits of the data.
+      </p>
       <table>
         <thead>
           <tr>
             <th>Model</th>
-            <th>Family</th>
+            <th>Type</th>
             <th>Accuracy (mean)</th>
             <th>ROC AUC</th>
             <th>Precision</th>
@@ -188,7 +196,7 @@ export default function MethodPage() {
             <tr key={model.key} className={model.key === "gcn_plus_ensemble" ? "deployed" : undefined}>
               <td>
                 {model.label}
-                {model.key === "gcn_plus_ensemble" ? <span className="tag ok">deployed</span> : null}
+                {model.key === "gcn_plus_ensemble" ? <span className="tag ok">in use</span> : null}
               </td>
               <td className="faint small">{model.family}</td>
               <td className="tabular">{num(model.accuracy_mean, 3)}</td>
@@ -200,22 +208,25 @@ export default function MethodPage() {
         </tbody>
       </table>
       <p className="small faint">
-        Target accuracy {num(comparison.target_accuracy, 2)}. Seed-to-seed spread is roughly plus or
-        minus {num(performance.five_split.accuracy_sd, 3)}, so differences smaller than about{" "}
-        {num(performance.five_split.accuracy_sd * 2, 3)} are inside the noise and the ordering of the
-        top two should not be read as decisive.
+        Results vary by about {pct(performance.five_split.accuracy_sd, 1)} from one test to the next, so differences
+        smaller than about {pct(performance.five_split.accuracy_sd * 2, 1)} are within that noise: the top two
+        approaches are effectively tied.
       </p>
 
-      <h2 style={{ marginTop: "var(--rhythm)" }}>Which questions were asked</h2>
-      <p className="small muted">{intake.note}</p>
-      <p className="small notice">{intake.selection}</p>
+      <h2 style={{ marginTop: "var(--rhythm)" }}>Choosing the questions</h2>
+      <p className="small muted">
+        Shorter and longer interviews were each tested with their own model. The rule, fixed before seeing the
+        results, was at least 75% accuracy in every test and nearly as many food-insecure households found as the
+        best alternative. The 14-question farming interview was chosen: it finds more food-insecure households than
+        the 10-question version, and the diet-based interview&apos;s small edge was not statistically meaningful.
+      </p>
       <table>
         <thead>
           <tr>
             <th>Form</th>
             <th>Questions</th>
             <th>Accuracy</th>
-            <th>Worst split</th>
+            <th>Worst test</th>
             <th>Recall</th>
             <th>ROC AUC</th>
           </tr>
@@ -225,7 +236,7 @@ export default function MethodPage() {
             <tr key={form.key} className={form.deployed ? "deployed" : undefined}>
               <td>
                 {form.form}
-                {form.deployed ? <span className="tag ok">deployed</span> : null}
+                {form.deployed ? <span className="tag ok">in use</span> : null}
               </td>
               <td className="tabular">{form.questions}</td>
               <td className="tabular">{num(form.accuracy, 4)}</td>
@@ -237,14 +248,16 @@ export default function MethodPage() {
         </tbody>
       </table>
       <p className="small faint">
-        Each form has its own separately trained graph model, so a shorter form is not this form with
-        questions removed, which is why the comparison is reported here rather than offered as a
-        toggle. The deployed {deployed?.questions}-question form scores{" "}
-        {num(deployed?.accuracy ?? 0, 4)} against {num(best.accuracy, 4)} for the best form measured.
+        The {deployed?.questions}-question interview in use scores {pct(deployed?.accuracy ?? 0, 1)} against{" "}
+        {pct(best.accuracy, 1)} for the best interview tested.
       </p>
 
       <h2 style={{ marginTop: "var(--rhythm)" }}>What happens to unanswered questions</h2>
-      <p className="small muted">{intake.missing_note}</p>
+      <p className="small muted">
+        To test incomplete interviews, answers were randomly left blank at different rates. The app calculates
+        household size and livestock totals itself and needs at least {performance.min_answers} of the{" "}
+        {performance.answers.length} answers.
+      </p>
       <table>
         <thead>
           <tr>
@@ -266,30 +279,26 @@ export default function MethodPage() {
         </tbody>
       </table>
       <p className="small faint">
-        An unanswered question is imputed, never read as zero, so a partly filled questionnaire
-        produces a weaker score rather than a refusal, and {performance.min_answers} of{" "}
-        {performance.answers.length} answers is the floor.
+        A blank answer is estimated by the model, never read as zero, so a partly completed interview still gets a
+        score, with less behind it.
       </p>
 
-      <h2 style={{ marginTop: "var(--rhythm)" }}>Caveats</h2>
+      <h2 style={{ marginTop: "var(--rhythm)" }}>Limits</h2>
       <ul className="plain">
         <li className="small">
-          The deployed form is the {performance.answers.length}-question graph form and{" "}
-          {performance.min_answers} answers are enough to score. Any documentation describing a
-          75-feature ExtraTrees model does not describe this one.
+          The model was built for farming households and the {performance.answers.length}-question interview; it
+          has not been tested on other households or other questions.
         </li>
         <li className="small">
-          The surveyed area supplies graph context and carries the largest single share of
-          sensitivity, so an area name that was inferred rather than verified affects the score.
+          The survey area has the biggest single effect on a score, so choosing the wrong area, or an area whose
+          name is only approximate, matters.
         </li>
         <li className="small">
-          Two of the eleven regions were not surveyed in the wave these households come from, and two
-          more had too few households to report, so the model has no usable evidence in four of the
-          eleven.
+          Two of the eleven regions were not surveyed in 2021/22 and two more had too few households, so there
+          is no usable evidence for four of the eleven.
         </li>
         <li className="small">
-          This is a prioritisation instrument. A score is a lead for a human assessment, never an
-          eligibility decision.
+          The data is from 2018/19 to 2021/22. Conditions change; scores describe past patterns, not today.
         </li>
       </ul>
 

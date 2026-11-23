@@ -9,8 +9,8 @@ export default function BatchPage() {
     <>
       <h1>Score a list of households</h1>
       <p className="muted">
-        Program staff work in Excel, so this is the operational door: one CSV in, one ranked list out,
-        in your browser. The file is sent to the API for scoring and nothing is stored.
+        Upload a CSV with one household per row and get the same list back, ranked by score. The file is
+        sent to the scoring service only to be scored; nothing is stored.
       </p>
 
       <BatchClient />
@@ -18,9 +18,9 @@ export default function BatchPage() {
       <CaveatBlock
         title="What this page is not"
         caveats={[
-          "A score is a lead to check, not a finding. Ranking by score is the whole of the claim.",
-          "The 14-question agricultural form requires a surveyed area, because the area supplies the graph context the model needs.",
-          "A column the server did not recognise is passed through untouched and reported back, never scored and never a reason to reject the file.",
+          "A score is a lead to check, not a finding.",
+          "Each row needs a survey area (area_id), because where a household was surveyed strongly affects its score.",
+          "Columns the service does not recognise, such as your own IDs or notes, come back unchanged and are never used for scoring.",
         ]}
         provenance={{
           source: "POST /api/predict_batch",

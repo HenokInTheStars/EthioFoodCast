@@ -27,7 +27,7 @@ export function AreaSearch({
   value,
   onChange,
   label = "Surveyed area the household belongs to",
-  help = "The model uses the surveyed area as graph context. Choose the area the household was surveyed in.",
+  help = "Choose the area where the household was surveyed. It has a strong effect on the score.",
 }: {
   areas: AreaOption[];
   value: string;

@@ -20,8 +20,8 @@ const DENSITY_KEY = "efc.density";
 type Density = "comfortable" | "compact";
 
 const DENSITIES: { id: Density; label: string; hint: string }[] = [
-  { id: "comfortable", label: "Aa", hint: "Comfortable reading size" },
-  { id: "compact", label: "aa", hint: "Compact: more rows on screen" },
+  { id: "comfortable", label: "Large", hint: "Comfortable reading size" },
+  { id: "compact", label: "Small", hint: "Smaller text: more on screen" },
 ];
 
 export function ModeSwitch() {

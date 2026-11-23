@@ -3,9 +3,7 @@ import type { ReactNode } from "react";
 import { Inter, Noto_Sans_Ethiopic } from "next/font/google";
 
 import "./globals.css";
-import { ApiStatus } from "@/components/api-status";
 import { BrandMark } from "@/components/brand-mark";
-import { DensityToggle, ModeSwitch } from "@/components/mode-switch";
 import { OfflineSupport } from "@/components/offline-support";
 import { SiteHeader } from "@/components/site-header";
 import { ConnectivityProvider } from "@/lib/connectivity";
@@ -70,25 +68,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           <LensProvider>
             <SiteHeader />
 
-            <div className="utility-bar">
-              <div className="utility-inner">
-                <div className="utility-status">
-                  <ApiStatus />
-                  <OfflineSupport />
-                </div>
-                <div className="utility-controls">
-                  <span className="utility-label" id="view-label">
-                    View
-                  </span>
-                  <ModeSwitch />
-                  <span className="utility-label" id="text-label">
-                    Text
-                  </span>
-                  <DensityToggle />
-                </div>
-              </div>
-            </div>
-
+            <OfflineSupport />
             <main className="page" id="main">
               {children}
             </main>
@@ -123,8 +103,8 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           <div className="site-footer-base">
             <p>
               Baseline: <strong>{pct(distribution.observed_rate)}</strong> of the{" "}
-              <strong>{int(distribution.n_households)}</strong> held-out agricultural households were food-insecure
-              in 2021/22. A score is descriptive, not a calibrated probability or an eligibility decision.
+              <strong>{int(distribution.n_households)}</strong> test households were food insecure in 2021/22. A score
+              ranks households for a visit; it is not a certainty or an eligibility decision.
             </p>
             <p>
               Data: Ethiopia Socioeconomic Survey 2018/19 and Ethiopia Socioeconomic Panel Survey 2021/22. An

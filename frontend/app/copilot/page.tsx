@@ -38,28 +38,27 @@ export default function EvidenceDeskPage() {
 
       <h2>Project evidence at a glance</h2>
       <p className="small muted">
-        Build-time evaluation figures. They describe this model and how it was evaluated; they cannot substantiate a
-        current shock, a regional event or a policy recommendation.
+        Figures from testing the model. They describe the model, not current events, and are not policy advice.
       </p>
 
       <div className="grid stat-grid evidence-glance">
         <article className="card evidence-card">
-          <h3>Model sensitivities</h3>
+          <h3>Survey area effect</h3>
           <p>
-            Withholding the survey-area context changes a held-out prediction by{" "}
-            <strong>{num(areaContext?.mean_abs, 3)}</strong> on average.
+            Leaving out the survey area changes a test household&apos;s score by{" "}
+            <strong>{num(areaContext?.mean_abs, 2)}</strong> on average.
           </p>
-          <p className="small faint">Source: drivers.json. Sensitivities describe the model, not causes.</p>
+          <p className="small faint">This shows how the model works, not what causes hardship.</p>
           <Link href="/method">Model method and evaluation</Link>
         </article>
 
         <article className="card evidence-card">
-          <h3>Regional evaluation</h3>
+          <h3>Regions</h3>
           <p>
             {int(reportedRegions)} regions have reportable summaries and {int(suppressedRegions)} are suppressed. The
             model was trained on {int(performance.training?.households)} households.
           </p>
-          <p className="small faint">Source: regional_summary.json, performance.json. Suppressed is not zero.</p>
+          <p className="small faint">A region with no figure does not have zero risk.</p>
           <Link href="/situation">Survey situation</Link>
         </article>
 
@@ -68,17 +67,17 @@ export default function EvidenceDeskPage() {
           <p>
             {int(Number(areaSummary.areas))} area labels; zone and woreda names are verified at different rates.
           </p>
-          <p className="small faint">Source: area_names.json. Labels are approximate.</p>
+          <p className="small faint">Names marked “(approx.)” are not confirmed.</p>
           <Link href="/areas">Area labels</Link>
         </article>
 
         <article className="card evidence-card">
-          <h3>Scoring threshold</h3>
+          <h3>Follow-up cut-off</h3>
           <p>
-            The operating threshold is <strong>{num(performance.threshold, 3)}</strong>: one evaluation operating
-            point, not an eligibility boundary.
+            Households scoring above <strong>{num(performance.threshold, 2)}</strong> are flagged for a visit. It is a
+            cut-off for planning, not a line between need and no need.
           </p>
-          <p className="small faint">Source: performance.json.</p>
+          <p className="small faint">Chosen during testing.</p>
           <Link href="/method">Evaluation caveats</Link>
         </article>
       </div>

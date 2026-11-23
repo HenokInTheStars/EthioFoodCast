@@ -41,7 +41,7 @@ export function FactorBars({
   return (
     <div className="factors">
       <p className="small faint">
-        Prediction sensitivities, not causes. They do not sum to the score.
+        What moved the score, not causes. They do not add up to the score.
       </p>
       <ul className="bars">
         {shown.map((factor) => (

@@ -71,24 +71,27 @@ export default function SituationPage() {
 
   return (
     <>
-      <h1>Where the risk sits in the surveyed households</h1>
-      <p className="muted">{distribution.scope}</p>
+      <h1>Risk overview</h1>
+      <p className="muted">
+        How scores are spread across the {int(distribution.n_households)} test households: by risk level, by
+        household profile and by region.
+      </p>
 
       <div className="grid" style={{ marginBottom: "var(--rhythm)" }}>
         <div className="card">
-          <h3>Households scored</h3>
+          <h3>Test households</h3>
           <div className="stat">{int(distribution.n_households)}</div>
           <div className="small faint">
-            held-out agricultural households
+            farming households not used in training
             {distribution.n_rejected_by_validation > 0
-              ? ` · ${int(distribution.n_rejected_by_validation)} rejected by validation`
-              : " · none rejected by validation"}
+              ? ` · ${int(distribution.n_rejected_by_validation)} could not be scored`
+              : ""}
           </div>
         </div>
         <div className="card">
-          <h3>Observed food insecurity</h3>
+          <h3>Were food insecure</h3>
           <div className="stat">{pct(distribution.observed_rate)}</div>
-          <div className="small faint">the rate a scorer has to beat</div>
+          <div className="small faint">the rate any useful model must beat</div>
         </div>
         <div className="card">
           <h3>Flagged for follow-up</h3>
@@ -100,21 +103,21 @@ export default function SituationPage() {
           </div>
         </div>
         <div className="card">
-          <h3>Flag threshold</h3>
+          <h3>Follow-up cut-off</h3>
           <div className="stat">{num(performance.threshold, 3)}</div>
-          <div className="small faint">one chosen operating point, not a boundary of fact</div>
+          <div className="small faint">households scoring above this are flagged for a visit</div>
         </div>
       </div>
 
-      <h2>Bands</h2>
+      <h2>Risk levels</h2>
       <p className="small muted">
-        Bands describe the score. They are not calibrated categories of assistance, and a household
-        just under a cut point is not meaningfully different from one just over it.
+        Risk levels are labels for ranges of the score, not categories of need. A household just below
+        a cut-off is not meaningfully different from one just above it.
       </p>
       <table>
         <thead>
           <tr>
-            <th>Band</th>
+            <th>Risk level</th>
             <th>Households</th>
             <th>Share</th>
           </tr>
@@ -134,16 +137,16 @@ export default function SituationPage() {
         </tbody>
       </table>
 
-      <h2 style={{ marginTop: "var(--rhythm)" }}>Raw score distribution</h2>
+      <h2 style={{ marginTop: "var(--rhythm)" }}>How scores are spread</h2>
       <Histogram
         edges={distribution.histogram.edges}
         counts={distribution.histogram.counts}
         threshold={performance.threshold}
       />
       <p className="small faint">
-        The distribution is bimodal rather than a smooth curve: the model separates the extremes
-        better than the middle. Households near the line are where a human assessment matters most,
-        because that is where the score is least confident.
+        Most households score near one end or the other: the model is clearest about the very likely and
+        very unlikely cases. Households near the cut-off are where a visit matters most, because that is
+        where the score is least certain.
       </p>
 
       <h2 style={{ marginTop: "var(--rhythm)" }}>By profile</h2>
@@ -152,7 +155,7 @@ export default function SituationPage() {
           <tr>
             <th>Profile</th>
             <th>Households</th>
-            <th>Mean score</th>
+            <th>Average score</th>
             <th>Flagged</th>
           </tr>
         </thead>
@@ -180,14 +183,11 @@ export default function SituationPage() {
       </div>
 
       <p className="small faint">
-        {int(regions.length - suppressed.length)} regions reported a figure, {int(unsurveyed.length)}{" "}
-        were not surveyed at all, and {int(suppressed.length - unsurveyed.length)} were surveyed but
-        fell below the reporting threshold. Regional ordering is a lead to check, not a result: the
-        smallest reported cell holds 27 households, so one region&rsquo;s position can move on a
-        handful of them. The per-region means are grouped here from the same scored households shown
-        on <a href="/plan">the plan</a>, because the regional artifact carries counts and suppression
-        flags rather than rates. See <a href="/spatial">the regional map</a> for the reportable
-        aggregates; it does not plot household locations.
+        {int(regions.length - suppressed.length)} regions have figures, {int(unsurveyed.length)} were not
+        surveyed, and {int(suppressed.length - unsurveyed.length)} had too few households to report. Treat
+        the order of regions as a lead to check: the smallest region shown has only 27 households, so a few
+        households can change its place. The <a href="/spatial">regional map</a> shows the same figures on a
+        map.
       </p>
 
       <p className="footnote small">

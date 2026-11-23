@@ -44,21 +44,20 @@ export default function SegmentsPage() {
     <>
       <h1>Five profiles of agricultural household</h1>
       <p className="muted">
-        The model groups households, and the groups are descriptive rather than causal: they are what
-        a clustering of the surveyed variables produced, not types that exist in the world. A
-        household&rsquo;s profile never changes its score, only how it is described.
+        Households were grouped by how similar their answers are. The groups describe common situations;
+        they are not fixed types, and a household&rsquo;s profile never changes its score.
       </p>
 
       <div className="grid" style={{ marginBottom: "var(--rhythm)" }}>
         <div className="card">
           <h3>Profiles</h3>
           <div className="stat">{profiles.length}</div>
-          <div className="small faint">from {int(total)} clustered households</div>
+          <div className="small faint">from {int(total)} surveyed households</div>
         </div>
         <div className="card">
           <h3>Largest profile</h3>
           <div className="stat">{Math.round(Math.max(...profiles.map((row) => row.pct)))}%</div>
-          <div className="small faint">of all clustered households</div>
+          <div className="small faint">of all households</div>
         </div>
         <div className="card">
           <h3>Highest observed insecurity</h3>
@@ -76,7 +75,7 @@ export default function SegmentsPage() {
             <header className="segment-head">
               <h2>{profile.name}</h2>
               <p className="small faint">
-                {int(profile.n)} households · {num(profile.pct, 1)}% of the clustered set
+                {int(profile.n)} households · {num(profile.pct, 1)}% of households
                 {clusterRow && clusterRow.name_ !== profile.name ? ` · also recorded as “${clusterRow.name_}”` : ""}
               </p>
             </header>
@@ -89,7 +88,7 @@ export default function SegmentsPage() {
               {risk ? (
                 <span>
                   <strong className="tabular">{num(risk.mean_risk, 2)}</strong>{" "}
-                  <span className="small faint">mean model score</span>
+                  <span className="small faint">average score</span>
                 </span>
               ) : null}
               {risk ? (
@@ -102,8 +101,8 @@ export default function SegmentsPage() {
 
             <h3>How this profile differs from the average household</h3>
             <p className="small faint">
-              Standardised distance from the population mean (a z-score). Bars left of the line are
-              below average; the printed value is the raw measurement.
+              Bars to the right are above the average household and bars to the left below it. The
+              number is this profile&rsquo;s actual average.
             </p>
             <ZScoreBars z={profile.z} profile={profile.profile} />
           </section>

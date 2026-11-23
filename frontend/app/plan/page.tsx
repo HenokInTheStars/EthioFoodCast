@@ -9,9 +9,8 @@ export default function PlanPage() {
     <>
       <h1>Who to assess first</h1>
       <p className="muted">
-        The ordered list is the product. Set your capacity, filter to what your team can reach, and
-        take the top of the list — the estimate ranks households for a human follow-up assessment,
-        it is not an eligibility decision.
+        Set how many households your team can visit, filter to the places you can reach, and take the top
+        of the list. The ranking guides follow-up visits; it does not decide who receives help.
       </p>
 
       <RampLegend />
@@ -21,8 +20,8 @@ export default function PlanPage() {
       <CaveatBlock
         title="What this list is not"
         caveats={[
-          "An anonymised held-out historical set with surrogate ids — not a register of real beneficiaries.",
-          "Ranking by model score is a lead to check, not a finding. Two households one place apart in the list are not meaningfully different.",
+          "Anonymous test households from a past survey, each with a random ID: not a list of real people to visit.",
+          "The ranking is a lead to check, not a finding. Two households a few places apart are not meaningfully different.",
           "Households that could not be scored are excluded from the list, not placed at the bottom.",
         ]}
         provenance={{

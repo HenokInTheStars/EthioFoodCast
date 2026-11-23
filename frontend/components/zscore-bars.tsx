@@ -49,7 +49,7 @@ export function ZScoreBars({
   profile?: Record<string, number>;
 }) {
   const keys = Object.keys(z);
-  if (keys.length === 0) return <p className="small faint">No profile recorded for this cluster.</p>;
+  if (keys.length === 0) return <p className="small faint">No details recorded for this profile.</p>;
 
   return (
     <ul className="zbars">

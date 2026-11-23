@@ -51,7 +51,7 @@ export default async function AssessPage() {
           </p>
         </div>
         <p className="small muted">
-          The <Link href="/">overview</Link> reads from build artifacts and works without the service.
+          The <Link href="/">overview</Link> works without the scoring service.
         </p>
       </>
     );

@@ -39,7 +39,7 @@ export function RegionCard({ row }: { row: RegionRow }) {
           {row.note ??
             (unsurveyed
               ? "No forecasts or outcomes for this region."
-              : `${row.n} households were surveyed, below the reporting threshold, so no figure is shown.`)}
+              : `Only ${row.n} households were surveyed, too few to report a figure.`)}
         </p>
         <p className="small faint">
           Shown in position because a region missing from the map reads as “no problem there”.
@@ -53,11 +53,11 @@ export function RegionCard({ row }: { row: RegionRow }) {
       <h3>{row.region}</h3>
       <div className="stat-row">
         <span className="stat">{typeof row.mean_risk === "number" ? row.mean_risk.toFixed(2) : "—"}</span>
-        <span className="small faint">mean score</span>
+        <span className="small faint">average score</span>
       </div>
       <p className="small">
         {typeof row.observed_rate === "number" ? `${Math.round(row.observed_rate * 100)}%` : "—"}{" "}
-        observed food insecure on {row.n} households
+        food insecure, of {row.n} households
         {typeof row.flagged_share === "number" ? ` · ${Math.round(row.flagged_share * 100)}% flagged` : ""}
       </p>
       {row.top_cluster ? <p className="small faint">Most common profile: {row.top_cluster}</p> : null}

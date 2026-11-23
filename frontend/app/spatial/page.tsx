@@ -3,7 +3,6 @@
 import { useMemo, useState } from "react";
 
 import areasData from "@/data/areas.json";
-import areaNamesData from "@/data/artifacts/area_names.json";
 import driversData from "@/data/artifacts/drivers.json";
 import regionalData from "@/data/artifacts/regional_summary.json";
 import { RegionMap } from "@/components/region-map";
@@ -33,7 +32,6 @@ type RegionSummary = {
 
 const areas = areasData as Area[];
 const regions = regionalData as unknown as RegionSummary[];
-const areaSummary = (areaNamesData as { summary: Record<string, unknown> }).summary;
 const areaContext = driversData.fields.find((field) => field.field === "area_context");
 
 export default function SpatialPage() {
@@ -66,25 +64,12 @@ export default function SpatialPage() {
 
   return (
     <>
-      <h1>Explore the surveyed area context</h1>
+      <h1>Regional map</h1>
       <p className="muted">
-        Use the regional map to compare reportable held-out summaries, then select a surveyed area
-        below to inspect its administrative labels and verification status. The map does not show
-        the model&apos;s graph neighbours.
+        Compare predicted risk and actual food insecurity region by region, then look up any survey area to
+        see its region, zone and woreda.
       </p>
 
-      <section className="readiness-panel" aria-labelledby="map-readiness">
-        <div className="readiness-heading">
-          <span className="tag">Regional map available</span>
-          <h2 id="map-readiness">No fabricated household locations or neighbour links</h2>
-        </div>
-        <p className="small">
-          The regional choropleth below uses public administrative boundaries and reportable,
-          region-level held-out aggregates only. The web data does not export household or
-          enumeration-area coordinates, nor model-adjacency edges, so this is not an area-level
-          graph or a household location map.
-        </p>
-      </section>
 
       <RegionMap />
 
@@ -149,7 +134,7 @@ export default function SpatialPage() {
             </section>
 
             <section className="card" aria-labelledby="region-summary-heading">
-              <h2 id="region-summary-heading">Survey-region summary</h2>
+              <h2 id="region-summary-heading">Region summary</h2>
               {!selectedRegion || selectedRegion.suppressed ? (
                 <>
                   <p className="stat">Withheld</p>
@@ -160,15 +145,14 @@ export default function SpatialPage() {
                 </>
               ) : (
                 <>
-                  <p className="small faint">{int(selectedRegion.n)} held-out households</p>
+                  <p className="small faint">{int(selectedRegion.n)} test households</p>
                   <dl className="detail-list">
-                    <div><dt>Mean score</dt><dd>{num(selectedRegion.mean_risk, 2)}</dd></div>
-                    <div><dt>Observed rate</dt><dd>{pct(selectedRegion.observed_rate, 1)}</dd></div>
+                    <div><dt>Average score</dt><dd>{num(selectedRegion.mean_risk, 2)}</dd></div>
+                    <div><dt>Food insecure</dt><dd>{pct(selectedRegion.observed_rate, 1)}</dd></div>
                     <div><dt>Survey areas</dt><dd>{int(selectedRegion.n_areas)}</dd></div>
                   </dl>
                   <p className="small muted">
-                    These are region-level aggregates, not measurements for this selected area or
-                    household.
+                    Figures for the whole region, not for this area or any household.
                   </p>
                 </>
               )}
@@ -180,16 +164,15 @@ export default function SpatialPage() {
       )}
 
       <section className="readiness-panel spatial-context" aria-labelledby="model-context-heading">
-        <h2 id="model-context-heading">What the graph model contributes</h2>
+        <h2 id="model-context-heading">Why the survey area matters</h2>
         <p>
-          Area context is the model&apos;s learned neighbourhood signal. In the held-out evaluation,
-          withholding that context changed predictions by an average absolute {num(areaContext?.mean_abs, 3)}.
-          This aggregate sensitivity describes model behaviour; it is not a cause, a local score,
-          or an estimate of an intervention effect.
+          The model learns patterns from each survey area and its neighbouring areas. On the test households,
+          leaving that information out changed a score by {num(areaContext?.mean_abs, 2)} on average (on a scale
+          of 0 to 1), more than any single answer. This shows how the model works; it does not mean an area
+          causes food insecurity.
         </p>
         <p className="small faint">
-          Source: <code>drivers.json</code>; area labels and verification: <code>area_names.json</code>.
-          <span className="small"> {String(areaSummary.rule ?? "")}</span>
+          The map shows region-level figures only. Household and village locations are never shown.
         </p>
       </section>
     </>

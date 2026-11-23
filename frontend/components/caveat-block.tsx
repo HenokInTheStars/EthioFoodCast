@@ -44,18 +44,18 @@ export function AlwaysVisibleFacts({ observedRate }: { observedRate: number | nu
   return (
     <ul className="plain facts">
       <li className="small">
-        {observedRate === null ? "—" : `${Math.round(observedRate * 100)}%`} of held-out households
-        were food insecure, so answering &ldquo;insecure&rdquo; every time scores{" "}
-        {observedRate === null ? "—" : `${Math.round(observedRate * 100)}%`}. The model has to beat
-        that to be worth anything.
+        {observedRate === null ? "—" : `${Math.round(observedRate * 100)}%`} of test households were
+        food insecure, so always answering &ldquo;insecure&rdquo; would be right{" "}
+        {observedRate === null ? "—" : `${Math.round(observedRate * 100)}%`} of the time. The model has
+        to beat that to be useful.
       </li>
       <li className="small">
-        Bands are descriptive groupings of the score, not calibrated categories of assistance. A
-        household just under a cut point is not meaningfully different from one just over it.
+        Risk levels are labels for ranges of the score, not categories of need. A household just below
+        a cut-off is not meaningfully different from one just above it.
       </li>
       <li className="small">
-        The listed factors are how sensitive <em>this prediction</em> was to each answer. They are
-        not causes and they do not sum to the score.
+        The listed reasons show which answers moved <em>this</em> score. They are not causes, and they
+        do not add up to the score.
       </li>
     </ul>
   );
