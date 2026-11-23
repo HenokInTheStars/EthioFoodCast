@@ -1,6 +1,8 @@
 /**
  * Search over the knowledge centre, shared by the browser (instant, offline
- * search) and the server (choosing the passages an AI answer may cite).
+ * search) and the server (choosing the passages an AI answer may cite). The
+ * corpus holds the articles' sections and short summaries of the model's
+ * results ("data" passages), which link to the dashboard that shows them.
  *
  * The corpus is about seventy short passages, so a small ranked keyword search is
  * enough: words are reduced to a rough stem and matched on a shared prefix, so
@@ -15,6 +17,9 @@ export type KnowledgePassage = {
   article: string;
   section: string;
   anchor: string;
+  kind: "article" | "data";
+  /** Set on results summaries: the page that shows the figures. */
+  href?: string;
   text: string;
 };
 
@@ -68,11 +73,19 @@ const index: Indexed[] = passages.map((passage) => ({
   heading: (`${passage.article} ${passage.section}`.toLocaleLowerCase().match(WORD) ?? []).map(stem),
 }));
 
-export function passageHref(passage: Pick<KnowledgePassage, "slug" | "anchor">): string {
-  return `/knowledge/${passage.slug}${passage.anchor ? `#${passage.anchor}` : ""}`;
+export function passageHref(passage: Pick<KnowledgePassage, "slug" | "anchor" | "href">): string {
+  return passage.href ?? `/knowledge/${passage.slug}${passage.anchor ? `#${passage.anchor}` : ""}`;
 }
 
-export function searchKnowledge(query: string, limit = 6): KnowledgeMatch[] {
+export function findPassage(id: string): KnowledgePassage | undefined {
+  return passages.find((passage) => passage.id === id);
+}
+
+export function searchKnowledge(
+  query: string,
+  limit = 6,
+  { kind }: { kind?: KnowledgePassage["kind"] } = {},
+): KnowledgeMatch[] {
   const terms = queryTerms(query);
   if (terms.length === 0) return [];
 
@@ -82,7 +95,7 @@ export function searchKnowledge(query: string, limit = 6): KnowledgeMatch[] {
   );
 
   const phrase = query.trim().toLocaleLowerCase();
-  const scored = index.map((entry) => {
+  const scored = index.filter((entry) => !kind || entry.passage.kind === kind).map((entry) => {
     let score = 0;
     let matchedTerms = 0;
     terms.forEach((term, position) => {

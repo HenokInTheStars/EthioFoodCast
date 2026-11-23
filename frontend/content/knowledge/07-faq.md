@@ -7,7 +7,7 @@ Short answers, with links to the articles that explain more.
 
 ## Is this an official government or agency tool?
 
-No. EthioFoodCast is an independent research project. It uses public survey data from the Ethiopian Statistics Service and the World Bank, but it is not endorsed by them or by any other organisation.
+No. EthioFoodCast is an independent research project. It uses public survey data from the Ethiopian Statistical Service and the World Bank, but it is not endorsed by them or by any other organisation.
 
 ## Can a score decide who receives assistance?
 
@@ -48,3 +48,7 @@ From these articles only. Your question is sent to an AI service (Groq), togethe
 ## Who built EthioFoodCast?
 
 Henok Solomon (data and frontend), Niyat Debesay (machine learning and backend) and Amina Aman (product and analytics). See [About EthioFoodCast](/knowledge/about).
+
+## How do I cite EthioFoodCast?
+
+Cite it as: Solomon, H., Debesay, N., & Aman, A. (2026). EthioFoodCast: household food-insecurity risk ranking for Ethiopia [Web application], with the website address and the date you used it. If you use the survey data, cite the surveys too. See [Data sources and how to cite](/knowledge/sources-and-citation#how-to-cite-ethiofoodcast).

@@ -13,10 +13,12 @@ import { useEffect, useId, useMemo, useState } from "react";
 import type { FormEvent } from "react";
 import { z } from "zod";
 
+import { CitedText, SourceList, citationLabel as label, type Citation } from "@/components/cited-answer";
 import { excerpt, queryTerms, searchKnowledge } from "@/lib/knowledge-search";
 
 const SUGGESTIONS = [
   "How accurate is the model?",
+  "Which region has the highest risk?",
   "What counts as food insecure?",
   "Why does the survey area matter?",
   "Can a score decide who gets aid?",
@@ -33,10 +35,6 @@ const responseSchema = z.union([
   z.object({ status: z.literal("not_covered"), related: z.array(citationSchema.omit({ n: true })) }),
 ]);
 type AskResponse = z.infer<typeof responseSchema>;
-type Citation = z.infer<typeof citationSchema>;
-
-const label = (item: { article: string; section: string }) =>
-  item.section ? `${item.article}: ${item.section}` : item.article;
 
 export function KnowledgeAsk() {
   const inputId = useId();
@@ -145,7 +143,7 @@ export function KnowledgeAsk() {
       <p className="kc-ask-note">
         {configured === false
           ? "AI answers are switched off on this server. Matching sections appear as you type."
-          : "Answers are written by an AI service (Groq) using only these articles, and cite the sections they use. Do not include names or personal details."}
+          : "Answers are written by an AI service (Groq) using only these articles and the model's published results, and cite what they use. Do not include names or personal details."}
       </p>
 
       <div aria-live="polite">
@@ -222,34 +220,11 @@ export function KnowledgeAsk() {
 }
 
 function Answer({ question, text, citations }: { question: string; text: string; citations: Citation[] }) {
-  // Only one answer is shown at a time, so fixed ids are unique.
-  const paragraphs = text.split(/\n{2,}/).map((paragraph) => paragraph.trim()).filter(Boolean);
-
   return (
     <article className="kc-answer">
       <p className="kc-answer-label">Answer to “{question}”</p>
-      {paragraphs.map((paragraph, index) => (
-        <p key={index} className="kc-answer-text">
-          {paragraph.split(/(\[\d+\])/).map((piece, pieceIndex) => {
-            const marker = /^\[(\d+)\]$/.exec(piece);
-            if (!marker) return <span key={pieceIndex}>{piece}</span>;
-            return (
-              <a key={pieceIndex} className="kc-cite" href={`#kc-source-${marker[1]}`}>
-                <span className="visually-hidden">source </span>
-                {marker[1]}
-              </a>
-            );
-          })}
-        </p>
-      ))}
-      <p className="kc-sources-title">Sources</p>
-      <ol className="kc-sources numbered">
-        {citations.map((citation) => (
-          <li key={citation.n} id={`kc-source-${citation.n}`}>
-            <Link href={citation.href}>{label(citation)}</Link>
-          </li>
-        ))}
-      </ol>
+      <CitedText text={text} idPrefix="kc-source" />
+      <SourceList citations={citations} idPrefix="kc-source" />
       <p className="kc-answer-foot">
         Written by AI from the sections above. Check the sources before relying on it, and never use an answer to
         decide whether a household receives support.

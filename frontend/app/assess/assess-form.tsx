@@ -21,6 +21,7 @@ import type { FormEvent } from "react";
 import riskDistribution from "@/data/artifacts/risk_distribution.json";
 import { AreaSearch } from "@/components/area-search";
 import { WhatIfSandbox } from "@/components/what-if-sandbox";
+import { ExplainResult } from "@/components/explain-result";
 import type { Area, FieldRecord, FormSchema, HouseholdAnswers, Meta, PredictResult } from "@/lib/api";
 import { ApiError, predict } from "@/lib/api";
 import { useConnectivity } from "@/lib/connectivity";
@@ -931,6 +932,8 @@ function ResultCard({
           </div>
         </div>
       ) : null}
+
+      {scored ? <ExplainResult result={result} area={area} /> : null}
 
       {result.recommendations.length > 0 ? (
         <div className="card result-section">

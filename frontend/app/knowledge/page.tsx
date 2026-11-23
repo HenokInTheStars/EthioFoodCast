@@ -1,8 +1,10 @@
 import Link from "next/link";
 
 import officialSources from "@/data/evidence/public-sources.json";
+import { CiteBlock } from "@/components/cite-block";
 import { KnowledgeAsk } from "@/components/knowledge-ask";
 import { OfflineEvidenceLibrary } from "@/components/offline-evidence-library";
+import { furtherReading } from "@/lib/further-reading";
 import { articles } from "@/lib/knowledge";
 
 export const metadata = {
@@ -51,35 +53,75 @@ export default function KnowledgePage() {
         </ol>
       </section>
 
-      {sources.length > 0 ? (
-        <section className="home-section" aria-labelledby="reading-heading">
-          <h2 id="reading-heading">Further reading</h2>
-          <p className="section-lede">
-            Recent publications from official sources. Links open the publisher&apos;s website
-            {lastChecked ? `; the list was last checked on ${date(lastChecked)}` : ""}.
-          </p>
-          <div className="reading-cards">
-            {sources.map((source) => (
-              <article className="reading-card" key={source.id}>
-                <h3>{source.name}</h3>
-                <ul>
-                  {source.items.slice(0, 5).map((item) => (
-                    <li key={item.id}>
-                      <a href={item.url} target="_blank" rel="noreferrer" lang={item.language === "am" ? "am" : undefined}>
-                        {item.title}
-                      </a>
-                      {item.published_at ? <span>{date(item.published_at)}</span> : null}
-                    </li>
-                  ))}
-                </ul>
-                <a className="reading-card-more" href={source.publisher_url} target="_blank" rel="noreferrer">
-                  More from {source.name} <span aria-hidden="true">↗</span>
-                </a>
-              </article>
-            ))}
-          </div>
-        </section>
-      ) : null}
+      <section className="home-section" aria-labelledby="reading-heading">
+        <h2 id="reading-heading">Further reading</h2>
+        <p className="section-lede">
+          A short, hand-picked list for going further: the surveys behind the model, how hunger is measured, and where
+          to check current conditions. Links open the publisher&apos;s website.
+        </p>
+        <div className="reading-cards">
+          {furtherReading.map((group) => (
+            <article className="reading-card" key={group.id}>
+              <h3>{group.heading}</h3>
+              <ul>
+                {group.items.map((item) => (
+                  <li key={item.url}>
+                    <a href={item.url} target="_blank" rel="noreferrer">
+                      {item.title}
+                    </a>
+                    <span className="reading-publisher">{item.publisher}</span>
+                    <span className="reading-note">{item.note}</span>
+                  </li>
+                ))}
+              </ul>
+            </article>
+          ))}
+        </div>
+
+        {sources.length > 0 ? (
+          <>
+            <h3 className="reading-subheading">Latest from official sources</h3>
+            <p className="section-lede">
+              Recent publications, listed automatically
+              {lastChecked ? `; last checked on ${date(lastChecked)}` : ""}.
+            </p>
+            <div className="reading-cards">
+              {sources.map((source) => (
+                <article className="reading-card" key={source.id}>
+                  <h4>{source.name}</h4>
+                  <ul>
+                    {source.items.slice(0, 4).map((item) => (
+                      <li key={item.id}>
+                        <a
+                          href={item.url}
+                          target="_blank"
+                          rel="noreferrer"
+                          lang={item.language === "am" ? "am" : undefined}
+                        >
+                          {item.title}
+                        </a>
+                        {item.published_at ? <span>{date(item.published_at)}</span> : null}
+                      </li>
+                    ))}
+                  </ul>
+                  <a className="reading-card-more" href={source.publisher_url} target="_blank" rel="noreferrer">
+                    More from {source.name} <span aria-hidden="true">↗</span>
+                  </a>
+                </article>
+              ))}
+            </div>
+          </>
+        ) : null}
+      </section>
+
+      <section className="home-section" id="cite" aria-labelledby="cite-heading">
+        <h2 id="cite-heading">Cite this work</h2>
+        <p className="section-lede">
+          If EthioFoodCast helps your report, paper or application, please cite it, together with the surveys it is
+          built on.
+        </p>
+        <CiteBlock />
+      </section>
 
       <section className="home-section">
         <details className="library-disclosure">

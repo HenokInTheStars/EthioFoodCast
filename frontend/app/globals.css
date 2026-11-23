@@ -4266,6 +4266,118 @@ html:not([data-lens="review"]) .footnote:has(> .provenance:only-child) {
   font-weight: 600;
 }
 
+.reading-card h4 {
+  margin: 0 0 0.5rem;
+  font-size: 0.95rem;
+}
+.reading-card .reading-publisher {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--ink-faint);
+}
+.reading-card .reading-note {
+  font-size: 0.85rem;
+  color: var(--ink-soft);
+}
+.reading-subheading {
+  margin: 2rem 0 0.9rem;
+  font-size: 1.05rem;
+}
+
+.cite-card {
+  max-width: 52rem;
+  padding: 1.2rem 1.35rem;
+  background: var(--paper-raised);
+  border: 1px solid var(--rule);
+  border-left: 4px solid var(--accent);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+}
+.cite-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+}
+.cite-text {
+  flex: 1;
+  margin: 0;
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+}
+.cite-text cite {
+  font-style: italic;
+}
+.cite-copy {
+  flex: none;
+  min-width: 5.5rem;
+  min-height: 2.25rem;
+  padding: 0.35rem 0.9rem;
+  border: 1px solid var(--accent);
+  border-radius: var(--radius);
+  background: transparent;
+  color: var(--accent);
+  font: inherit;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+.cite-copy:hover {
+  background: var(--accent-soft);
+}
+.cite-bibtex {
+  margin-top: 1rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--rule);
+}
+.cite-bibtex summary {
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--accent);
+}
+.cite-bibtex .cite-row {
+  margin-top: 0.75rem;
+}
+.cite-bibtex pre {
+  flex: 1;
+  min-width: 0;
+  margin: 0;
+  padding: 0.75rem 0.9rem;
+  overflow-x: auto;
+  background: var(--wash);
+  border-radius: var(--radius);
+  font-size: 0.8rem;
+  line-height: 1.5;
+}
+.cite-foot {
+  margin: 1rem 0 0;
+  font-size: 0.85rem;
+  color: var(--ink-soft);
+}
+@media (max-width: 600px) {
+  .cite-row {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  .cite-bibtex pre {
+    width: 100%;
+  }
+}
+
+.prose blockquote {
+  max-width: 68ch;
+  margin: 0 0 1rem;
+  padding: 0.6rem 1rem;
+  border-left: 3px solid var(--accent);
+  background: var(--wash);
+  border-radius: 0 var(--radius) var(--radius) 0;
+  overflow-wrap: anywhere;
+}
+.prose blockquote p {
+  margin: 0;
+}
+
 /* Offline library, tucked away */
 .library-disclosure {
   background: var(--paper-raised);
@@ -4679,4 +4791,34 @@ html:not([data-lens="review"]) .footnote:has(> .provenance:only-child) {
     transition: none !important;
     animation: none !important;
   }
+}
+
+/* Explain this result (assess page) */
+.explain-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+}
+.explain-head h3 {
+  margin-top: 0;
+}
+.explain-head p {
+  margin-bottom: 0;
+  max-width: 62ch;
+}
+.explain-button {
+  flex: none;
+}
+.explain-result .kc-answer {
+  margin-top: 1rem;
+}
+@media (max-width: 600px) {
+  .explain-head {
+    flex-direction: column;
+  }
+}
+.explain-result .kc-answer {
+  background: var(--paper);
+  box-shadow: none;
 }

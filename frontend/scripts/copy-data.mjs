@@ -146,7 +146,9 @@ function plainText(markdown) {
       row.split("|").map((cell) => cell.trim()).filter(Boolean).join(" · "))
     .replace(/\[([^\]]+)\]\([^)]+\)/g, "$1")
     .replace(/\*\*(.+?)\*\*/g, "$1")
+    .replace(/\*(.+?)\*/g, "$1")
     .replace(/`([^`]+)`/g, "$1")
+    .replace(/^>[ 	]?/gm, "")
     .replace(/^[ 	]*[-*][ 	]+/gm, "• ")
     .replace(/\n{3,}/g, "\n\n")
     .trim();
@@ -157,7 +159,8 @@ function renderMarkdown(markdown) {
   return marked
     .parse(markdown, { async: false, gfm: true })
     .replace(/<table>/g, '<div class="table-scroll"><table>')
-    .replace(/<\/table>/g, "</table></div>");
+    .replace(/<\/table>/g, "</table></div>")
+    .replace(/<a href="(https?:\/\/[^"]+)"/g, '<a href="$1" target="_blank" rel="noreferrer"');
 }
 
 function chunkText(text, maxLength = 1200) {
@@ -220,7 +223,9 @@ async function buildKnowledge(values) {
 
     const addPassages = (section, anchor, markdown) => {
       for (const [index, text] of chunkText(plainText(markdown)).entries()) {
-        passages.push({ id: `${slug}#${anchor || "top"}:${index + 1}`, slug, article: meta.title, section, anchor, text });
+        passages.push({
+          id: `${slug}#${anchor || "top"}:${index + 1}`, slug, article: meta.title, section, anchor, kind: "article", text,
+        });
       }
     };
     if (intro) addPassages("", "", intro);
@@ -238,6 +243,119 @@ async function buildKnowledge(values) {
     }
   }
   return { articles, passages };
+}
+
+/**
+ * Results summaries for the knowledge centre: the dashboards' figures written
+ * out as short factual passages, so questions such as "which region has the
+ * highest risk?" are answered, and cited, from the same artifacts the pages
+ * show. Each passage links to the page where the figure appears.
+ */
+function buildDataPassages(parsed, values) {
+  const distribution = parsed.get("ui_graph/risk_distribution.json");
+  const regions = parsed.get("ui_graph/regional_summary.json");
+  const profiles = parsed.get("ui_graph/cluster_profiles.json");
+  const drivers = parsed.get("ui_graph/drivers.json");
+  const labels = parsed.get("ui_graph/field_labels.json");
+  const label = (field) => labels[field] ?? field;
+  const share = (part, whole) => pct(part / whole, 0);
+  const passages = [];
+  const add = (id, article, section, href, sentences) =>
+    passages.push({
+      id: `data:${id}`, slug: "", article, section, anchor: "", href, kind: "data",
+      text: sentences.filter(Boolean).join(" "),
+    });
+
+  // Overall picture.
+  const n = distribution.n_households;
+  const bands = distribution.band_counts;
+  const { edges, counts } = distribution.histogram;
+  add("overview", "Risk overview", "Risk levels across the test households", "/situation#risk-levels", [
+    `Across the ${count(n)} test households, farming households the model never saw while it was trained,`,
+    `${pct(distribution.observed_rate)} reported food insecurity in 2021/22.`,
+    `The model placed ${count(bands.High)} households (${share(bands.High, n)}) in the High risk band,`,
+    `${count(bands.Moderate)} (${share(bands.Moderate, n)}) in Moderate and ${count(bands.Low)} (${share(bands.Low, n)}) in Low.`,
+    `${count(distribution.flagged)} households (${share(distribution.flagged, n)}) scored above the follow-up cut-off of`,
+    `${values.threshold} and would be flagged for a visit.`,
+    `${count(counts.at(-1))} households scored ${edges.at(-2)} or higher and ${count(counts[0])} scored below ${edges[1]}.`,
+  ]);
+
+  // Regions.
+  const reported = regions.filter((region) => !region.suppressed)
+    .sort((a, b) => b.observed_rate - a.observed_rate);
+  const regionName = (region) =>
+    region.region === "SNNP" ? "SNNP (Southern Nations, Nationalities and Peoples Region)" : region.region;
+  const why = (region) => region.note?.includes("conflict")
+    ? `${region.region} (not surveyed in 2021/22 because of the conflict)`
+    : region.n === 0 ? `${region.region} (no test households)`
+      : `${region.region} (only ${region.n} test households, too few to report safely)`;
+  const byRisk = [...reported].sort((a, b) => b.mean_risk - a.mean_risk);
+  add("regions", "Risk overview", "Regions compared", "/situation#by-region", [
+    "Regions ranked by the share of test households that reported food insecurity in 2021/22, highest first:",
+    `${reported.map((region) => `${region.region} ${pct(region.observed_rate)} (${count(region.n)} households)`).join(", ")}.`,
+    `The highest average risk score is in ${byRisk[0].region} (${byRisk[0].mean_risk.toFixed(2)})`,
+    `and the lowest in ${byRisk.at(-1).region} (${byRisk.at(-1).mean_risk.toFixed(2)}).`,
+    `Across all test households the share was ${pct(distribution.observed_rate)}.`,
+    `No figures are reported for ${regions.filter((region) => region.suppressed).map(why).join(", ")}.`,
+    "A region without a figure does not have zero risk.",
+  ]);
+  reported.forEach((region, rank) => {
+    const above = region.observed_rate > distribution.observed_rate;
+    add(`region-${region.region_code}`, "Risk overview", `${region.region} region`, "/situation#by-region", [
+      `${regionName(region)}: ${count(region.n)} test households in ${count(region.n_areas)} survey areas.`,
+      `${pct(region.observed_rate)} reported food insecurity in 2021/22, ${above ? "above" : "below"} the`,
+      `${pct(distribution.observed_rate)} average across all test households; it ranks ${rank + 1} of the`,
+      `${reported.length} regions with figures, where 1 is the highest share.`,
+      `The average risk score was ${region.mean_risk.toFixed(2)}; ${pct(region.flagged_share, 0)} of its households were`,
+      `flagged for follow-up and ${pct(region.high_share, 0)} were in the High band.`,
+      `The model was right about ${pct(region.agricultural_accuracy, 0)} of the households in this region.`,
+      `The most common household profile is ${region.top_cluster}.`,
+    ]);
+  });
+
+  // Household profiles.
+  const testByProfile = new Map(distribution.by_cluster.map((row) => [row.cluster, row]));
+  const allHouseholds = profiles.reduce((sum, profile) => sum + profile.n, 0);
+  const sortedProfiles = [...profiles].sort((a, b) => b.food_insecure_rate - a.food_insecure_rate);
+  add("profiles", "Household profiles", "Profiles compared", "/segments", [
+    `The ${count(allHouseholds)} households in the data fall into ${profiles.length} descriptive profiles.`,
+    "Ranked by the share that reported food insecurity in 2021/22, highest first:",
+    `${sortedProfiles.map((profile) => `${profile.name} ${pct(profile.food_insecure_rate)} (${count(profile.n)} households,`
+      + ` ${profile.pct.toFixed(1)}% of all)`).join(", ")}.`,
+    "Profiles describe groups of similar households; they are not categories of need.",
+  ]);
+  for (const profile of profiles) {
+    const test = testByProfile.get(profile.name);
+    const traits = Object.entries(profile.z)
+      .filter(([, z]) => Math.abs(z) >= 0.25)
+      .sort((a, b) => Math.abs(b[1]) - Math.abs(a[1]))
+      .slice(0, 4)
+      .map(([field, z]) => `${label(field)} ${Math.abs(z) >= 1 ? "well " : ""}${z > 0 ? "above" : "below"} average`);
+    add(`profile-${profile.cluster}`, "Household profiles", profile.name, `/segments#profile-${profile.cluster}`, [
+      `${profile.name}: ${count(profile.n)} households, ${profile.pct.toFixed(1)}% of all households in the data.`,
+      `${pct(profile.food_insecure_rate)} of them reported food insecurity in 2021/22.`,
+      test ? `Among the test households in this profile (${count(test.n)}), the average risk score was`
+        + ` ${test.mean_risk.toFixed(2)} and ${pct(test.flagged_share, 0)} were flagged for follow-up.` : "",
+      traits.length ? `Compared with the average household: ${traits.join("; ")}.` : "",
+    ]);
+  }
+
+  // What moves the scores.
+  const top = drivers.fields.slice(0, 8);
+  const steady = drivers.fields.slice(0, 12).filter((field) =>
+    field.field !== "area_context" && (field.share_increasing <= 0.1 || field.share_increasing >= 0.9));
+  add("drivers", "How the risk score works", "What moves the scores most",
+    "/knowledge/how-the-score-works#the-reasons-shown-with-a-score", [
+      "On the test households, the score changed most when this information was left out (average change on a 0 to 1 scale):",
+      `${top.map((field) => `${label(field.field)} ${field.mean_abs.toFixed(2)}`).join("; ")}.`,
+      `By group: ${drivers.domains.map((domain) => `${domain.group} ${domain.share_pct.toFixed(1)}%`).join(", ")} of the total effect.`,
+      ...steady.map((field) => field.share_increasing <= 0.1
+        ? `Knowing ${label(field.field)} raised the score for only ${pct(field.share_increasing, 0)} of households.`
+        : `Knowing ${label(field.field)} raised the score for ${pct(field.share_increasing, 0)} of households.`),
+      "These figures describe how the model behaves, not what causes food insecurity.",
+    ]);
+
+  return passages;
 }
 
 async function readPublicSourceMetadata() {
@@ -365,7 +483,18 @@ async function main() {
     area_count: areas.length,
   };
 
-  const knowledge = await buildKnowledge(knowledgeValues(parsed));
+  const values = knowledgeValues(parsed);
+  const knowledge = await buildKnowledge(values);
+  knowledge.passages.push(...buildDataPassages(parsed, values));
+  // Results summaries may link into the articles; those links must exist too.
+  const sectionIds = new Map(knowledge.articles.map((article) => [article.slug, new Set(article.sections.map((s) => s.id))]));
+  for (const passage of knowledge.passages) {
+    if (!passage.href?.startsWith("/knowledge")) continue;
+    const link = /^\/knowledge\/([a-z0-9-]+)(?:#([a-z0-9-]+))?$/.exec(passage.href);
+    if (!link || !sectionIds.has(link[1]) || (link[2] && !sectionIds.get(link[1]).has(link[2]))) {
+      throw new Error(`${passage.id}: broken link ${passage.href}`);
+    }
+  }
   const publicSourceMetadata = await readPublicSourceMetadata();
   await mkdir(join(frontendDir, "public"), { recursive: true });
   await copyFile(
@@ -402,6 +531,7 @@ async function main() {
   );
   console.log(
     `copy-data: ${knowledge.articles.length} knowledge articles, ${knowledge.passages.length} passages ` +
+      `(${knowledge.passages.filter((passage) => passage.kind === "data").length} from results) ` +
       "-> frontend/data/knowledge/",
   );
   console.log(

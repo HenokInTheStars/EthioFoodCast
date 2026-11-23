@@ -109,7 +109,7 @@ export default function SituationPage() {
         </div>
       </div>
 
-      <h2>Risk levels</h2>
+      <h2 id="risk-levels">Risk levels</h2>
       <p className="small muted">
         Risk levels are labels for ranges of the score, not categories of need. A household just below
         a cut-off is not meaningfully different from one just above it.
@@ -149,7 +149,7 @@ export default function SituationPage() {
         where the score is least certain.
       </p>
 
-      <h2 style={{ marginTop: "var(--rhythm)" }}>By profile</h2>
+      <h2 id="by-profile" style={{ marginTop: "var(--rhythm)" }}>By profile</h2>
       <table>
         <thead>
           <tr>
@@ -171,7 +171,7 @@ export default function SituationPage() {
         </tbody>
       </table>
 
-      <h2 style={{ marginTop: "var(--rhythm)" }}>By region</h2>
+      <h2 id="by-region" style={{ marginTop: "var(--rhythm)" }}>By region</h2>
       <p className="small muted">
         All eleven regions, including the ones that were not surveyed. A region missing from the map
         reads as “no problem there”, which is false.

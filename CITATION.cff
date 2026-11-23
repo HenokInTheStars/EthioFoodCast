@@ -1,0 +1,29 @@
+cff-version: 1.2.0
+message: "If you use EthioFoodCast, please cite it as below, and cite the surveys it is built on."
+type: software
+title: "EthioFoodCast: household food-insecurity risk ranking for Ethiopia"
+authors:
+  - family-names: Solomon
+    given-names: Henok
+  - family-names: Debesay
+    given-names: Niyat
+  - family-names: Aman
+    given-names: Amina
+date-released: 2026-11-23
+keywords:
+  - food security
+  - Ethiopia
+  - LSMS-ISA
+  - FIES
+  - graph neural networks
+references:
+  - type: data
+    title: "Ethiopia Socioeconomic Survey 2018-2019 (ESS4), Public Use Dataset. Ref: ETH_2018_ESS_v04_M"
+    authors:
+      - name: Central Statistics Agency of Ethiopia
+    url: "https://microdata.worldbank.org/index.php/catalog/3823"
+  - type: data
+    title: "Ethiopia Socio-Economic Panel Survey 2021-2022, Wave 5 (ESPS-5), Public Use Dataset. Ref: ETH_2021_ESPS-W5_v03_M"
+    authors:
+      - name: Ethiopian Statistical Service
+    url: "https://microdata.worldbank.org/index.php/catalog/6161"

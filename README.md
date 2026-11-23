@@ -128,23 +128,38 @@ No raw survey data, household IDs or coordinates are included.
 ## Knowledge centre
 
 `/knowledge` holds plain-language articles for visitors: the data, how the score works,
-accuracy and limits, responsible use, a glossary and an FAQ. The articles are Markdown files in
+accuracy and limits, responsible use, a glossary, an FAQ, and data sources with how to cite. The articles are Markdown files in
 `frontend/content/knowledge/` (`NN-slug.md`, with `title` and `summary` front matter). Figures
 are written as `{{placeholders}}` that `npm run data` fills from the model's result files, so the
 text always matches the dashboards; an unknown placeholder or a broken `/knowledge` link fails
 the build.
 
-Typing in the question box searches the articles in the browser, offline. **Ask** sends only
-the question to `/api/knowledge/ask`, which picks the matching sections on the server and asks
-Groq to answer from them alone. Every answer cites its sections, and an answer without valid
-citations is rejected. Visitors' offline library files are never sent. The route needs
+`npm run data` also writes short summaries of the model's results (each region, each household
+profile, the overall risk levels and what moves the scores) as extra passages that link to the
+dashboard showing those figures, so questions such as "Which region has the highest risk?" are
+answered from the same numbers the pages show.
+
+Both AI features are retrieval-augmented generation (RAG) with Groq, sharing
+`frontend/lib/rag.ts`:
+
+- **Ask** (Knowledge centre). Typing searches the passages in the browser, offline. Ask sends
+  only the question to `/api/knowledge/ask`, which picks the six best passages on the server and
+  has Groq answer from them alone.
+- **Explain this result** (Assess page). `/api/knowledge/explain` receives the score, band, what
+  moved it, the survey area id and the profile id (never the interview answers). It writes the
+  result out on the server, adds the region and profile summaries and the sections on how scores
+  work, and has Groq explain the result in plain language.
+
+Every sentence must cite a source, and an answer without valid citations is rejected. Only
+same-origin browser requests are accepted. Visitors' offline library files are never sent. The routes need
 `GROQ_API_KEY` and `GROQ_MODEL` in the server environment (for local development, in
 `frontend/.env.local`, never with a `NEXT_PUBLIC_` prefix); without them, search still works and
 the Ask button is hidden. Questions are limited to 6 a minute per visitor and 60 a minute in
 total (`ASK_RATE_LIMIT`, `ASK_GLOBAL_RATE_LIMIT`).
 
-The page also links recent publications from official sources (titles, dates and links only)
-and offers a browser-local library for the visitor's own PDF, TXT and Markdown files, stored in
+The page also has a hand-picked reading list (`frontend/lib/further-reading.ts`), recent
+publications from official sources (titles, dates and links only), a copyable citation with
+BibTeX (kept in step with [`CITATION.cff`](CITATION.cff)), and a browser-local library for the visitor's own PDF, TXT and Markdown files, stored in
 IndexedDB and never uploaded.
 
 To refresh official-source metadata while online, run:

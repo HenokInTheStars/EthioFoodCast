@@ -7,7 +7,7 @@ The model learned from two rounds of a national household survey that visited th
 
 ## The surveys
 
-The data comes from the **Ethiopia Socioeconomic Survey 2018/19** and the **Ethiopia Socioeconomic Panel Survey 2021/22**. Both are run by the Ethiopian Statistics Service with the World Bank's Living Standards Measurement Study (LSMS). They interview households across the country about their members, farming, livestock, income, assets and food.
+The data comes from the **Ethiopia Socioeconomic Survey 2018/19** and the **Ethiopia Socioeconomic Panel Survey 2021/22**. Both are run by Ethiopia's national statistics office (the Central Statistics Agency, now the Ethiopian Statistical Service) with the World Bank's Living Standards Measurement Study (LSMS). [Data sources and how to cite](/knowledge/sources-and-citation) lists the exact datasets. They interview households across the country about their members, farming, livestock, income, assets and food.
 
 The model uses each household's answers from 2018/19 to predict whether the same household reported food insecurity in 2021/22.
 

@@ -71,7 +71,7 @@ export default function SegmentsPage() {
         // `clusters.json` spells the name with a trailing underscore; joined on id.
         const clusterRow = clusters.find((row) => row.cluster === profile.cluster);
         return (
-          <section className="card segment" key={profile.cluster}>
+          <section className="card segment" key={profile.cluster} id={`profile-${profile.cluster}`}>
             <header className="segment-head">
               <h2>{profile.name}</h2>
               <p className="small faint">
