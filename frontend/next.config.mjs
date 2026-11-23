@@ -20,6 +20,10 @@ const nextConfig = {
   // .next folder a running `npm run dev` is using. Defaults to .next.
   distDir: process.env.NEXT_DIST_DIR || ".next",
   outputFileTracingRoot: here,
+  // The evidence desk became the knowledge centre; keep old links working.
+  async redirects() {
+    return [{ source: "/copilot", destination: "/knowledge", permanent: true }];
+  },
 };
 
 export default nextConfig;

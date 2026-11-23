@@ -4,7 +4,7 @@ import { AssessForm } from "./assess-form";
 import { clientApiUrl, getAreas, getMeta, getSchema, serverApiUrl } from "@/lib/api";
 import { int } from "@/lib/format";
 
-export const metadata = { title: "Assess a household \u2014 EthioFoodCast" };
+export const metadata = { title: "Assess a household" };
 
 /**
  * The interview. Rendered per request, never prerendered: the question set and

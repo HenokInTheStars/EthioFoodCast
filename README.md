@@ -125,46 +125,27 @@ explanations, graph dashboard methods and HTTP API).
 
 No raw survey data, household IDs or coordinates are included.
 
-The Evidence page (`/copilot`) currently searches local project documentation and cites its
-source section. Official-source metadata is synced from the Ministry of Agriculture RSS feed,
-the WFP Ethiopia country publication listing, and the FAO Ethiopia news listing. The connectors
-store only titles, dates, and official URLs; the WFP and FAO reuse terms have conditions, while
-Ministry reuse rights remain unverified. The FAO Ethiopia news page may return no entries if its
-listing is empty. Source terms are linked in the UI; no official article or PDF is automatically
-cached.
+## Knowledge centre
 
-The page also has a browser-local offline library for PDF, TXT, and Markdown files. It extracts
-searchable text in the browser, stores the original file and extracted text in IndexedDB, and
-never uploads them. A user must confirm permission to store each file. Scanned PDFs need OCR
-before import. The library is capped at 300 MB; when an import needs room, it lists the oldest
-unpinned documents by publication date and asks for confirmation before removing them. Pinned
-documents are protected. The library belongs to the current browser profile and device; clearing
-browser site data can erase it. Project documentation and private uploads are never sent to Groq.
-A Groq answer endpoint and consent UI are implemented, but the endpoint remains unavailable until
-a source and passages are explicitly approved. Its sharing gate is fail-closed: a source needs both
-verified reuse rights and an explicit `external_ai_policy: "approved"` setting before a cited
-passage can be considered, and each request requires fresh user consent. The current
-MoA, WFP, and FAO sources remain blocked; metadata-only records are not passages. The gate rejects
-project documents and private uploads regardless of local search results.
-The approval helper is for trusted, server-side retrieval results only; the endpoint never trusts
-passage text or source labels supplied by the browser.
-The server-side `/api/copilot/answer` endpoint retrieves only from
-`frontend/lib/groq-approved-passages.json`; that file is empty until individually reviewed passages
-have confirmed external-AI permission and matching verified source metadata. The endpoint requires
-`GROQ_API_KEY` and `GROQ_MODEL` in the server environment, checks explicit consent on every request,
-and returns only answers containing valid passage citation markers. For local development, set
-those variables in `frontend/.env.local` (never use a `NEXT_PUBLIC_` prefix); do not commit that file.
-The answer form stays disabled while the approved corpus is empty.
-Each corpus entry must contain `sourceId`, `itemId` (an item in the synced official metadata),
-`text`, and optionally a citation `locator` such as a page number. Do not add private or project
-documents to this corpus.
-The Evidence page also provides a separate, consent-gated `/api/copilot/groq-test` diagnostic. It
-sends only a fixed generic prompt and never includes questions, documents, or evidence passages.
-It checks the API key/model connection but does not bypass source approval or enable RAG answers.
-The separate `/api/copilot/general-answer` route can answer a user question without source
-grounding when the user consents. It sends only the question (never local files or FAO article
-text), and the UI prominently labels each response unverified and uncited. This general mode does
-not weaken the approval gate for cited RAG answers.
+`/knowledge` holds plain-language articles for visitors: the data, how the score works,
+accuracy and limits, responsible use, a glossary and an FAQ. The articles are Markdown files in
+`frontend/content/knowledge/` (`NN-slug.md`, with `title` and `summary` front matter). Figures
+are written as `{{placeholders}}` that `npm run data` fills from the model's result files, so the
+text always matches the dashboards; an unknown placeholder or a broken `/knowledge` link fails
+the build.
+
+Typing in the question box searches the articles in the browser, offline. **Ask** sends only
+the question to `/api/knowledge/ask`, which picks the matching sections on the server and asks
+Groq to answer from them alone. Every answer cites its sections, and an answer without valid
+citations is rejected. Visitors' offline library files are never sent. The route needs
+`GROQ_API_KEY` and `GROQ_MODEL` in the server environment (for local development, in
+`frontend/.env.local`, never with a `NEXT_PUBLIC_` prefix); without them, search still works and
+the Ask button is hidden. Questions are limited to 6 a minute per visitor and 60 a minute in
+total (`ASK_RATE_LIMIT`, `ASK_GLOBAL_RATE_LIMIT`).
+
+The page also links recent publications from official sources (titles, dates and links only)
+and offers a browser-local library for the visitor's own PDF, TXT and Markdown files, stored in
+IndexedDB and never uploaded.
 
 To refresh official-source metadata while online, run:
 
@@ -174,6 +155,6 @@ npm --prefix frontend run data
 ```
 
 The metadata sync is currently manual; schedule it only in an environment with outbound access
-and after reviewing the configured source registry. In a production PWA, open `/copilot` online
+and after reviewing the configured source registry. In a production PWA, open `/knowledge` online
 once to cache its route and assets for offline use; the development server does not enable offline
 caching.

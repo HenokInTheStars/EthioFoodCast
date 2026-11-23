@@ -18,7 +18,7 @@ const inter = Inter({ subsets: ["latin"], variable: "--font-inter", display: "sw
 const ethiopic = Noto_Sans_Ethiopic({ subsets: ["ethiopic"], variable: "--font-ethiopic", display: "swap" });
 
 export const metadata: Metadata = {
-  title: "EthioFoodCast",
+  title: { default: "EthioFoodCast", template: "%s — EthioFoodCast" },
   description:
     "Decision support for prioritising food-security outreach in Ethiopia. Descriptive risk scores from the 14-question agricultural form; not eligibility determinations.",
   manifest: "/manifest.webmanifest",
@@ -52,7 +52,7 @@ const FOOTER_LINKS = [
     heading: "About",
     links: [
       { href: "/method", label: "How it works" },
-      { href: "/copilot", label: "Evidence desk" },
+      { href: "/knowledge", label: "Knowledge centre" },
     ],
   },
 ];

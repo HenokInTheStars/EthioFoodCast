@@ -2,7 +2,7 @@ import { BatchClient } from "./batch-client";
 import { CaveatBlock } from "@/components/caveat-block";
 import { ProvenanceChip } from "@/components/provenance-chip";
 
-export const metadata = { title: "EthioFoodCast — score a list" };
+export const metadata = { title: "Score a list" };
 
 export default function BatchPage() {
   return (

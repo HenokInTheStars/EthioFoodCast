@@ -1,4 +1,4 @@
-﻿import comparisonData from "@/data/artifacts/comparison.json";
+import comparisonData from "@/data/artifacts/comparison.json";
 import performanceData from "@/data/artifacts/performance.json";
 import intakeData from "@/data/artifacts/intake_evaluation.json";
 import { ProvenanceChip } from "@/components/provenance-chip";
@@ -20,7 +20,7 @@ import { int, num, pct } from "@/lib/format";
  *    least trustworthy page in the product.
  */
 
-export const metadata = { title: "EthioFoodCast â€” method" };
+export const metadata = { title: "How it works" };
 
 const comparison = comparisonData as {
   models: {

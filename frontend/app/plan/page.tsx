@@ -2,7 +2,7 @@ import { PlanClient } from "./plan-client";
 import { CaveatBlock } from "@/components/caveat-block";
 import { RampLegend } from "@/components/ramp-chip";
 
-export const metadata = { title: "EthioFoodCast — assessment plan" };
+export const metadata = { title: "Plan assessments" };
 
 export default function PlanPage() {
   return (

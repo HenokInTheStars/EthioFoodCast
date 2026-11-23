@@ -1,10 +1,10 @@
-const CACHE_NAME = "ethiofoodcast-shell-v5";
+const CACHE_NAME = "ethiofoodcast-shell-v6";
 const APP_ROUTES = new Set([
   "/",
   "/assess",
   "/areas",
   "/batch",
-  "/copilot",
+  "/knowledge",
   "/method",
   "/plan",
   "/segments",
@@ -72,7 +72,8 @@ async function networkFirstNavigation(request, url) {
     return (await caches.match("/offline.html")) || Response.error();
   }
 
-  if (response.ok && APP_ROUTES.has(url.pathname) && !url.search) {
+  const isAppPage = APP_ROUTES.has(url.pathname) || url.pathname.startsWith("/knowledge/");
+  if (response.ok && isAppPage && !url.search) {
     try {
       const cache = await caches.open(CACHE_NAME);
       await cache.put(request, response.clone());

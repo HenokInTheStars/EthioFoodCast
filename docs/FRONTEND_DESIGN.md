@@ -60,7 +60,7 @@ Density is a custom-property scale (`--text-base`, `--row-h`, `--gap`), not a se
 | `/segments` | Review | 5 cluster profiles as z-score bars | static |
 | `/areas` | Field/Review | searchable 427 areas + verification quality | static |
 | `/spatial` | Review | licensed admin-1 choropleth of reportable regional held-out aggregates + selected area labels | static |
-| `/copilot` | Review | offline keyword search over bundled project documents with section citations; external sources and generated answers are not connected | static |
+| `/knowledge` | — | knowledge centre: articles from `frontend/content/knowledge/`, offline search, cited AI answers via `/api/knowledge/ask`, further reading, offline library | static |
 | `/method` | Review | confusion matrix, 4-family comparison, form comparison, caveats | static + 3 PNGs |
 | `/batch` | Desk | CSV upload, ranked output, download | live predict_batch |
 
@@ -235,8 +235,8 @@ are the only thing that stops four visual dialects growing apart.
 - Draw the regional boundaries once as a non-scaling boundary overlay, not as a stroke on each fill polygon. Provide keyboard-selectable regions, hover feedback, a region selector, and selected-region-centered zoom controls.
 - Do not plot household or enumeration-area coordinates or show neighbour links. These are excluded by the project's privacy rules and model-adjacency edges are not exported.
 - Regional aggregates describe the region, not the selected area or household. Suppressed values remain unavailable, not zero.
-- `/copilot` searches local project documentation and may list official-source metadata links. Metadata listings are not retrieved evidence and must not be presented as World Bank, FEWS NET, WFP, or FAO evidence.
-- `/copilot` may store user-authorized PDF, TXT, and Markdown files in browser-local IndexedDB for offline search. Keep uploads on-device, cite PDF page numbers, show storage usage, cap the library at 300 MB, protect pinned files, and confirm before pruning older unpinned documents. Publisher material remains link-only unless its reuse terms permit the intended use.
+- `/knowledge` searches its own articles and may list official-source metadata links. Metadata listings are not retrieved evidence and must not be presented as World Bank, FEWS NET, WFP, or FAO evidence.
+- `/knowledge` may store user-authorized PDF, TXT, and Markdown files in browser-local IndexedDB for offline search. Keep uploads on-device, cite PDF page numbers, show storage usage, cap the library at 300 MB, protect pinned files, and confirm before pruning older unpinned documents. Publisher material remains link-only unless its reuse terms permit the intended use.
 - Do not enable LLM answers until approved, versioned source documents, citation-preserving retrieval, and an explicitly configured model/deployment are in place. Every generated factual claim must link to the retrieved passage.
 
 ## Open decisions

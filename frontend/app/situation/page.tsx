@@ -17,7 +17,7 @@ import { int, num, pct } from "@/lib/format";
  * its real position.
  */
 
-export const metadata = { title: "EthioFoodCast — situation" };
+export const metadata = { title: "Risk overview" };
 
 const distribution = distributionData as {
   n_households: number;

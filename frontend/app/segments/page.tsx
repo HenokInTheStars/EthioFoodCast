@@ -18,7 +18,7 @@ import { int, num, pct } from "@/lib/format";
  * name for a reader who wants it.
  */
 
-export const metadata = { title: "EthioFoodCast — profiles" };
+export const metadata = { title: "Household profiles" };
 
 const profiles = profilesData as {
   cluster: number;

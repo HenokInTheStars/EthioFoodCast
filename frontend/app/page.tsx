@@ -11,7 +11,7 @@ import { int, pct } from "@/lib/format";
  * Everything is read from the build data, so it renders with no API running.
  */
 
-export const metadata = { title: "EthioFoodCast — household food-security forecasting" };
+export const metadata = { title: { absolute: "EthioFoodCast — household food-security forecasting" } };
 
 const STEPS = [
   {

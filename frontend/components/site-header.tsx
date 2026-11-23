@@ -40,7 +40,7 @@ export const NAV: NavEntry[] = [
     label: "About",
     children: [
       { href: "/method", label: "How it works", description: "The model, its accuracy and its limits" },
-      { href: "/copilot", label: "Evidence desk", description: "Search the documentation, ask questions" },
+      { href: "/knowledge", label: "Knowledge centre", description: "Articles, questions and answers, further reading" },
     ],
   },
 ];

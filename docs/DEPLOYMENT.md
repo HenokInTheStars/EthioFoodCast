@@ -8,7 +8,7 @@ Two pieces, two free hosts:
 | Website (`frontend/`, Next.js) | Vercel | Built for Next.js; static pages load instantly worldwide |
 
 The website calls the API from the visitor's browser (scoring) and from its own
-server (the interview questions and the AI assistant). Groq is called only from
+server (the interview questions and the knowledge centre's answers). Groq is called only from
 the website's server, so it works for every visitor wherever they are.
 
 Deploy the API first: the website needs its address.
@@ -56,6 +56,7 @@ two while it starts.
    | `NEXT_PUBLIC_API_URL` | `https://<your-username>-ethiofoodcast-api.hf.space` |
    | `GROQ_API_KEY` | your Groq key (never prefix it with `NEXT_PUBLIC_`) |
    | `GROQ_MODEL` | the Groq model name you use locally |
+| `ASK_RATE_LIMIT` | optional: questions per minute per visitor (default 6) |
 
 5. **Deploy.** Every push to `main` redeploys automatically.
 6. Copy the website address and set it as `ALLOWED_ORIGINS` on the Space
@@ -65,7 +66,7 @@ two while it starts.
 
 - The overview, Plan and Insights pages load without the API.
 - **Assess → One household**: complete an interview and score it.
-- **About → Evidence desk → Ask AI**: run the connection test under Diagnostics.
+- **About → Knowledge centre**: ask one of the example questions; the answer should cite its sources.
 
 ## API settings
 
