@@ -1,0 +1,60 @@
+# Vulnerability -> support category mapping.
+#
+# DETERMINISTIC AND VERSIONED, NOT LEARNED. These are assessment prompts a
+# domain expert can revise without touching Python, and they must never be
+# presented as model inferences. The model ranks risk; this table suggests what
+# a human should go and look at.
+#
+# About 40% of the model's sensitivity comes from the survey area's
+# neighbourhood, the rest from the household's own land, crops, livestock and
+# livelihood answers. A rule firing on irrigation or livestock is a prompt to
+# check a plausible mechanism -- not evidence that the mechanism caused the risk.
+
+version: 1
+updated: 2026-09-25
+
+rules:
+  - id: crop_loss
+    when: {feature: crop_any_damage, operator: ">=", value: 1}
+    category: Food assistance and agricultural inputs
+    prompt: Crop damage reported in the last season; verify harvest shortfall and current stocks.
+
+  - id: no_irrigation
+    when: {feature: land_any_irrigated, operator: "==", value: 0}
+    category: Irrigation or water-access assessment
+    prompt: No irrigated field recorded; assess rainfall dependence and water access.
+
+  - id: livestock_poor
+    when: {feature: livestock_tlu, operator: "<", value: 1.0}
+    category: Livestock support assessment
+    prompt: Very low animal holdings; assess whether livestock were lost or never held.
+
+  - id: market_distance
+    when: {feature: geo_dist_market, operator: ">", value: 30}
+    category: Market-access or transport support
+    prompt: Long distance to market; assess ability to sell surplus and buy food.
+
+  - id: credit_refused
+    when: {feature: econ_credit_refused, operator: ">=", value: 1}
+    category: Financial-inclusion referral
+    prompt: Household tried to borrow and was refused; assess credit constraint.
+
+  - id: repeated_food_insecurity
+    when: {feature: prior_fi_any, operator: ">=", value: 1}
+    category: Safety-net eligibility review
+    prompt: Food insecurity already reported in the earlier survey; review safety-net status.
+
+  - id: high_dependency
+    when: {feature: dependency_ratio, operator: ">", value: 2.0}
+    category: Household social-support assessment
+    prompt: Many dependants per working-age adult; assess labour capacity and support needs.
+
+  - id: narrow_diet
+    when: {feature: diet_n_groups, operator: "<", value: 4}
+    category: Nutrition assessment
+    prompt: Few food groups consumed in the reference week; assess dietary adequacy.
+
+  - id: low_consumption
+    when: {feature: cons_quintile, operator: "<=", value: 2}
+    category: Poverty-targeted support review
+    prompt: Bottom two consumption quintiles; review eligibility for poverty programmes.

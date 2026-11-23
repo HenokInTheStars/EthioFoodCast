@@ -1,0 +1,47 @@
+# Build-context hygiene for both images. Everything listed here is regenerated,
+# machine-local, or must never reach an image.
+
+# Version control and tooling caches
+.git/
+.gitignore
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Machine-local interpreter: a Windows .venv copied into a Linux image is
+# ~200 MB of unusable binaries and the usual cause of "works on my machine".
+.venv/
+venv/
+env/
+
+# Raw survey data. Never ships, by design: the handover excludes raw survey
+# rows, household ids and coordinates (README, final line). config/paths.py
+# would put Stage 0 input here.
+data/
+
+# The Next.js workspace builds in its own image from this same directory, so its
+# sources have to stay in context. Its machine-local install, build output and
+# generated data do not: frontend/data is rebuilt from backend/artifacts by the
+# frontend build, and frontend/node_modules is the wrong platform and by far the
+# biggest thing here. The frontend image copies only its app, approved data,
+# and documentation.
+frontend/node_modules/
+frontend/.next/
+frontend/data/
+frontend/.env.local
+frontend/next-env.d.ts
+frontend/*.tsbuildinfo
+
+# Logs, editors, OS droppings
+*.log
+.streamlit/
+.ipynb_checkpoints/
+.DS_Store
+Thumbs.db
+
+# Docker's own files. Not excluded: frontend/Dockerfile has to stay in the context it
+# builds from, and whether a bare `Dockerfile` pattern would also match
+# frontend/Dockerfile is a matcher detail worth two kilobytes to not depend on.

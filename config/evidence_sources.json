@@ -1,0 +1,44 @@
+[
+  {
+    "id": "moa-ethiopia",
+    "name": "FDRE Ministry of Agriculture",
+    "type": "rss",
+    "content_type": "Update",
+    "publisher_url": "https://www.moa.gov.et/",
+    "feed_url": "https://www.moa.gov.et/feed/",
+    "allowed_host": "www.moa.gov.et",
+    "rights_status": "unverified",
+    "external_ai_policy": "blocked",
+    "offline_content_policy": "metadata_only"
+  },
+  {
+    "id": "wfp-ethiopia",
+    "name": "World Food Programme - Ethiopia publications",
+    "type": "html_listing",
+    "content_type": "Publication",
+    "publisher_url": "https://www.wfp.org/countries/ethiopia",
+    "listing_url": "https://www.wfp.org/countries/ethiopia",
+    "item_path_prefix": "/publications/",
+    "allowed_host": "www.wfp.org",
+    "reuse_terms_url": "https://cdn.wfp.org/legal/terms",
+    "rights_status": "conditional",
+    "rights_notes": "WFP allows personal, non-commercial copies with attribution, but forbids redistribution and compiling or creating derivative works. Automated offline indexing remains disabled.",
+    "external_ai_policy": "blocked",
+    "offline_content_policy": "metadata_only"
+  },
+  {
+    "id": "fao-ethiopia-news",
+    "name": "FAO Ethiopia news",
+    "type": "html_listing",
+    "content_type": "News",
+    "publisher_url": "https://www.fao.org/ethiopia/news/en/",
+    "listing_url": "https://www.fao.org/ethiopia/news/en/",
+    "item_path_prefix": "/ethiopia/news/",
+    "allowed_host": "www.fao.org",
+    "reuse_terms_url": "https://www.fao.org/contact-us/terms/en",
+    "rights_status": "conditional",
+    "rights_notes": "FAO website content may be reused for non-commercial research with attribution; repository publications have separate item-specific terms. No article records are currently listed.",
+    "external_ai_policy": "blocked",
+    "offline_content_policy": "metadata_only"
+  }
+]

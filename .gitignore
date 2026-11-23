@@ -1,0 +1,36 @@
+# Python: interpreter, caches and build output
+.venv/
+venv/
+env/
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Raw survey data never enters the repository (see README: no raw survey rows,
+# household ids or coordinates). config/paths.py puts Stage 0 input in backend/data.
+# Anchored on purpose: backend/src/ethiofoodcast/data/ is source code.
+/data/
+/backend/data/
+
+# Node (frontend/.gitignore covers the frontend's own generated files)
+node_modules/
+
+# Secrets: keep keys in .env files that are never committed
+.env
+.env.*
+!.env.example
+
+# Logs, editor and OS files
+*.log
+.ipynb_checkpoints/
+.streamlit/secrets.toml
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Stray output from failed shell runs
+frontend/.sa.*

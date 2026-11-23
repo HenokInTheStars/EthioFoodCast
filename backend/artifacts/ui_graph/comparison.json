@@ -1,0 +1,82 @@
+{
+ "models": [
+  {
+   "key": "gcn_plus_ensemble",
+   "label": "GCN ensemble",
+   "family": "Neural network (graph)",
+   "seed_accuracy": [
+    0.7789,
+    0.7702,
+    0.7561,
+    0.7835,
+    0.7634
+   ],
+   "accuracy_mean": 0.7704,
+   "roc_auc_mean": 0.8499,
+   "pr_auc_mean": 0.8836,
+   "recall_mean": 0.819,
+   "precision_mean": 0.7965,
+   "f1_mean": 0.8068,
+   "accuracy_sd": 0.0112
+  },
+  {
+   "key": "extra_trees_graph",
+   "label": "ExtraTrees + neighbours",
+   "family": "Ensemble \u2013 bagging",
+   "seed_accuracy": [
+    0.7665,
+    0.7578,
+    0.7724,
+    0.7608,
+    0.7716
+   ],
+   "accuracy_mean": 0.7658,
+   "roc_auc_mean": 0.8272,
+   "pr_auc_mean": 0.8663,
+   "recall_mean": 0.8305,
+   "precision_mean": 0.7849,
+   "f1_mean": 0.8063,
+   "accuracy_sd": 0.0065
+  },
+  {
+   "key": "lightgbm",
+   "label": "LightGBM + neighbours",
+   "family": "Ensemble \u2013 boosting",
+   "seed_accuracy": [
+    0.7562,
+    0.7371,
+    0.7541,
+    0.7526,
+    0.7387
+   ],
+   "accuracy_mean": 0.7477,
+   "roc_auc_mean": 0.8259,
+   "pr_auc_mean": 0.8616,
+   "recall_mean": 0.7972,
+   "precision_mean": 0.7795,
+   "f1_mean": 0.7869,
+   "accuracy_sd": 0.0091
+  },
+  {
+   "key": "logistic_regression",
+   "label": "Logistic regression + neighbours",
+   "family": "Traditional baseline",
+   "seed_accuracy": [
+    0.6798,
+    0.6853,
+    0.685,
+    0.6763,
+    0.6667
+   ],
+   "accuracy_mean": 0.6786,
+   "roc_auc_mean": 0.7341,
+   "pr_auc_mean": 0.7943,
+   "recall_mean": 0.7302,
+   "precision_mean": 0.7258,
+   "f1_mean": 0.7261,
+   "accuracy_sd": 0.0077
+  }
+ ],
+ "target_accuracy": 0.75,
+ "protocol": "Five systematic within-area 75/25 splits (every 4th household per survey area). All models see own features plus inductive neighbourhood means (training households only); settings and thresholds chosen on validation; agricultural test households scored once."
+}

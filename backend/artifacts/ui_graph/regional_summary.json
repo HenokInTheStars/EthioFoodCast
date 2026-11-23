@@ -1,0 +1,125 @@
+[
+ {
+  "region_code": 1,
+  "region": "Tigray",
+  "n": 0,
+  "suppressed": true,
+  "note": "Not surveyed in Wave 5 (conflict); no forecasts or outcomes."
+ },
+ {
+  "region_code": 2,
+  "region": "Afar",
+  "n": 27,
+  "suppressed": false,
+  "mean_risk": 0.3743,
+  "observed_rate": 0.3704,
+  "flagged_share": 0.3333,
+  "high_share": 0.2222,
+  "n_agricultural": 27,
+  "agricultural_accuracy": 0.8148,
+  "top_cluster": "Livestock-holding / Market-isolated",
+  "n_areas": 10
+ },
+ {
+  "region_code": 3,
+  "region": "Amhara",
+  "n": 98,
+  "suppressed": false,
+  "mean_risk": 0.4888,
+  "observed_rate": 0.5408,
+  "flagged_share": 0.4694,
+  "high_share": 0.3367,
+  "n_agricultural": 98,
+  "agricultural_accuracy": 0.8061,
+  "top_cluster": "Typical smallholder",
+  "n_areas": 36
+ },
+ {
+  "region_code": 4,
+  "region": "Oromia",
+  "n": 92,
+  "suppressed": false,
+  "mean_risk": 0.676,
+  "observed_rate": 0.6848,
+  "flagged_share": 0.6957,
+  "high_share": 0.5652,
+  "n_agricultural": 92,
+  "agricultural_accuracy": 0.7717,
+  "top_cluster": "Typical smallholder",
+  "n_areas": 36
+ },
+ {
+  "region_code": 5,
+  "region": "Somali",
+  "n": 13,
+  "suppressed": true
+ },
+ {
+  "region_code": 6,
+  "region": "Benishangul-Gumuz",
+  "n": 23,
+  "suppressed": true
+ },
+ {
+  "region_code": 7,
+  "region": "SNNP",
+  "n": 102,
+  "suppressed": false,
+  "mean_risk": 0.7665,
+  "observed_rate": 0.7843,
+  "flagged_share": 0.8137,
+  "high_share": 0.7157,
+  "n_agricultural": 102,
+  "agricultural_accuracy": 0.8333,
+  "top_cluster": "Typical smallholder",
+  "n_areas": 40
+ },
+ {
+  "region_code": 12,
+  "region": "Gambela",
+  "n": 46,
+  "suppressed": false,
+  "mean_risk": 0.4743,
+  "observed_rate": 0.5435,
+  "flagged_share": 0.413,
+  "high_share": 0.2391,
+  "n_agricultural": 46,
+  "agricultural_accuracy": 0.6957,
+  "top_cluster": "Typical smallholder",
+  "n_areas": 19
+ },
+ {
+  "region_code": 13,
+  "region": "Harari",
+  "n": 46,
+  "suppressed": false,
+  "mean_risk": 0.3407,
+  "observed_rate": 0.2826,
+  "flagged_share": 0.1957,
+  "high_share": 0.087,
+  "n_agricultural": 46,
+  "agricultural_accuracy": 0.8261,
+  "top_cluster": "Typical smallholder",
+  "n_areas": 18
+ },
+ {
+  "region_code": 14,
+  "region": "Addis Ababa",
+  "n": 0,
+  "suppressed": true
+ },
+ {
+  "region_code": 15,
+  "region": "Dire Dawa",
+  "n": 37,
+  "suppressed": false,
+  "mean_risk": 0.628,
+  "observed_rate": 0.7027,
+  "flagged_share": 0.6486,
+  "high_share": 0.5946,
+  "n_agricultural": 37,
+  "agricultural_accuracy": 0.8378,
+  "top_cluster": "Typical smallholder",
+  "n_areas": 14
+ }
+]

@@ -1,0 +1,3431 @@
+{
+ "summary": {
+  "areas": 427,
+  "with_coordinates": 410,
+  "zone_matches_survey_zone_code": 0.9,
+  "woreda_matches_survey_woreda_code": 0.834,
+  "zone_verified_share": 0.857,
+  "woreda_verified_share": 0.225,
+  "areas_without_zone_name": 3,
+  "rule": "survey code group majority name; region must agree; verified if >=2 areas and >=75% agree",
+  "source": "OCHA admin boundaries (current); LSMS displaced EA coordinates (up to 5 km)"
+ },
+ "areas": {
+  "A69f928e940af": {
+   "region_name": "Afar",
+   "zone": "Awsi /Zone 1",
+   "woreda": "Dubti town",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Dubti town woreda (approx.) – survey area 1"
+  },
+  "A0e1eaf086060": {
+   "region_name": "Afar",
+   "zone": "Awsi /Zone 1",
+   "woreda": "Dubti town",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Dubti town woreda (approx.) – survey area 2"
+  },
+  "Ac71196d52885": {
+   "region_name": "Afar",
+   "zone": "Awsi /Zone 1",
+   "woreda": null,
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Woreda not identified"
+  },
+  "Ac1bafc0ed39d": {
+   "region_name": "Afar",
+   "zone": "Awsi /Zone 1",
+   "woreda": "Asayita",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Asayita woreda (approx.) – survey area 1"
+  },
+  "Ad8d5bc4c7394": {
+   "region_name": "Afar",
+   "zone": "Awsi /Zone 1",
+   "woreda": "Asayita",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Asayita woreda (approx.) – survey area 2"
+  },
+  "A9aa12eb76eb9": {
+   "region_name": "Afar",
+   "zone": "Awsi /Zone 1",
+   "woreda": "Asayita",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Asayita woreda (approx.) – survey area 3"
+  },
+  "A3a0373160f91": {
+   "region_name": "Afar",
+   "zone": "Awsi /Zone 1",
+   "woreda": "Chifra town",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Chifra town woreda (approx.) – survey area 1"
+  },
+  "Afc3db7d2747c": {
+   "region_name": "Afar",
+   "zone": "Awsi /Zone 1",
+   "woreda": "Chifra town",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Chifra town woreda (approx.) – survey area 2"
+  },
+  "A1dcf524f3c65": {
+   "region_name": "Afar",
+   "zone": "Awsi /Zone 1",
+   "woreda": "Adar",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Adar woreda (approx.)"
+  },
+  "Aa2ae645d62c3": {
+   "region_name": "Afar",
+   "zone": "Gabi /Zone 3",
+   "woreda": "Werer",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Werer woreda (approx.) – survey area 1"
+  },
+  "A5ed1e5c78bd6": {
+   "region_name": "Afar",
+   "zone": "Gabi /Zone 3",
+   "woreda": "Werer",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Werer woreda (approx.) – survey area 2"
+  },
+  "Ace41db142b5b": {
+   "region_name": "Afar",
+   "zone": "Gabi /Zone 3",
+   "woreda": "Awash Fantale",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Awash Fantale woreda (approx.)"
+  },
+  "Af3bae10bc9cb": {
+   "region_name": "Afar",
+   "zone": "Gabi /Zone 3",
+   "woreda": "Gewane",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Gewane woreda (approx.) – survey area 1"
+  },
+  "A760d28253a4d": {
+   "region_name": "Afar",
+   "zone": "Gabi /Zone 3",
+   "woreda": "Gewane",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Gewane woreda (approx.) – survey area 2"
+  },
+  "Ad0b8a9b49319": {
+   "region_name": "Afar",
+   "zone": "Gabi /Zone 3",
+   "woreda": "Dulecha",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Dulecha woreda (approx.)"
+  },
+  "A39fee8097c87": {
+   "region_name": "Afar",
+   "zone": "Gabi /Zone 3",
+   "woreda": "Awash town",
+   "zone_verified": true,
+   "woreda_verified": true,
+   "label": "Awash town woreda – survey area 1"
+  },
+  "A911f277f11f4": {
+   "region_name": "Afar",
+   "zone": "Gabi /Zone 3",
+   "woreda": "Awash town",
+   "zone_verified": true,
+   "woreda_verified": true,
+   "label": "Awash town woreda – survey area 2"
+  },
+  "A80e4baf0a687": {
+   "region_name": "Afar",
+   "zone": "Gabi /Zone 3",
+   "woreda": "Arguba",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Arguba woreda (approx.)"
+  },
+  "Ab04fe0fbcda4": {
+   "region_name": "Afar",
+   "zone": "Hari /Zone 5",
+   "woreda": "Dawe",
+   "zone_verified": false,
+   "woreda_verified": false,
+   "label": "Dawe woreda (approx.)"
+  },
+  "A5a02b06f5d8c": {
+   "region_name": "Afar",
+   "zone": "Awsi /Zone 1",
+   "woreda": "Samera Logiya town",
+   "zone_verified": true,
+   "woreda_verified": true,
+   "label": "Samera Logiya town woreda – survey area 1"
+  },
+  "A1dea654d7b0b": {
+   "region_name": "Afar",
+   "zone": "Awsi /Zone 1",
+   "woreda": "Samera Logiya town",
+   "zone_verified": true,
+   "woreda_verified": true,
+   "label": "Samera Logiya town woreda – survey area 2"
+  },
+  "A62cecab92b4f": {
+   "region_name": "Amhara",
+   "zone": "North Gondar",
+   "woreda": "Janamora",
+   "zone_verified": false,
+   "woreda_verified": false,
+   "label": "Janamora woreda (approx.)"
+  },
+  "A0a4d029c5fbc": {
+   "region_name": "Amhara",
+   "zone": "South Gondar",
+   "woreda": "Libokemekem",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Libokemekem woreda (approx.)"
+  },
+  "Ae034b801bfb6": {
+   "region_name": "Amhara",
+   "zone": "South Gondar",
+   "woreda": "Tach Gayint",
+   "zone_verified": true,
+   "woreda_verified": true,
+   "label": "Tach Gayint woreda – survey area 1"
+  },
+  "A251cd2f98ada": {
+   "region_name": "Amhara",
+   "zone": "South Gondar",
+   "woreda": "Tach Gayint",
+   "zone_verified": true,
+   "woreda_verified": true,
+   "label": "Tach Gayint woreda – survey area 2"
+  },
+  "Afdbb1702c52e": {
+   "region_name": "Amhara",
+   "zone": "South Gondar",
+   "woreda": "Dera (AM)",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Dera (AM) woreda (approx.)"
+  },
+  "A6a06c18529e2": {
+   "region_name": "Amhara",
+   "zone": "South Gondar",
+   "woreda": "Andabet /West Esite",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Andabet /West Esite woreda (approx.)"
+  },
+  "Ab0a6fcb2ce65": {
+   "region_name": "Amhara",
+   "zone": "North Wello",
+   "woreda": "Woldiya town",
+   "zone_verified": false,
+   "woreda_verified": false,
+   "label": "Woldiya town woreda (approx.)"
+  },
+  "A86efb8fa8432": {
+   "region_name": "Amhara",
+   "zone": "South Wello",
+   "woreda": "Mekdela",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Mekdela woreda (approx.)"
+  },
+  "A0e9beaeb5bf6": {
+   "region_name": "Amhara",
+   "zone": "South Wello",
+   "woreda": "Ambasel",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Ambasel woreda (approx.)"
+  },
+  "A1bcb5b1f5008": {
+   "region_name": "Amhara",
+   "zone": "South Wello",
+   "woreda": "Dessie Zuria",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Dessie Zuria woreda (approx.) – survey area 1"
+  },
+  "A790116b42e1f": {
+   "region_name": "Amhara",
+   "zone": "South Wello",
+   "woreda": "Dessie Zuria",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Dessie Zuria woreda (approx.) – survey area 2"
+  },
+  "A68c63796c153": {
+   "region_name": "Amhara",
+   "zone": "South Wello",
+   "woreda": "Borena /Debresina",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Borena /Debresina woreda (approx.) – survey area 1"
+  },
+  "A7263993b2cc8": {
+   "region_name": "Amhara",
+   "zone": "South Wello",
+   "woreda": "Wegde",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Wegde woreda (approx.)"
+  },
+  "Ab37a0328c633": {
+   "region_name": "Amhara",
+   "zone": "South Wello",
+   "woreda": "Borena /Debresina",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Borena /Debresina woreda (approx.) – survey area 2"
+  },
+  "A92bb0c13233b": {
+   "region_name": "Amhara",
+   "zone": "North Shewa (AM)",
+   "woreda": "Menze Gera Midir",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Menze Gera Midir woreda (approx.) – survey area 1"
+  },
+  "A56c644a4fd55": {
+   "region_name": "Amhara",
+   "zone": "North Shewa (AM)",
+   "woreda": "Menze Mama Midir",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Menze Mama Midir woreda (approx.)"
+  },
+  "A54823baa7eb4": {
+   "region_name": "Amhara",
+   "zone": "North Shewa (AM)",
+   "woreda": "Debre Berhan town",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Debre Berhan town woreda (approx.)"
+  },
+  "Ac503d3ae64ed": {
+   "region_name": "Amhara",
+   "zone": "North Shewa (AM)",
+   "woreda": "Menze Gera Midir",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Menze Gera Midir woreda (approx.) – survey area 2"
+  },
+  "A49837c79ed75": {
+   "region_name": "Amhara",
+   "zone": "East Gojam",
+   "woreda": "Bibugn",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Bibugn woreda (approx.)"
+  },
+  "Ae3331edb6a88": {
+   "region_name": "Amhara",
+   "zone": "East Gojam",
+   "woreda": "Enemay",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Enemay woreda (approx.)"
+  },
+  "Affad3290b78f": {
+   "region_name": "Amhara",
+   "zone": "East Gojam",
+   "woreda": "Guzamn",
+   "zone_verified": true,
+   "woreda_verified": true,
+   "label": "Guzamn woreda – survey area 1"
+  },
+  "Ae54939592075": {
+   "region_name": "Amhara",
+   "zone": "East Gojam",
+   "woreda": "Guzamn",
+   "zone_verified": true,
+   "woreda_verified": true,
+   "label": "Guzamn woreda – survey area 2"
+  },
+  "Abb8dc1680141": {
+   "region_name": "Amhara",
+   "zone": "East Gojam",
+   "woreda": "Shebel Bernta",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Shebel Bernta woreda (approx.)"
+  },
+  "Abbd77585a0b7": {
+   "region_name": "Amhara",
+   "zone": "East Gojam",
+   "woreda": "Senan",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Senan woreda (approx.)"
+  },
+  "A59c1155c6676": {
+   "region_name": "Amhara",
+   "zone": "West Gojam",
+   "woreda": "Bahir Dar Zuria",
+   "zone_verified": false,
+   "woreda_verified": false,
+   "label": "Bahir Dar Zuria woreda (approx.)"
+  },
+  "A897644761134": {
+   "region_name": "Amhara",
+   "zone": "West Gojam",
+   "woreda": "Yilmana Densa",
+   "zone_verified": false,
+   "woreda_verified": false,
+   "label": "Yilmana Densa woreda (approx.)"
+  },
+  "A7c594d335d90": {
+   "region_name": "Amhara",
+   "zone": "West Gojam",
+   "woreda": "Quarit",
+   "zone_verified": false,
+   "woreda_verified": false,
+   "label": "Quarit woreda (approx.)"
+  },
+  "Ac5ef8b7afbe8": {
+   "region_name": "Amhara",
+   "zone": "West Gojam",
+   "woreda": "Dega Damot",
+   "zone_verified": false,
+   "woreda_verified": false,
+   "label": "Dega Damot woreda (approx.)"
+  },
+  "A10c9c193f6bd": {
+   "region_name": "Amhara",
+   "zone": "West Gojam",
+   "woreda": null,
+   "zone_verified": false,
+   "woreda_verified": false,
+   "label": "Woreda not identified"
+  },
+  "A7b17679baac3": {
+   "region_name": "Amhara",
+   "zone": "West Gojam",
+   "woreda": "Finote Selam town",
+   "zone_verified": false,
+   "woreda_verified": false,
+   "label": "Finote Selam town woreda (approx.)"
+  },
+  "A2441ef472759": {
+   "region_name": "Amhara",
+   "zone": "Wag Hamra",
+   "woreda": "Dehana",
+   "zone_verified": false,
+   "woreda_verified": false,
+   "label": "Dehana woreda (approx.)"
+  },
+  "A2ad52b8bbc0c": {
+   "region_name": "Amhara",
+   "zone": "Awi",
+   "woreda": "Banja",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Banja woreda (approx.)"
+  },
+  "A123ba4043278": {
+   "region_name": "Amhara",
+   "zone": "Awi",
+   "woreda": "Jawi",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Jawi woreda (approx.)"
+  },
+  "A2d408bd964b9": {
+   "region_name": "Amhara",
+   "zone": "Awi",
+   "woreda": "Guangua",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Guangua woreda (approx.)"
+  },
+  "A2a7f17637226": {
+   "region_name": "Amhara",
+   "zone": "Oromo Nationality Administration",
+   "woreda": "Bati",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Bati woreda (approx.) – survey area 1"
+  },
+  "A5c5fc2f2e1eb": {
+   "region_name": "Amhara",
+   "zone": "Oromo Nationality Administration",
+   "woreda": "Artuma Fursi",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Artuma Fursi woreda (approx.)"
+  },
+  "A12c157ef1f07": {
+   "region_name": "Amhara",
+   "zone": "Oromo Nationality Administration",
+   "woreda": "Bati",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Bati woreda (approx.) – survey area 2"
+  },
+  "Ad3bca2c12683": {
+   "region_name": "Amhara",
+   "zone": "Bahir Dar town Admin",
+   "woreda": "Bahir Dar town",
+   "zone_verified": false,
+   "woreda_verified": false,
+   "label": "Bahir Dar town woreda (approx.) – survey area 1"
+  },
+  "A462fe1b13cfe": {
+   "region_name": "Amhara",
+   "zone": "Bahir Dar town Admin",
+   "woreda": "Bahir Dar town",
+   "zone_verified": false,
+   "woreda_verified": false,
+   "label": "Bahir Dar town woreda (approx.) – survey area 2"
+  },
+  "A928513cefc41": {
+   "region_name": "Amhara",
+   "zone": "Bahir Dar town Admin",
+   "woreda": "Bahir Dar town",
+   "zone_verified": false,
+   "woreda_verified": false,
+   "label": "Bahir Dar town woreda (approx.) – survey area 3"
+  },
+  "A9397d0d677b1": {
+   "region_name": "Amhara",
+   "zone": "South Wello",
+   "woreda": "Kalu",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Kalu woreda (approx.) – survey area 1"
+  },
+  "A1b6047e09188": {
+   "region_name": "Amhara",
+   "zone": "South Wello",
+   "woreda": "Kalu",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Kalu woreda (approx.) – survey area 2"
+  },
+  "Aa225269da54c": {
+   "region_name": "Amhara",
+   "zone": "South Wello",
+   "woreda": "Dessie town",
+   "zone_verified": true,
+   "woreda_verified": true,
+   "label": "Dessie town woreda – survey area 1"
+  },
+  "A21c7f49936a5": {
+   "region_name": "Amhara",
+   "zone": "South Wello",
+   "woreda": "Dessie town",
+   "zone_verified": true,
+   "woreda_verified": true,
+   "label": "Dessie town woreda – survey area 2"
+  },
+  "A96b45e92a2f2": {
+   "region_name": "Amhara",
+   "zone": "South Wello",
+   "woreda": "Dessie town",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Dessie town woreda (approx.) – survey area 3"
+  },
+  "Adc3a9e5819a6": {
+   "region_name": "Amhara",
+   "zone": "Central Gondar",
+   "woreda": "Gondar town",
+   "zone_verified": true,
+   "woreda_verified": true,
+   "label": "Gondar town woreda – survey area 1"
+  },
+  "Ac3111526fff5": {
+   "region_name": "Amhara",
+   "zone": "Central Gondar",
+   "woreda": "Gondar town",
+   "zone_verified": true,
+   "woreda_verified": true,
+   "label": "Gondar town woreda – survey area 2"
+  },
+  "A102774c318f8": {
+   "region_name": "Amhara",
+   "zone": "Central Gondar",
+   "woreda": "Gondar town",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Gondar town woreda (approx.) – survey area 3"
+  },
+  "Af11004f4d4e3": {
+   "region_name": "Amhara",
+   "zone": "Central Gondar",
+   "woreda": "Wegera",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Wegera woreda (approx.)"
+  },
+  "A55be3065d7c7": {
+   "region_name": "Amhara",
+   "zone": "Central Gondar",
+   "woreda": "West Belesa",
+   "zone_verified": true,
+   "woreda_verified": true,
+   "label": "West Belesa woreda – survey area 1"
+  },
+  "A4cdae5c2db4b": {
+   "region_name": "Amhara",
+   "zone": "Central Gondar",
+   "woreda": "West Belesa",
+   "zone_verified": true,
+   "woreda_verified": true,
+   "label": "West Belesa woreda – survey area 2"
+  },
+  "Ad419facc0e63": {
+   "region_name": "Amhara",
+   "zone": "Central Gondar",
+   "woreda": "West Dembiya",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "West Dembiya woreda (approx.)"
+  },
+  "A5498f9efac63": {
+   "region_name": "Amhara",
+   "zone": "West Gondar",
+   "woreda": "Quara",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Quara woreda (approx.)"
+  },
+  "A654990ed048c": {
+   "region_name": "Amhara",
+   "zone": "West Gondar",
+   "woreda": "Metema",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Metema woreda (approx.)"
+  },
+  "A16221bc6896f": {
+   "region_name": "Amhara",
+   "zone": "West Gondar",
+   "woreda": "Midre Genet",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Midre Genet woreda (approx.)"
+  },
+  "Aba66d07ab241": {
+   "region_name": "Oromia",
+   "zone": "East Wellega",
+   "woreda": "Leka Dulecha",
+   "zone_verified": false,
+   "woreda_verified": false,
+   "label": "Leka Dulecha woreda (approx.)"
+  },
+  "A37f1d20d1a83": {
+   "region_name": "Oromia",
+   "zone": "Ilu Aba Bora",
+   "woreda": "Alge Sachi",
+   "zone_verified": true,
+   "woreda_verified": true,
+   "label": "Alge Sachi woreda – survey area 1"
+  },
+  "Acf962ccc680f": {
+   "region_name": "Oromia",
+   "zone": "Ilu Aba Bora",
+   "woreda": "Alge Sachi",
+   "zone_verified": true,
+   "woreda_verified": true,
+   "label": "Alge Sachi woreda – survey area 2"
+  },
+  "A668c3cc43d1c": {
+   "region_name": "Oromia",
+   "zone": "Ilu Aba Bora",
+   "woreda": "Hurumu",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Hurumu woreda (approx.)"
+  },
+  "A99cb4b543bf1": {
+   "region_name": "Oromia",
+   "zone": "Jimma",
+   "woreda": "Sekoru",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Sekoru woreda (approx.)"
+  },
+  "Afcd81649e8e4": {
+   "region_name": "Oromia",
+   "zone": "Jimma",
+   "woreda": "Dedo",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Dedo woreda (approx.)"
+  },
+  "A00c5f02a7ca5": {
+   "region_name": "Oromia",
+   "zone": "Jimma",
+   "woreda": "Gumay",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Gumay woreda (approx.)"
+  },
+  "A5f5e3ebcaf83": {
+   "region_name": "Oromia",
+   "zone": "Jimma",
+   "woreda": "Agaro town",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Agaro town woreda (approx.)"
+  },
+  "A442ee766f698": {
+   "region_name": "Oromia",
+   "zone": "West Shewa",
+   "woreda": "Jeldu",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Jeldu woreda (approx.)"
+  },
+  "A5f51b78a3f07": {
+   "region_name": "Oromia",
+   "zone": "West Shewa",
+   "woreda": "Ejere /Addis Alem",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Ejere /Addis Alem woreda (approx.)"
+  },
+  "A2103cbd177af": {
+   "region_name": "Oromia",
+   "zone": "West Shewa",
+   "woreda": "Meta Walkite",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Meta Walkite woreda (approx.)"
+  },
+  "A952e872f0e8a": {
+   "region_name": "Oromia",
+   "zone": "North Shewa (OR)",
+   "woreda": "Gerar Jarso",
+   "zone_verified": false,
+   "woreda_verified": false,
+   "label": "Gerar Jarso woreda (approx.)"
+  },
+  "A85b463e339b9": {
+   "region_name": "Oromia",
+   "zone": "East Shewa",
+   "woreda": "Fentale",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Fentale woreda (approx.)"
+  },
+  "Af460c30a4ebd": {
+   "region_name": "Oromia",
+   "zone": "East Shewa",
+   "woreda": "Boset",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Boset woreda (approx.)"
+  },
+  "Aad765d798bab": {
+   "region_name": "Oromia",
+   "zone": "East Shewa",
+   "woreda": "Bishoftu town",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Bishoftu town woreda (approx.) – survey area 1"
+  },
+  "A7fb068e83439": {
+   "region_name": "Oromia",
+   "zone": "Arsi",
+   "woreda": "Jeju",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Jeju woreda (approx.)"
+  },
+  "Ad41fe173f2c0": {
+   "region_name": "Oromia",
+   "zone": "Arsi",
+   "woreda": "Hitosa",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Hitosa woreda (approx.)"
+  },
+  "A6bcf37ed8880": {
+   "region_name": "Oromia",
+   "zone": "Arsi",
+   "woreda": "Robe",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Robe woreda (approx.)"
+  },
+  "A30f4b59044b6": {
+   "region_name": "Oromia",
+   "zone": "Arsi",
+   "woreda": "Limu Bilbilo",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Limu Bilbilo woreda (approx.)"
+  },
+  "A38e05f93ca75": {
+   "region_name": "Oromia",
+   "zone": "West Hararge",
+   "woreda": "Tulo (OR)",
+   "zone_verified": true,
+   "woreda_verified": true,
+   "label": "Tulo (OR) woreda – survey area 1"
+  },
+  "A28b93d0a6309": {
+   "region_name": "Oromia",
+   "zone": "West Hararge",
+   "woreda": "Tulo (OR)",
+   "zone_verified": true,
+   "woreda_verified": true,
+   "label": "Tulo (OR) woreda – survey area 2"
+  },
+  "Abcadb60fc8b4": {
+   "region_name": "Oromia",
+   "zone": "West Hararge",
+   "woreda": "Daro Lebu",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Daro Lebu woreda (approx.)"
+  },
+  "A433ea54edd8a": {
+   "region_name": "Oromia",
+   "zone": "West Hararge",
+   "woreda": "Chiro Zuria",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Chiro Zuria woreda (approx.)"
+  },
+  "A5e3f4bd535c2": {
+   "region_name": "Oromia",
+   "zone": "East Hararge",
+   "woreda": "Kombolcha",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Kombolcha woreda (approx.)"
+  },
+  "A6a57d3110af4": {
+   "region_name": "Oromia",
+   "zone": "East Hararge",
+   "woreda": "Kersa (East Hararge)",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Kersa (East Hararge) woreda (approx.)"
+  },
+  "A0468e9481035": {
+   "region_name": "Oromia",
+   "zone": "East Hararge",
+   "woreda": "Meta",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Meta woreda (approx.)"
+  },
+  "Abf948c3e66a1": {
+   "region_name": "Oromia",
+   "zone": "East Hararge",
+   "woreda": "Bedeno",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Bedeno woreda (approx.)"
+  },
+  "Ae4d71e5dc044": {
+   "region_name": "Oromia",
+   "zone": "Bale",
+   "woreda": "Sinana",
+   "zone_verified": false,
+   "woreda_verified": false,
+   "label": "Sinana woreda (approx.)"
+  },
+  "A17814346c7ab": {
+   "region_name": "Oromia",
+   "zone": "Bale",
+   "woreda": "Mena (Bale)",
+   "zone_verified": false,
+   "woreda_verified": false,
+   "label": "Mena (Bale) woreda (approx.)"
+  },
+  "A60879735a3d0": {
+   "region_name": "Oromia",
+   "zone": "Bale",
+   "woreda": "Rayitu",
+   "zone_verified": false,
+   "woreda_verified": false,
+   "label": "Rayitu woreda (approx.)"
+  },
+  "Abcbceb8aef0d": {
+   "region_name": "Oromia",
+   "zone": "Borena",
+   "woreda": "Yabelo",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Yabelo woreda (approx.)"
+  },
+  "A99dc283916ad": {
+   "region_name": "Oromia",
+   "zone": "Borena",
+   "woreda": "Teltale",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Teltale woreda (approx.)"
+  },
+  "Ae86a83693521": {
+   "region_name": "Oromia",
+   "zone": "South West Shewa",
+   "woreda": "Waliso",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Waliso woreda (approx.)"
+  },
+  "Afb6a49b1b7ee": {
+   "region_name": "Oromia",
+   "zone": "South West Shewa",
+   "woreda": "Seden Sodo",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Seden Sodo woreda (approx.)"
+  },
+  "A9fd169ecd4a1": {
+   "region_name": "Oromia",
+   "zone": "Guji",
+   "woreda": "Uraga",
+   "zone_verified": false,
+   "woreda_verified": false,
+   "label": "Uraga woreda (approx.)"
+  },
+  "Acc0b765cfa46": {
+   "region_name": "Oromia",
+   "zone": "Guji",
+   "woreda": null,
+   "zone_verified": false,
+   "woreda_verified": false,
+   "label": "Woreda not identified"
+  },
+  "A1a0f2d35bd35": {
+   "region_name": "Oromia",
+   "zone": "Guji",
+   "woreda": "Liben",
+   "zone_verified": false,
+   "woreda_verified": false,
+   "label": "Liben woreda (approx.)"
+  },
+  "Ab0f859792f08": {
+   "region_name": "Oromia",
+   "zone": "North Shewa (OR)",
+   "woreda": "Sululta (OR)",
+   "zone_verified": false,
+   "woreda_verified": true,
+   "label": "Sululta (OR) woreda – survey area 1"
+  },
+  "Aab50208c766b": {
+   "region_name": "Oromia",
+   "zone": "North Shewa (OR)",
+   "woreda": "Sululta (OR)",
+   "zone_verified": false,
+   "woreda_verified": true,
+   "label": "Sululta (OR) woreda – survey area 2"
+  },
+  "Aa1e18d24ec4e": {
+   "region_name": "Oromia",
+   "zone": "North Shewa (OR)",
+   "woreda": "Sebeta",
+   "zone_verified": false,
+   "woreda_verified": false,
+   "label": "Sebeta woreda (approx.)"
+  },
+  "Ae30a24207314": {
+   "region_name": "Oromia",
+   "zone": "West Arsi",
+   "woreda": "Siraro",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Siraro woreda (approx.)"
+  },
+  "Af474c85587e3": {
+   "region_name": "Oromia",
+   "zone": "West Arsi",
+   "woreda": null,
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Woreda not identified"
+  },
+  "Aa77f215067cc": {
+   "region_name": "Oromia",
+   "zone": "West Arsi",
+   "woreda": "Nenesebo",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Nenesebo woreda (approx.)"
+  },
+  "A6946dfb6527c": {
+   "region_name": "Oromia",
+   "zone": "Kelem Wellega",
+   "woreda": "Dale Wabera",
+   "zone_verified": false,
+   "woreda_verified": false,
+   "label": "Dale Wabera woreda (approx.)"
+  },
+  "A90c63eaca128": {
+   "region_name": "Oromia",
+   "zone": "Horo Gudru Wellega",
+   "woreda": "Jimma Rare",
+   "zone_verified": false,
+   "woreda_verified": false,
+   "label": "Jimma Rare woreda (approx.)"
+  },
+  "Ad5f6631334fe": {
+   "region_name": "Oromia",
+   "zone": "Buno Bedele",
+   "woreda": "Bedele Zuria",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Bedele Zuria woreda (approx.)"
+  },
+  "A9ab3c4ca9610": {
+   "region_name": "Oromia",
+   "zone": "Buno Bedele",
+   "woreda": "Borecha",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Borecha woreda (approx.)"
+  },
+  "A4c4ffc7e4d40": {
+   "region_name": "Oromia",
+   "zone": "East Shewa",
+   "woreda": "Adama town",
+   "zone_verified": true,
+   "woreda_verified": true,
+   "label": "Adama town woreda – survey area 1"
+  },
+  "A9b364a312067": {
+   "region_name": "Oromia",
+   "zone": "East Shewa",
+   "woreda": "Adama town",
+   "zone_verified": true,
+   "woreda_verified": true,
+   "label": "Adama town woreda – survey area 2"
+  },
+  "Af97b2d8ae9ba": {
+   "region_name": "Oromia",
+   "zone": "East Shewa",
+   "woreda": "Bishoftu town",
+   "zone_verified": false,
+   "woreda_verified": false,
+   "label": "Bishoftu town woreda (approx.) – survey area 2"
+  },
+  "A2fc0432a685e": {
+   "region_name": "Oromia",
+   "zone": null,
+   "woreda": null,
+   "zone_verified": false,
+   "woreda_verified": false,
+   "label": "Woreda not identified – survey area 1"
+  },
+  "A7f0b8ae208f9": {
+   "region_name": "Oromia",
+   "zone": "East Wellega",
+   "woreda": "Nekemte town",
+   "zone_verified": false,
+   "woreda_verified": false,
+   "label": "Nekemte town woreda (approx.)"
+  },
+  "A8247e6056947": {
+   "region_name": "Oromia",
+   "zone": null,
+   "woreda": null,
+   "zone_verified": false,
+   "woreda_verified": false,
+   "label": "Woreda not identified – survey area 2"
+  },
+  "Ac396ae870a85": {
+   "region_name": "Oromia",
+   "zone": "West Arsi",
+   "woreda": "Shashemene town",
+   "zone_verified": false,
+   "woreda_verified": false,
+   "label": "Shashemene town woreda (approx.)"
+  },
+  "Af7e1543099b9": {
+   "region_name": "Oromia",
+   "zone": "East Shewa",
+   "woreda": "Batu town",
+   "zone_verified": false,
+   "woreda_verified": false,
+   "label": "Batu town woreda (approx.)"
+  },
+  "A3caece40b811": {
+   "region_name": "Somali",
+   "zone": "Siti",
+   "woreda": null,
+   "zone_verified": false,
+   "woreda_verified": false,
+   "label": "Woreda not identified – survey area 1"
+  },
+  "Aa7ee1ab2258d": {
+   "region_name": "Somali",
+   "zone": "Siti",
+   "woreda": null,
+   "zone_verified": false,
+   "woreda_verified": false,
+   "label": "Woreda not identified – survey area 2"
+  },
+  "A22d2005caa2d": {
+   "region_name": "Somali",
+   "zone": "Siti",
+   "woreda": "Gota-Biki",
+   "zone_verified": false,
+   "woreda_verified": false,
+   "label": "Gota-Biki woreda (approx.)"
+  },
+  "A47da3c0fa59d": {
+   "region_name": "Somali",
+   "zone": "Fafan",
+   "woreda": "Gursum (SM)",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Gursum (SM) woreda (approx.)"
+  },
+  "A15eb16aa42a6": {
+   "region_name": "Somali",
+   "zone": "Fafan",
+   "woreda": "Aw-Bare",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Aw-Bare woreda (approx.) – survey area 1"
+  },
+  "Aef55bcd07855": {
+   "region_name": "Somali",
+   "zone": "Fafan",
+   "woreda": "Aw-Bare",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Aw-Bare woreda (approx.) – survey area 2"
+  },
+  "Ac22088dfc22f": {
+   "region_name": "Somali",
+   "zone": "Fafan",
+   "woreda": "Kebribeyah",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Kebribeyah woreda (approx.) – survey area 1"
+  },
+  "A2c1eff272dba": {
+   "region_name": "Somali",
+   "zone": "Fafan",
+   "woreda": "Jigjiga town",
+   "zone_verified": true,
+   "woreda_verified": true,
+   "label": "Jigjiga town woreda – survey area 1"
+  },
+  "A8eefbae527b5": {
+   "region_name": "Somali",
+   "zone": "Fafan",
+   "woreda": "Jigjiga town",
+   "zone_verified": true,
+   "woreda_verified": true,
+   "label": "Jigjiga town woreda – survey area 2"
+  },
+  "Aa436d105638b": {
+   "region_name": "Somali",
+   "zone": "Fafan",
+   "woreda": "Jigjiga town",
+   "zone_verified": true,
+   "woreda_verified": true,
+   "label": "Jigjiga town woreda – survey area 3"
+  },
+  "Ad1c309f5a4d8": {
+   "region_name": "Somali",
+   "zone": "Fafan",
+   "woreda": "Jigjiga town",
+   "zone_verified": true,
+   "woreda_verified": true,
+   "label": "Jigjiga town woreda – survey area 4"
+  },
+  "A2c8442607975": {
+   "region_name": "Somali",
+   "zone": "Fafan",
+   "woreda": "Kebribeyah",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Kebribeyah woreda (approx.) – survey area 2"
+  },
+  "Ad0cac513be12": {
+   "region_name": "Somali",
+   "zone": "Jarar",
+   "woreda": "Goljano",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Goljano woreda (approx.)"
+  },
+  "Ae5bd308ca57d": {
+   "region_name": "Somali",
+   "zone": "Jarar",
+   "woreda": "Aware",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Aware woreda (approx.)"
+  },
+  "Ab5963f464135": {
+   "region_name": "Somali",
+   "zone": "Jarar",
+   "woreda": "Gashamo",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Gashamo woreda (approx.)"
+  },
+  "A88f881fb3d4d": {
+   "region_name": "Somali",
+   "zone": "Jarar",
+   "woreda": "Yocale",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Yocale woreda (approx.)"
+  },
+  "A308e935e585a": {
+   "region_name": "Somali",
+   "zone": "Jarar",
+   "woreda": "Gunagado",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Gunagado woreda (approx.)"
+  },
+  "A513daa2056db": {
+   "region_name": "Somali",
+   "zone": "Jarar",
+   "woreda": "Degahabur town",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Degahabur town woreda (approx.)"
+  },
+  "Aaa2e08eae142": {
+   "region_name": "Somali",
+   "zone": "Erer",
+   "woreda": "Fik",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Fik woreda (approx.) – survey area 1"
+  },
+  "A0eb59cebe416": {
+   "region_name": "Somali",
+   "zone": "Erer",
+   "woreda": "Fik",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Fik woreda (approx.) – survey area 2"
+  },
+  "Ae54e896041fa": {
+   "region_name": "Somali",
+   "zone": "Erer",
+   "woreda": null,
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Woreda not identified"
+  },
+  "A18bfe105aec3": {
+   "region_name": "Somali",
+   "zone": "Erer",
+   "woreda": "Wangey",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Wangey woreda (approx.)"
+  },
+  "A9a00eaaa1963": {
+   "region_name": "Somali",
+   "zone": "Korahe",
+   "woreda": "Kebridehar",
+   "zone_verified": false,
+   "woreda_verified": false,
+   "label": "Kebridehar woreda (approx.)"
+  },
+  "A8c703018e60b": {
+   "region_name": "Somali",
+   "zone": "Korahe",
+   "woreda": "Danod",
+   "zone_verified": false,
+   "woreda_verified": false,
+   "label": "Danod woreda (approx.)"
+  },
+  "A4a6d7d995999": {
+   "region_name": "Somali",
+   "zone": "Korahe",
+   "woreda": "Kebridehar town",
+   "zone_verified": false,
+   "woreda_verified": false,
+   "label": "Kebridehar town woreda (approx.)"
+  },
+  "Af03001794d13": {
+   "region_name": "Somali",
+   "zone": "Shabelle",
+   "woreda": "Gode",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Gode woreda (approx.) – survey area 1"
+  },
+  "Aaa39cf99994c": {
+   "region_name": "Somali",
+   "zone": "Shabelle",
+   "woreda": "Gode",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Gode woreda (approx.) – survey area 2"
+  },
+  "Af64d26af6e93": {
+   "region_name": "Somali",
+   "zone": "Shabelle",
+   "woreda": "Kelafo",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Kelafo woreda (approx.)"
+  },
+  "A69d157cba38a": {
+   "region_name": "Somali",
+   "zone": "Shabelle",
+   "woreda": "Elale",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Elale woreda (approx.)"
+  },
+  "Ac6878bd1e39e": {
+   "region_name": "Somali",
+   "zone": "Shabelle",
+   "woreda": "Godey town",
+   "zone_verified": true,
+   "woreda_verified": true,
+   "label": "Godey town woreda – survey area 1"
+  },
+  "Add75b747c8e0": {
+   "region_name": "Somali",
+   "zone": "Shabelle",
+   "woreda": "Godey town",
+   "zone_verified": true,
+   "woreda_verified": true,
+   "label": "Godey town woreda – survey area 2"
+  },
+  "A2824e5b3085b": {
+   "region_name": "Somali",
+   "zone": "Doolo",
+   "woreda": null,
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Woreda not identified – survey area 1"
+  },
+  "Af935c8d4e2fd": {
+   "region_name": "Somali",
+   "zone": "Doolo",
+   "woreda": "Galadi",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Galadi woreda (approx.)"
+  },
+  "Aeee27b3020a8": {
+   "region_name": "Somali",
+   "zone": "Doolo",
+   "woreda": null,
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Woreda not identified – survey area 2"
+  },
+  "A93356b9e36a6": {
+   "region_name": "Somali",
+   "zone": "Doolo",
+   "woreda": null,
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Woreda not identified – survey area 3"
+  },
+  "A8f443198acc7": {
+   "region_name": "Somali",
+   "zone": "Doolo",
+   "woreda": "Galhamur",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Galhamur woreda (approx.)"
+  },
+  "A35609cc46f6c": {
+   "region_name": "Somali",
+   "zone": "Afder",
+   "woreda": "Raso",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Raso woreda (approx.)"
+  },
+  "Af555e17f65ed": {
+   "region_name": "Somali",
+   "zone": "Afder",
+   "woreda": "Charati",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Charati woreda (approx.)"
+  },
+  "A5e8ec113efcd": {
+   "region_name": "Somali",
+   "zone": "Afder",
+   "woreda": "West Imi",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "West Imi woreda (approx.)"
+  },
+  "A63ce3bd3f63c": {
+   "region_name": "Somali",
+   "zone": "Afder",
+   "woreda": null,
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Woreda not identified"
+  },
+  "Ada7719909a8c": {
+   "region_name": "Somali",
+   "zone": "Afder",
+   "woreda": "Dolobay",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Dolobay woreda (approx.)"
+  },
+  "Abf1a0a5b48b7": {
+   "region_name": "Somali",
+   "zone": "Liban",
+   "woreda": "Filtu",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Filtu woreda (approx.)"
+  },
+  "Aa0d57a2bae81": {
+   "region_name": "Somali",
+   "zone": "Liban",
+   "woreda": "Dolo Ado",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Dolo Ado woreda (approx.)"
+  },
+  "A30bfd8708528": {
+   "region_name": "Somali",
+   "zone": "Liban",
+   "woreda": "Bokolmayo",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Bokolmayo woreda (approx.)"
+  },
+  "Accc8494e096a": {
+   "region_name": "Somali",
+   "zone": "Liban",
+   "woreda": null,
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Woreda not identified"
+  },
+  "A6dec17de794e": {
+   "region_name": "Somali",
+   "zone": "Liban",
+   "woreda": "Goro Baqaqsa",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Goro Baqaqsa woreda (approx.)"
+  },
+  "A36bf5adfc6df": {
+   "region_name": "Somali",
+   "zone": "Nogob",
+   "woreda": "Dihun",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Dihun woreda (approx.)"
+  },
+  "Ad6fbabb9bd67": {
+   "region_name": "Somali",
+   "zone": "Nogob",
+   "woreda": "Garbo",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Garbo woreda (approx.)"
+  },
+  "A82e90f3ac405": {
+   "region_name": "Somali",
+   "zone": null,
+   "woreda": null,
+   "zone_verified": false,
+   "woreda_verified": false,
+   "label": "Woreda not identified – survey area 3"
+  },
+  "Af4350edfd28d": {
+   "region_name": "Benishangul-Gumuz",
+   "zone": "Assosa",
+   "woreda": "Menge",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Menge woreda (approx.)"
+  },
+  "Aebaaa1a2dd4b": {
+   "region_name": "Benishangul-Gumuz",
+   "zone": "Assosa",
+   "woreda": "Ura",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Ura woreda (approx.) – survey area 1"
+  },
+  "Aad5eed1072f2": {
+   "region_name": "Benishangul-Gumuz",
+   "zone": "Assosa",
+   "woreda": "Ura",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Ura woreda (approx.) – survey area 2"
+  },
+  "Ae87bb1882eb8": {
+   "region_name": "Benishangul-Gumuz",
+   "zone": "Assosa",
+   "woreda": "Ura",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Ura woreda (approx.) – survey area 3"
+  },
+  "A6f814143ff47": {
+   "region_name": "Benishangul-Gumuz",
+   "zone": "Assosa",
+   "woreda": null,
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Woreda not identified"
+  },
+  "A49e8241a98a4": {
+   "region_name": "Benishangul-Gumuz",
+   "zone": "Assosa",
+   "woreda": "Bambasi",
+   "zone_verified": true,
+   "woreda_verified": true,
+   "label": "Bambasi woreda – survey area 1"
+  },
+  "Ae6fca6705351": {
+   "region_name": "Benishangul-Gumuz",
+   "zone": "Assosa",
+   "woreda": "Bambasi",
+   "zone_verified": true,
+   "woreda_verified": true,
+   "label": "Bambasi woreda – survey area 2"
+  },
+  "A4162159b7ade": {
+   "region_name": "Benishangul-Gumuz",
+   "zone": "Assosa",
+   "woreda": "Homosha",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Homosha woreda (approx.)"
+  },
+  "A9663c185856d": {
+   "region_name": "Benishangul-Gumuz",
+   "zone": "Assosa",
+   "woreda": "Assosa town Admin",
+   "zone_verified": true,
+   "woreda_verified": true,
+   "label": "Assosa town Admin woreda – survey area 1"
+  },
+  "A1da04a2752cb": {
+   "region_name": "Benishangul-Gumuz",
+   "zone": "Assosa",
+   "woreda": "Assosa town Admin",
+   "zone_verified": true,
+   "woreda_verified": true,
+   "label": "Assosa town Admin woreda – survey area 2"
+  },
+  "A3fd1b0f97868": {
+   "region_name": "Benishangul-Gumuz",
+   "zone": "Assosa",
+   "woreda": "Assosa town Admin",
+   "zone_verified": true,
+   "woreda_verified": true,
+   "label": "Assosa town Admin woreda – survey area 3"
+  },
+  "A536937adb4c4": {
+   "region_name": "Benishangul-Gumuz",
+   "zone": "Assosa",
+   "woreda": "Assosa town Admin",
+   "zone_verified": true,
+   "woreda_verified": true,
+   "label": "Assosa town Admin woreda – survey area 4"
+  },
+  "A778b685bb364": {
+   "region_name": "Benishangul-Gumuz",
+   "zone": "Metekel",
+   "woreda": "Dangur",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Dangur woreda (approx.)"
+  },
+  "Ad427ee0c1bc0": {
+   "region_name": "Benishangul-Gumuz",
+   "zone": "Metekel",
+   "woreda": "Pawe",
+   "zone_verified": true,
+   "woreda_verified": true,
+   "label": "Pawe woreda – survey area 1"
+  },
+  "A2ba8fa63a99f": {
+   "region_name": "Benishangul-Gumuz",
+   "zone": "Metekel",
+   "woreda": "Pawe",
+   "zone_verified": true,
+   "woreda_verified": true,
+   "label": "Pawe woreda – survey area 2"
+  },
+  "Adace8e482da4": {
+   "region_name": "Benishangul-Gumuz",
+   "zone": "Metekel",
+   "woreda": "Pawe",
+   "zone_verified": true,
+   "woreda_verified": true,
+   "label": "Pawe woreda – survey area 3"
+  },
+  "Afca87c687730": {
+   "region_name": "SNNP",
+   "zone": "Guraghe",
+   "woreda": "Gedebano Gutazer Welene",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Gedebano Gutazer Welene woreda (approx.)"
+  },
+  "Afc4bd61f8443": {
+   "region_name": "SNNP",
+   "zone": "Guraghe",
+   "woreda": "Endiguagn",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Endiguagn woreda (approx.)"
+  },
+  "A52b5a00d2e8f": {
+   "region_name": "SNNP",
+   "zone": "Guraghe",
+   "woreda": "Emdebir town",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Emdebir town woreda (approx.)"
+  },
+  "A75a998253875": {
+   "region_name": "SNNP",
+   "zone": "Guraghe",
+   "woreda": "Muhur Na Aklil",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Muhur Na Aklil woreda (approx.)"
+  },
+  "A4039d5d54b81": {
+   "region_name": "SNNP",
+   "zone": "Hadiya",
+   "woreda": "Misrak Badawacho",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Misrak Badawacho woreda (approx.) – survey area 1"
+  },
+  "A14fa7002f17d": {
+   "region_name": "SNNP",
+   "zone": "Hadiya",
+   "woreda": "Misrak Badawacho",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Misrak Badawacho woreda (approx.) – survey area 2"
+  },
+  "A3af3737fe42d": {
+   "region_name": "SNNP",
+   "zone": "Hadiya",
+   "woreda": "Gombora",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Gombora woreda (approx.)"
+  },
+  "A5b84c8ce24f9": {
+   "region_name": "SNNP",
+   "zone": "Hadiya",
+   "woreda": "Hosaena town",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Hosaena town woreda (approx.)"
+  },
+  "Ac0acb008943c": {
+   "region_name": "SNNP",
+   "zone": "Kembata",
+   "woreda": "Angacha",
+   "zone_verified": false,
+   "woreda_verified": false,
+   "label": "Angacha woreda (approx.)"
+  },
+  "A98e31fbd0f40": {
+   "region_name": "SNNP",
+   "zone": "Kembata",
+   "woreda": "Tembaro Special",
+   "zone_verified": false,
+   "woreda_verified": false,
+   "label": "Tembaro Special woreda (approx.)"
+  },
+  "A726ee9af5c29": {
+   "region_name": "SNNP",
+   "zone": "Kembata",
+   "woreda": "Hadero town",
+   "zone_verified": false,
+   "woreda_verified": false,
+   "label": "Hadero town woreda (approx.)"
+  },
+  "Ad68f3940851c": {
+   "region_name": "SNNP",
+   "zone": "Central",
+   "woreda": "Arbegona",
+   "zone_verified": false,
+   "woreda_verified": false,
+   "label": "Arbegona woreda (approx.)"
+  },
+  "A1a3849f4cb05": {
+   "region_name": "SNNP",
+   "zone": "Central",
+   "woreda": "Hulla",
+   "zone_verified": false,
+   "woreda_verified": false,
+   "label": "Hulla woreda (approx.)"
+  },
+  "Abdcd422ba829": {
+   "region_name": "SNNP",
+   "zone": "Central",
+   "woreda": "Aroresa",
+   "zone_verified": false,
+   "woreda_verified": false,
+   "label": "Aroresa woreda (approx.)"
+  },
+  "A3ad84bc5289f": {
+   "region_name": "SNNP",
+   "zone": "Central",
+   "woreda": "Bilate Zuria",
+   "zone_verified": false,
+   "woreda_verified": false,
+   "label": "Bilate Zuria woreda (approx.)"
+  },
+  "Afece4460c272": {
+   "region_name": "SNNP",
+   "zone": "Central",
+   "woreda": "Loka Abaya",
+   "zone_verified": false,
+   "woreda_verified": false,
+   "label": "Loka Abaya woreda (approx.)"
+  },
+  "A9bdd5bcb83d0": {
+   "region_name": "SNNP",
+   "zone": "Central",
+   "woreda": "Bona Zuria",
+   "zone_verified": false,
+   "woreda_verified": false,
+   "label": "Bona Zuria woreda (approx.)"
+  },
+  "A4bc2f141151a": {
+   "region_name": "SNNP",
+   "zone": "Central",
+   "woreda": "Wondo-Genet",
+   "zone_verified": false,
+   "woreda_verified": false,
+   "label": "Wondo-Genet woreda (approx.)"
+  },
+  "A1e1cd4efa241": {
+   "region_name": "SNNP",
+   "zone": "Gedeo",
+   "woreda": "Dila Zuria",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Dila Zuria woreda (approx.)"
+  },
+  "A1a19335203e9": {
+   "region_name": "SNNP",
+   "zone": "Gedeo",
+   "woreda": "Kochere",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Kochere woreda (approx.)"
+  },
+  "Ade160cf13e34": {
+   "region_name": "SNNP",
+   "zone": "Wolayita",
+   "woreda": "Damot Gale",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Damot Gale woreda (approx.)"
+  },
+  "A60f75ea2f403": {
+   "region_name": "SNNP",
+   "zone": "Wolayita",
+   "woreda": "Damot Woide",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Damot Woide woreda (approx.)"
+  },
+  "A9922a5b0dae9": {
+   "region_name": "SNNP",
+   "zone": "Wolayita",
+   "woreda": "Kindo Koyesha",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Kindo Koyesha woreda (approx.) – survey area 1"
+  },
+  "A6f74c903a715": {
+   "region_name": "SNNP",
+   "zone": "Wolayita",
+   "woreda": "Kindo Koyesha",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Kindo Koyesha woreda (approx.) – survey area 2"
+  },
+  "A21777bf12563": {
+   "region_name": "SNNP",
+   "zone": "Wolayita",
+   "woreda": "Sodo town",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Sodo town woreda (approx.)"
+  },
+  "Ace4c8710cea2": {
+   "region_name": "SNNP",
+   "zone": "Ari",
+   "woreda": "South Ari",
+   "zone_verified": false,
+   "woreda_verified": false,
+   "label": "South Ari woreda (approx.)"
+  },
+  "Af4b4f33563ee": {
+   "region_name": "SNNP",
+   "zone": "Ari",
+   "woreda": "Dasenech /Kuraz",
+   "zone_verified": false,
+   "woreda_verified": false,
+   "label": "Dasenech /Kuraz woreda (approx.)"
+  },
+  "A66d354884613": {
+   "region_name": "SNNP",
+   "zone": "Kefa",
+   "woreda": "Gimbo",
+   "zone_verified": true,
+   "woreda_verified": true,
+   "label": "Gimbo woreda – survey area 1"
+  },
+  "Ab0ab06ad483f": {
+   "region_name": "SNNP",
+   "zone": "Kefa",
+   "woreda": "Gimbo",
+   "zone_verified": true,
+   "woreda_verified": true,
+   "label": "Gimbo woreda – survey area 2"
+  },
+  "A823ffe74e925": {
+   "region_name": "SNNP",
+   "zone": "Kefa",
+   "woreda": "Shisho Ande",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Shisho Ande woreda (approx.)"
+  },
+  "Adacd6f4f32fc": {
+   "region_name": "SNNP",
+   "zone": "Gamo",
+   "woreda": "Kucha Alpha",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Kucha Alpha woreda (approx.)"
+  },
+  "A84706d0c78e4": {
+   "region_name": "SNNP",
+   "zone": "Gamo",
+   "woreda": "Mirab Abaya",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Mirab Abaya woreda (approx.)"
+  },
+  "A9cb1bc525b67": {
+   "region_name": "SNNP",
+   "zone": "Gamo",
+   "woreda": "Dita",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Dita woreda (approx.)"
+  },
+  "A1111f63331a8": {
+   "region_name": "SNNP",
+   "zone": "Gamo",
+   "woreda": "Geressie",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Geressie woreda (approx.)"
+  },
+  "A9de35c3ea55d": {
+   "region_name": "SNNP",
+   "zone": "Gamo",
+   "woreda": "Arba Minch town",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Arba Minch town woreda (approx.)"
+  },
+  "Ac1403164ceab": {
+   "region_name": "SNNP",
+   "zone": "Bench Sheko",
+   "woreda": "Shay Bench",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Shay Bench woreda (approx.)"
+  },
+  "A5de11398bc81": {
+   "region_name": "SNNP",
+   "zone": "Bench Sheko",
+   "woreda": "Semen Bench",
+   "zone_verified": true,
+   "woreda_verified": true,
+   "label": "Semen Bench woreda – survey area 1"
+  },
+  "A7255807d36fc": {
+   "region_name": "SNNP",
+   "zone": "Bench Sheko",
+   "woreda": "Semen Bench",
+   "zone_verified": true,
+   "woreda_verified": true,
+   "label": "Semen Bench woreda – survey area 2"
+  },
+  "A04bd9264da4a": {
+   "region_name": "SNNP",
+   "zone": "Yem",
+   "woreda": "Toba",
+   "zone_verified": true,
+   "woreda_verified": true,
+   "label": "Toba woreda – survey area 1"
+  },
+  "A5463605eaa44": {
+   "region_name": "SNNP",
+   "zone": "Yem",
+   "woreda": "Toba",
+   "zone_verified": true,
+   "woreda_verified": true,
+   "label": "Toba woreda – survey area 2"
+  },
+  "A6f07d987d267": {
+   "region_name": "SNNP",
+   "zone": "Hawassa town Admin",
+   "woreda": null,
+   "zone_verified": false,
+   "woreda_verified": false,
+   "label": "Woreda not identified"
+  },
+  "Abab5e630546c": {
+   "region_name": "SNNP",
+   "zone": "Hawassa town Admin",
+   "woreda": "Hawassa town",
+   "zone_verified": false,
+   "woreda_verified": false,
+   "label": "Hawassa town woreda (approx.)"
+  },
+  "A392b3ae33cd0": {
+   "region_name": "SNNP",
+   "zone": "Burji",
+   "woreda": "Burji",
+   "zone_verified": false,
+   "woreda_verified": false,
+   "label": "Burji woreda (approx.)"
+  },
+  "A659edfbbbe79": {
+   "region_name": "SNNP",
+   "zone": "Burji",
+   "woreda": "Derashe",
+   "zone_verified": false,
+   "woreda_verified": false,
+   "label": "Derashe woreda (approx.)"
+  },
+  "Ac71c0bf01890": {
+   "region_name": "SNNP",
+   "zone": "Burji",
+   "woreda": "Kolme",
+   "zone_verified": false,
+   "woreda_verified": false,
+   "label": "Kolme woreda (approx.)"
+  },
+  "Ac4285a4f56ca": {
+   "region_name": "SNNP",
+   "zone": "Halaba",
+   "woreda": "Wera",
+   "zone_verified": false,
+   "woreda_verified": false,
+   "label": "Wera woreda (approx.) – survey area 1"
+  },
+  "A981dcb003349": {
+   "region_name": "SNNP",
+   "zone": "Halaba",
+   "woreda": "Wera",
+   "zone_verified": false,
+   "woreda_verified": false,
+   "label": "Wera woreda (approx.) – survey area 2"
+  },
+  "A08573fb4be5b": {
+   "region_name": "SNNP",
+   "zone": "Dawuro",
+   "woreda": "Kachi",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Kachi woreda (approx.) – survey area 1"
+  },
+  "Af4d737c03cff": {
+   "region_name": "SNNP",
+   "zone": "Dawuro",
+   "woreda": "Kachi",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Kachi woreda (approx.) – survey area 2"
+  },
+  "Aaa3ca361a6cd": {
+   "region_name": "SNNP",
+   "zone": "Dawuro",
+   "woreda": "Gena",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Gena woreda (approx.)"
+  },
+  "A2d24aa4660af": {
+   "region_name": "SNNP",
+   "zone": "Basketo",
+   "woreda": "Basketo Special",
+   "zone_verified": true,
+   "woreda_verified": true,
+   "label": "Basketo Special woreda – survey area 1"
+  },
+  "Afb3a5261acff": {
+   "region_name": "SNNP",
+   "zone": "Basketo",
+   "woreda": "Basketo Special",
+   "zone_verified": true,
+   "woreda_verified": true,
+   "label": "Basketo Special woreda – survey area 2"
+  },
+  "A9fd2c881f2ec": {
+   "region_name": "SNNP",
+   "zone": "Konta",
+   "woreda": "Ameya Zuria",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Ameya Zuria woreda (approx.) – survey area 1"
+  },
+  "A5c7c79842f6d": {
+   "region_name": "SNNP",
+   "zone": "Konta",
+   "woreda": "Ameya Zuria",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Ameya Zuria woreda (approx.) – survey area 2"
+  },
+  "A5295bb93077f": {
+   "region_name": "SNNP",
+   "zone": "Siltie",
+   "woreda": "Siltie",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Siltie woreda (approx.)"
+  },
+  "A99f2bad77530": {
+   "region_name": "SNNP",
+   "zone": "Siltie",
+   "woreda": "Mito",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Mito woreda (approx.)"
+  },
+  "A6e272354825c": {
+   "region_name": "SNNP",
+   "zone": "Siltie",
+   "woreda": "Dalocha",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Dalocha woreda (approx.)"
+  },
+  "A1c0a9e177643": {
+   "region_name": "Gambela",
+   "zone": "Agnewak",
+   "woreda": "Gambela Zuria",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Gambela Zuria woreda (approx.)"
+  },
+  "A74497565c647": {
+   "region_name": "Gambela",
+   "zone": "Agnewak",
+   "woreda": null,
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Woreda not identified"
+  },
+  "A1dade8778028": {
+   "region_name": "Gambela",
+   "zone": "Agnewak",
+   "woreda": "Gog",
+   "zone_verified": true,
+   "woreda_verified": true,
+   "label": "Gog woreda – survey area 1"
+  },
+  "Acf98b6e2ce5a": {
+   "region_name": "Gambela",
+   "zone": "Agnewak",
+   "woreda": "Gog",
+   "zone_verified": true,
+   "woreda_verified": true,
+   "label": "Gog woreda – survey area 2"
+  },
+  "A6cb8250a0282": {
+   "region_name": "Gambela",
+   "zone": "Agnewak",
+   "woreda": "Gog",
+   "zone_verified": true,
+   "woreda_verified": true,
+   "label": "Gog woreda – survey area 3"
+  },
+  "A77180375e6ac": {
+   "region_name": "Gambela",
+   "zone": "Agnewak",
+   "woreda": "Dima (GM)",
+   "zone_verified": true,
+   "woreda_verified": true,
+   "label": "Dima (GM) woreda – survey area 1"
+  },
+  "A078d8bd3ba3d": {
+   "region_name": "Gambela",
+   "zone": "Agnewak",
+   "woreda": "Dima (GM)",
+   "zone_verified": true,
+   "woreda_verified": true,
+   "label": "Dima (GM) woreda – survey area 2"
+  },
+  "A760f6bb60b32": {
+   "region_name": "Gambela",
+   "zone": "Agnewak",
+   "woreda": "Dima (GM)",
+   "zone_verified": true,
+   "woreda_verified": true,
+   "label": "Dima (GM) woreda – survey area 3"
+  },
+  "Ad2c74341fc8b": {
+   "region_name": "Gambela",
+   "zone": "Agnewak",
+   "woreda": "Dima (GM)",
+   "zone_verified": true,
+   "woreda_verified": true,
+   "label": "Dima (GM) woreda – survey area 4"
+  },
+  "A37097ee8d1fb": {
+   "region_name": "Gambela",
+   "zone": "Agnewak",
+   "woreda": "Gambela town",
+   "zone_verified": true,
+   "woreda_verified": true,
+   "label": "Gambela town woreda – survey area 1"
+  },
+  "A5d8366683b0e": {
+   "region_name": "Gambela",
+   "zone": "Agnewak",
+   "woreda": "Gambela town",
+   "zone_verified": true,
+   "woreda_verified": true,
+   "label": "Gambela town woreda – survey area 2"
+  },
+  "Ae002cad274ba": {
+   "region_name": "Gambela",
+   "zone": "Agnewak",
+   "woreda": "Gambela town",
+   "zone_verified": true,
+   "woreda_verified": true,
+   "label": "Gambela town woreda – survey area 3"
+  },
+  "Ac8c1c1cc5372": {
+   "region_name": "Gambela",
+   "zone": "Agnewak",
+   "woreda": "Gambela town",
+   "zone_verified": true,
+   "woreda_verified": true,
+   "label": "Gambela town woreda – survey area 4"
+  },
+  "Af8d823cb250f": {
+   "region_name": "Gambela",
+   "zone": "Agnewak",
+   "woreda": "Gambela town",
+   "zone_verified": true,
+   "woreda_verified": true,
+   "label": "Gambela town woreda – survey area 5"
+  },
+  "A14cafa331e61": {
+   "region_name": "Gambela",
+   "zone": "Agnewak",
+   "woreda": "Gambela town",
+   "zone_verified": true,
+   "woreda_verified": true,
+   "label": "Gambela town woreda – survey area 6"
+  },
+  "Af1a1fe43daa1": {
+   "region_name": "Gambela",
+   "zone": "Agnewak",
+   "woreda": "Gambela town",
+   "zone_verified": true,
+   "woreda_verified": true,
+   "label": "Gambela town woreda – survey area 7"
+  },
+  "Ac7e499fe33b8": {
+   "region_name": "Gambela",
+   "zone": "Agnewak",
+   "woreda": "Gambela town",
+   "zone_verified": true,
+   "woreda_verified": true,
+   "label": "Gambela town woreda – survey area 8"
+  },
+  "Aa012c77d9144": {
+   "region_name": "Gambela",
+   "zone": "Agnewak",
+   "woreda": "Gambela town",
+   "zone_verified": true,
+   "woreda_verified": true,
+   "label": "Gambela town woreda – survey area 9"
+  },
+  "Adaef7bc91e25": {
+   "region_name": "Gambela",
+   "zone": "Nuwer",
+   "woreda": "Lare",
+   "zone_verified": true,
+   "woreda_verified": true,
+   "label": "Lare woreda – survey area 1"
+  },
+  "Ad75ea9512079": {
+   "region_name": "Gambela",
+   "zone": "Nuwer",
+   "woreda": "Lare",
+   "zone_verified": true,
+   "woreda_verified": true,
+   "label": "Lare woreda – survey area 2"
+  },
+  "A602dfddb6169": {
+   "region_name": "Gambela",
+   "zone": "Nuwer",
+   "woreda": "Lare",
+   "zone_verified": true,
+   "woreda_verified": true,
+   "label": "Lare woreda – survey area 3"
+  },
+  "A3a5425c49f6c": {
+   "region_name": "Gambela",
+   "zone": "Nuwer",
+   "woreda": "Jikawo",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Jikawo woreda (approx.)"
+  },
+  "Aee8379d66adf": {
+   "region_name": "Gambela",
+   "zone": "Nuwer",
+   "woreda": "Wantawo",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Wantawo woreda (approx.)"
+  },
+  "A82ed7884ad92": {
+   "region_name": "Gambela",
+   "zone": "Nuwer",
+   "woreda": "Makuey",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Makuey woreda (approx.)"
+  },
+  "Abe85cbe5cfd2": {
+   "region_name": "Gambela",
+   "zone": "Majang",
+   "woreda": "Godere",
+   "zone_verified": true,
+   "woreda_verified": true,
+   "label": "Godere woreda – survey area 1"
+  },
+  "A3a9c56ddf523": {
+   "region_name": "Gambela",
+   "zone": "Majang",
+   "woreda": "Godere",
+   "zone_verified": true,
+   "woreda_verified": true,
+   "label": "Godere woreda – survey area 2"
+  },
+  "A44879d1ba582": {
+   "region_name": "Gambela",
+   "zone": "Majang",
+   "woreda": "Godere",
+   "zone_verified": true,
+   "woreda_verified": true,
+   "label": "Godere woreda – survey area 3"
+  },
+  "A3fe93aeb31a4": {
+   "region_name": "Gambela",
+   "zone": "Majang",
+   "woreda": "Godere",
+   "zone_verified": true,
+   "woreda_verified": true,
+   "label": "Godere woreda – survey area 4"
+  },
+  "A318f54b8f9fc": {
+   "region_name": "Gambela",
+   "zone": "Majang",
+   "woreda": "Godere",
+   "zone_verified": true,
+   "woreda_verified": true,
+   "label": "Godere woreda – survey area 5"
+  },
+  "Ac2d98f3bd26b": {
+   "region_name": "Gambela",
+   "zone": "Majang",
+   "woreda": "Godere",
+   "zone_verified": true,
+   "woreda_verified": true,
+   "label": "Godere woreda – survey area 6"
+  },
+  "A8ee37aaa48dd": {
+   "region_name": "Gambela",
+   "zone": "Majang",
+   "woreda": "Godere",
+   "zone_verified": true,
+   "woreda_verified": true,
+   "label": "Godere woreda – survey area 7"
+  },
+  "A66b81bab67b9": {
+   "region_name": "Gambela",
+   "zone": "Majang",
+   "woreda": "Godere",
+   "zone_verified": true,
+   "woreda_verified": true,
+   "label": "Godere woreda – survey area 8"
+  },
+  "A760166dc585a": {
+   "region_name": "Gambela",
+   "zone": "Majang",
+   "woreda": "Mengesh",
+   "zone_verified": true,
+   "woreda_verified": true,
+   "label": "Mengesh woreda – survey area 1"
+  },
+  "Abac9ad89ad09": {
+   "region_name": "Gambela",
+   "zone": "Majang",
+   "woreda": "Mengesh",
+   "zone_verified": true,
+   "woreda_verified": true,
+   "label": "Mengesh woreda – survey area 2"
+  },
+  "A0a42ed9a24b6": {
+   "region_name": "Gambela",
+   "zone": "Majang",
+   "woreda": "Mengesh",
+   "zone_verified": true,
+   "woreda_verified": true,
+   "label": "Mengesh woreda – survey area 3"
+  },
+  "Ae4965e406b35": {
+   "region_name": "Gambela",
+   "zone": "Majang",
+   "woreda": "Mengesh",
+   "zone_verified": true,
+   "woreda_verified": true,
+   "label": "Mengesh woreda – survey area 4"
+  },
+  "Ad3f2c8f8474f": {
+   "region_name": "Gambela",
+   "zone": "Itang Special",
+   "woreda": "Itang",
+   "zone_verified": false,
+   "woreda_verified": false,
+   "label": "Itang woreda (approx.) – survey area 1"
+  },
+  "Ae7a002186ca6": {
+   "region_name": "Gambela",
+   "zone": "Itang Special",
+   "woreda": "Itang",
+   "zone_verified": false,
+   "woreda_verified": false,
+   "label": "Itang woreda (approx.) – survey area 2"
+  },
+  "A4cd03fbcfb6a": {
+   "region_name": "Gambela",
+   "zone": "Itang Special",
+   "woreda": "Itang",
+   "zone_verified": false,
+   "woreda_verified": false,
+   "label": "Itang woreda (approx.) – survey area 3"
+  },
+  "A79eef969be10": {
+   "region_name": "Harari",
+   "zone": "Harari",
+   "woreda": "Jinela",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Jinela woreda (approx.) – survey area 1"
+  },
+  "Aac377b621ff1": {
+   "region_name": "Harari",
+   "zone": "Harari",
+   "woreda": "Jinela",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Jinela woreda (approx.) – survey area 2"
+  },
+  "A61f5cc035f6c": {
+   "region_name": "Harari",
+   "zone": "Harari",
+   "woreda": "Jinela",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Jinela woreda (approx.) – survey area 3"
+  },
+  "A5a9a382a2fc9": {
+   "region_name": "Harari",
+   "zone": "Harari",
+   "woreda": "Jinela",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Jinela woreda (approx.) – survey area 4"
+  },
+  "A8167b565e221": {
+   "region_name": "Harari",
+   "zone": "Harari",
+   "woreda": "Jinela",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Jinela woreda (approx.) – survey area 5"
+  },
+  "A31f1810296a9": {
+   "region_name": "Harari",
+   "zone": "Harari",
+   "woreda": "Jinela",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Jinela woreda (approx.) – survey area 6"
+  },
+  "Aff8799c79164": {
+   "region_name": "Harari",
+   "zone": "Harari",
+   "woreda": "Jinela",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Jinela woreda (approx.) – survey area 7"
+  },
+  "A0dfc87bb859a": {
+   "region_name": "Harari",
+   "zone": "Harari",
+   "woreda": "Shenkor",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Shenkor woreda (approx.) – survey area 1"
+  },
+  "Adf0cf0e4e787": {
+   "region_name": "Harari",
+   "zone": "Harari",
+   "woreda": "Shenkor",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Shenkor woreda (approx.) – survey area 2"
+  },
+  "Aa4d8690f5ab6": {
+   "region_name": "Harari",
+   "zone": "Harari",
+   "woreda": "Shenkor",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Shenkor woreda (approx.) – survey area 3"
+  },
+  "A42a1cf849447": {
+   "region_name": "Harari",
+   "zone": "Harari",
+   "woreda": "Shenkor",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Shenkor woreda (approx.) – survey area 4"
+  },
+  "Aa9909c751104": {
+   "region_name": "Harari",
+   "zone": "Harari",
+   "woreda": "Shenkor",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Shenkor woreda (approx.) – survey area 5"
+  },
+  "Aef20b5b26f28": {
+   "region_name": "Harari",
+   "zone": "Harari",
+   "woreda": "Shenkor",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Shenkor woreda (approx.) – survey area 6"
+  },
+  "A4b32a63c04ef": {
+   "region_name": "Harari",
+   "zone": "Harari",
+   "woreda": "Shenkor",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Shenkor woreda (approx.) – survey area 7"
+  },
+  "Aca13fa2bf519": {
+   "region_name": "Harari",
+   "zone": "Harari",
+   "woreda": "Erer (HR)",
+   "zone_verified": true,
+   "woreda_verified": true,
+   "label": "Erer (HR) woreda – survey area 1"
+  },
+  "A261a65d50456": {
+   "region_name": "Harari",
+   "zone": "Harari",
+   "woreda": "Erer (HR)",
+   "zone_verified": true,
+   "woreda_verified": true,
+   "label": "Erer (HR) woreda – survey area 2"
+  },
+  "A9dd4d2d90dd8": {
+   "region_name": "Harari",
+   "zone": "Harari",
+   "woreda": "Erer (HR)",
+   "zone_verified": true,
+   "woreda_verified": true,
+   "label": "Erer (HR) woreda – survey area 3"
+  },
+  "Ab9ae5c802007": {
+   "region_name": "Harari",
+   "zone": "Harari",
+   "woreda": "Erer (HR)",
+   "zone_verified": true,
+   "woreda_verified": true,
+   "label": "Erer (HR) woreda – survey area 4"
+  },
+  "Aaa39f6d19bee": {
+   "region_name": "Harari",
+   "zone": "Harari",
+   "woreda": "Abadir",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Abadir woreda (approx.) – survey area 1"
+  },
+  "A2f17603700ae": {
+   "region_name": "Harari",
+   "zone": "Harari",
+   "woreda": "Abadir",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Abadir woreda (approx.) – survey area 2"
+  },
+  "Aab211b85e427": {
+   "region_name": "Harari",
+   "zone": "Harari",
+   "woreda": "Abadir",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Abadir woreda (approx.) – survey area 3"
+  },
+  "Ad2b638c53d11": {
+   "region_name": "Harari",
+   "zone": "Harari",
+   "woreda": "Abadir",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Abadir woreda (approx.) – survey area 4"
+  },
+  "A56e262669acc": {
+   "region_name": "Harari",
+   "zone": "Harari",
+   "woreda": "Abadir",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Abadir woreda (approx.) – survey area 5"
+  },
+  "Ae89d5a0a797a": {
+   "region_name": "Harari",
+   "zone": "Harari",
+   "woreda": "Abadir",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Abadir woreda (approx.) – survey area 6"
+  },
+  "Ac2d5476ee737": {
+   "region_name": "Harari",
+   "zone": "Harari",
+   "woreda": "Abadir",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Abadir woreda (approx.) – survey area 7"
+  },
+  "A141d988b9e81": {
+   "region_name": "Harari",
+   "zone": "Harari",
+   "woreda": "Abadir",
+   "zone_verified": true,
+   "woreda_verified": true,
+   "label": "Abadir woreda – survey area 8"
+  },
+  "A6fedce7d90df": {
+   "region_name": "Harari",
+   "zone": "Harari",
+   "woreda": "Abadir",
+   "zone_verified": true,
+   "woreda_verified": true,
+   "label": "Abadir woreda – survey area 9"
+  },
+  "A948ea322ba5e": {
+   "region_name": "Harari",
+   "zone": "Harari",
+   "woreda": "Abadir",
+   "zone_verified": true,
+   "woreda_verified": true,
+   "label": "Abadir woreda – survey area 10"
+  },
+  "A5fee7837fd7f": {
+   "region_name": "Harari",
+   "zone": "Harari",
+   "woreda": "Abadir",
+   "zone_verified": true,
+   "woreda_verified": true,
+   "label": "Abadir woreda – survey area 11"
+  },
+  "Aafc8fdaddb47": {
+   "region_name": "Harari",
+   "zone": "Harari",
+   "woreda": "Abadir",
+   "zone_verified": true,
+   "woreda_verified": true,
+   "label": "Abadir woreda – survey area 12"
+  },
+  "Ac13a871c0160": {
+   "region_name": "Harari",
+   "zone": "Harari",
+   "woreda": "Abadir",
+   "zone_verified": true,
+   "woreda_verified": true,
+   "label": "Abadir woreda – survey area 13"
+  },
+  "A285d241d1506": {
+   "region_name": "Harari",
+   "zone": "Harari",
+   "woreda": "Abadir",
+   "zone_verified": true,
+   "woreda_verified": true,
+   "label": "Abadir woreda – survey area 14"
+  },
+  "A6a7c0088d331": {
+   "region_name": "Harari",
+   "zone": "Harari",
+   "woreda": "Abadir",
+   "zone_verified": true,
+   "woreda_verified": true,
+   "label": "Abadir woreda – survey area 15"
+  },
+  "Af08dca50ca8b": {
+   "region_name": "Harari",
+   "zone": "Harari",
+   "woreda": "Abadir",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Abadir woreda (approx.) – survey area 16"
+  },
+  "A4092989b04fa": {
+   "region_name": "Harari",
+   "zone": "Harari",
+   "woreda": "Abadir",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Abadir woreda (approx.) – survey area 17"
+  },
+  "A010ad74d993a": {
+   "region_name": "Harari",
+   "zone": "Harari",
+   "woreda": "Abadir",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Abadir woreda (approx.) – survey area 18"
+  },
+  "A2e41c901eff4": {
+   "region_name": "Harari",
+   "zone": "Harari",
+   "woreda": "Abadir",
+   "zone_verified": true,
+   "woreda_verified": true,
+   "label": "Abadir woreda – survey area 19"
+  },
+  "A0a4134c2ed66": {
+   "region_name": "Harari",
+   "zone": "Harari",
+   "woreda": "Abadir",
+   "zone_verified": true,
+   "woreda_verified": true,
+   "label": "Abadir woreda – survey area 20"
+  },
+  "Acd99b482a3ed": {
+   "region_name": "Harari",
+   "zone": "Harari",
+   "woreda": "Abadir",
+   "zone_verified": true,
+   "woreda_verified": true,
+   "label": "Abadir woreda – survey area 21"
+  },
+  "A54b3a1e1b398": {
+   "region_name": "Harari",
+   "zone": "Harari",
+   "woreda": "Abadir",
+   "zone_verified": true,
+   "woreda_verified": true,
+   "label": "Abadir woreda – survey area 22"
+  },
+  "A9d8d92547b7f": {
+   "region_name": "Harari",
+   "zone": "Harari",
+   "woreda": "Abadir",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Abadir woreda (approx.) – survey area 23"
+  },
+  "Aa943cfa39dbb": {
+   "region_name": "Addis Ababa",
+   "zone": "Region 14",
+   "woreda": "Yeka Sub City",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Yeka Sub City woreda (approx.) – survey area 1"
+  },
+  "A65d240a74a94": {
+   "region_name": "Addis Ababa",
+   "zone": "Region 14",
+   "woreda": "Gulele Sub City",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Gulele Sub City woreda (approx.) – survey area 1"
+  },
+  "A57f8a79dbb5d": {
+   "region_name": "Addis Ababa",
+   "zone": "Region 14",
+   "woreda": "Gulele Sub City",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Gulele Sub City woreda (approx.) – survey area 2"
+  },
+  "A75c802a49206": {
+   "region_name": "Addis Ababa",
+   "zone": "Region 14",
+   "woreda": "Gulele Sub City",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Gulele Sub City woreda (approx.) – survey area 3"
+  },
+  "Ac8f5b2218a12": {
+   "region_name": "Addis Ababa",
+   "zone": "Region 14",
+   "woreda": "Addis Ketema Sub City",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Addis Ketema Sub City woreda (approx.) – survey area 1"
+  },
+  "Ac2677a7a20d2": {
+   "region_name": "Addis Ababa",
+   "zone": "Region 14",
+   "woreda": "Addis Ketema Sub City",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Addis Ketema Sub City woreda (approx.) – survey area 2"
+  },
+  "A97b0137a646e": {
+   "region_name": "Addis Ababa",
+   "zone": "Region 14",
+   "woreda": "Addis Ketema Sub City",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Addis Ketema Sub City woreda (approx.) – survey area 3"
+  },
+  "Ae36713f7888c": {
+   "region_name": "Addis Ababa",
+   "zone": "Region 14",
+   "woreda": "Kolfe Keraniyo Sub City",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Kolfe Keraniyo Sub City woreda (approx.) – survey area 1"
+  },
+  "A207abf0c2de0": {
+   "region_name": "Addis Ababa",
+   "zone": "Region 14",
+   "woreda": "Kolfe Keraniyo Sub City",
+   "zone_verified": true,
+   "woreda_verified": true,
+   "label": "Kolfe Keraniyo Sub City woreda – survey area 2"
+  },
+  "A8a767fe79d1b": {
+   "region_name": "Addis Ababa",
+   "zone": "Region 14",
+   "woreda": "Kolfe Keraniyo Sub City",
+   "zone_verified": true,
+   "woreda_verified": true,
+   "label": "Kolfe Keraniyo Sub City woreda – survey area 3"
+  },
+  "Ab0c416c870fc": {
+   "region_name": "Addis Ababa",
+   "zone": "Region 14",
+   "woreda": "Kolfe Keraniyo Sub City",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Kolfe Keraniyo Sub City woreda (approx.) – survey area 4"
+  },
+  "A45eac53c9138": {
+   "region_name": "Addis Ababa",
+   "zone": "Region 14",
+   "woreda": "Kolfe Keraniyo Sub City",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Kolfe Keraniyo Sub City woreda (approx.) – survey area 5"
+  },
+  "A2be50cee660b": {
+   "region_name": "Addis Ababa",
+   "zone": "Region 14",
+   "woreda": "Kolfe Keraniyo Sub City",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Kolfe Keraniyo Sub City woreda (approx.) – survey area 6"
+  },
+  "Aa247b9a75ef5": {
+   "region_name": "Addis Ababa",
+   "zone": "Region 14",
+   "woreda": "Addis Ketema Sub City",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Addis Ketema Sub City woreda (approx.) – survey area 4"
+  },
+  "Ae729119424cf": {
+   "region_name": "Addis Ababa",
+   "zone": "Region 14",
+   "woreda": "Addis Ketema Sub City",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Addis Ketema Sub City woreda (approx.) – survey area 5"
+  },
+  "A6e87bf05ccb5": {
+   "region_name": "Addis Ababa",
+   "zone": "Region 14",
+   "woreda": "Lideta Sub City",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Lideta Sub City woreda (approx.) – survey area 1"
+  },
+  "A394a72b4e346": {
+   "region_name": "Addis Ababa",
+   "zone": "Region 14",
+   "woreda": "Lideta Sub City",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Lideta Sub City woreda (approx.) – survey area 2"
+  },
+  "A4221d5f32a9b": {
+   "region_name": "Addis Ababa",
+   "zone": "Region 14",
+   "woreda": "Kirkos Sub City",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Kirkos Sub City woreda (approx.) – survey area 1"
+  },
+  "A272c4cf54c58": {
+   "region_name": "Addis Ababa",
+   "zone": "Region 14",
+   "woreda": "Kirkos Sub City",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Kirkos Sub City woreda (approx.) – survey area 2"
+  },
+  "A9dc74066a269": {
+   "region_name": "Addis Ababa",
+   "zone": "Region 14",
+   "woreda": "Kirkos Sub City",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Kirkos Sub City woreda (approx.) – survey area 3"
+  },
+  "Af7028d0ce283": {
+   "region_name": "Addis Ababa",
+   "zone": "Region 14",
+   "woreda": "Gulele Sub City",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Gulele Sub City woreda (approx.) – survey area 4"
+  },
+  "A7e8d5fa0f3c1": {
+   "region_name": "Addis Ababa",
+   "zone": "Region 14",
+   "woreda": "Arada Sub City",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Arada Sub City woreda (approx.)"
+  },
+  "Aea0844aee41c": {
+   "region_name": "Addis Ababa",
+   "zone": "Region 14",
+   "woreda": "Yeka Sub City",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Yeka Sub City woreda (approx.) – survey area 2"
+  },
+  "Aec8f74562fcb": {
+   "region_name": "Addis Ababa",
+   "zone": "Region 14",
+   "woreda": "Yeka Sub City",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Yeka Sub City woreda (approx.) – survey area 3"
+  },
+  "A549f1c293bb5": {
+   "region_name": "Addis Ababa",
+   "zone": "Region 14",
+   "woreda": "Yeka Sub City",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Yeka Sub City woreda (approx.) – survey area 4"
+  },
+  "A5aeeba7ad164": {
+   "region_name": "Addis Ababa",
+   "zone": "Region 14",
+   "woreda": "Yeka Sub City",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Yeka Sub City woreda (approx.) – survey area 5"
+  },
+  "A6edd98f4fc34": {
+   "region_name": "Addis Ababa",
+   "zone": "Region 14",
+   "woreda": "Yeka Sub City",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Yeka Sub City woreda (approx.) – survey area 6"
+  },
+  "A6b0f24926366": {
+   "region_name": "Addis Ababa",
+   "zone": "Region 14",
+   "woreda": "Yeka Sub City",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Yeka Sub City woreda (approx.) – survey area 7"
+  },
+  "A429d93f6bb18": {
+   "region_name": "Addis Ababa",
+   "zone": "Region 14",
+   "woreda": "Lemi Kura Sub City",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Lemi Kura Sub City woreda (approx.) – survey area 1"
+  },
+  "A994b01564ec7": {
+   "region_name": "Addis Ababa",
+   "zone": "Region 14",
+   "woreda": "Lemi Kura Sub City",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Lemi Kura Sub City woreda (approx.) – survey area 2"
+  },
+  "Aa96d66501b78": {
+   "region_name": "Addis Ababa",
+   "zone": "Region 14",
+   "woreda": "Lemi Kura Sub City",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Lemi Kura Sub City woreda (approx.) – survey area 3"
+  },
+  "A7db84b2f7832": {
+   "region_name": "Addis Ababa",
+   "zone": "Region 14",
+   "woreda": "Nifas Silk Lafto Sub City",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Nifas Silk Lafto Sub City woreda (approx.) – survey area 1"
+  },
+  "Affcf5821d1d7": {
+   "region_name": "Addis Ababa",
+   "zone": "Region 14",
+   "woreda": "Kirkos Sub City",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Kirkos Sub City woreda (approx.) – survey area 4"
+  },
+  "Adeaa023b2321": {
+   "region_name": "Addis Ababa",
+   "zone": "Region 14",
+   "woreda": "Bole Sub City",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Bole Sub City woreda (approx.) – survey area 1"
+  },
+  "A51965438f3e5": {
+   "region_name": "Addis Ababa",
+   "zone": "Region 14",
+   "woreda": "Lemi Kura Sub City",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Lemi Kura Sub City woreda (approx.) – survey area 4"
+  },
+  "A77c72bf4199c": {
+   "region_name": "Addis Ababa",
+   "zone": "Region 14",
+   "woreda": "Lemi Kura Sub City",
+   "zone_verified": true,
+   "woreda_verified": true,
+   "label": "Lemi Kura Sub City woreda – survey area 5"
+  },
+  "A1b4cc0ce1631": {
+   "region_name": "Addis Ababa",
+   "zone": "Region 14",
+   "woreda": "Lemi Kura Sub City",
+   "zone_verified": true,
+   "woreda_verified": true,
+   "label": "Lemi Kura Sub City woreda – survey area 6"
+  },
+  "A96f2da885f61": {
+   "region_name": "Addis Ababa",
+   "zone": "Region 14",
+   "woreda": "Bole Sub City",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Bole Sub City woreda (approx.) – survey area 2"
+  },
+  "A7c8253f5d4dc": {
+   "region_name": "Addis Ababa",
+   "zone": "Region 14",
+   "woreda": "Bole Sub City",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Bole Sub City woreda (approx.) – survey area 3"
+  },
+  "Ad3904978ed6a": {
+   "region_name": "Addis Ababa",
+   "zone": "Region 14",
+   "woreda": "Kolfe Keraniyo Sub City",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Kolfe Keraniyo Sub City woreda (approx.) – survey area 7"
+  },
+  "A5828960140ed": {
+   "region_name": "Addis Ababa",
+   "zone": "Region 14",
+   "woreda": "Kolfe Keraniyo Sub City",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Kolfe Keraniyo Sub City woreda (approx.) – survey area 8"
+  },
+  "A43fdb0bf625e": {
+   "region_name": "Addis Ababa",
+   "zone": "Region 14",
+   "woreda": "Nifas Silk Lafto Sub City",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Nifas Silk Lafto Sub City woreda (approx.) – survey area 2"
+  },
+  "Aa28b7eb8754a": {
+   "region_name": "Addis Ababa",
+   "zone": "Region 14",
+   "woreda": "Nifas Silk Lafto Sub City",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Nifas Silk Lafto Sub City woreda (approx.) – survey area 3"
+  },
+  "A3a978c23dcc7": {
+   "region_name": "Addis Ababa",
+   "zone": "Region 14",
+   "woreda": "Nifas Silk Lafto Sub City",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Nifas Silk Lafto Sub City woreda (approx.) – survey area 4"
+  },
+  "A5ce809a05f56": {
+   "region_name": "Addis Ababa",
+   "zone": "Region 14",
+   "woreda": "Akaki Kality Sub City",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Akaki Kality Sub City woreda (approx.) – survey area 1"
+  },
+  "A0c3f7ae1221c": {
+   "region_name": "Addis Ababa",
+   "zone": "Region 14",
+   "woreda": "Nifas Silk Lafto Sub City",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Nifas Silk Lafto Sub City woreda (approx.) – survey area 5"
+  },
+  "A05d170acb505": {
+   "region_name": "Addis Ababa",
+   "zone": "Region 14",
+   "woreda": "Nifas Silk Lafto Sub City",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Nifas Silk Lafto Sub City woreda (approx.) – survey area 6"
+  },
+  "Ac68653af6e60": {
+   "region_name": "Addis Ababa",
+   "zone": "Region 14",
+   "woreda": "Akaki Kality Sub City",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Akaki Kality Sub City woreda (approx.) – survey area 2"
+  },
+  "Ad8800bd95338": {
+   "region_name": "Addis Ababa",
+   "zone": "Region 14",
+   "woreda": "Akaki Kality Sub City",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Akaki Kality Sub City woreda (approx.) – survey area 3"
+  },
+  "Abcb78722ae09": {
+   "region_name": "Addis Ababa",
+   "zone": "Region 14",
+   "woreda": "Akaki Kality Sub City",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Akaki Kality Sub City woreda (approx.) – survey area 4"
+  },
+  "Aa7e5d193cdcb": {
+   "region_name": "Addis Ababa",
+   "zone": "Region 14",
+   "woreda": "Akaki Kality Sub City",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Akaki Kality Sub City woreda (approx.) – survey area 5"
+  },
+  "A519dd04a2628": {
+   "region_name": "Addis Ababa",
+   "zone": "Region 14",
+   "woreda": "Akaki Kality Sub City",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Akaki Kality Sub City woreda (approx.) – survey area 6"
+  },
+  "Ab724ffbbeb7c": {
+   "region_name": "Dire Dawa",
+   "zone": "Dire Dawa urban",
+   "woreda": "Addis Ketema (DD)",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Addis Ketema (DD) woreda (approx.) – survey area 1"
+  },
+  "Af60b2d3231d9": {
+   "region_name": "Dire Dawa",
+   "zone": "Dire Dawa urban",
+   "woreda": "Addis Ketema (DD)",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Addis Ketema (DD) woreda (approx.) – survey area 2"
+  },
+  "Ac21e5a9caf26": {
+   "region_name": "Dire Dawa",
+   "zone": "Dire Dawa urban",
+   "woreda": "Addis Ketema (DD)",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Addis Ketema (DD) woreda (approx.) – survey area 3"
+  },
+  "A4f6c51282acb": {
+   "region_name": "Dire Dawa",
+   "zone": "Dire Dawa urban",
+   "woreda": "Addis Ketema (DD)",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Addis Ketema (DD) woreda (approx.) – survey area 4"
+  },
+  "A7503d7221a8f": {
+   "region_name": "Dire Dawa",
+   "zone": "Dire Dawa urban",
+   "woreda": "Addis Ketema (DD)",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Addis Ketema (DD) woreda (approx.) – survey area 5"
+  },
+  "A2acc22a60c2e": {
+   "region_name": "Dire Dawa",
+   "zone": "Dire Dawa urban",
+   "woreda": "Addis Ketema (DD)",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Addis Ketema (DD) woreda (approx.) – survey area 6"
+  },
+  "A0426e2f1b098": {
+   "region_name": "Dire Dawa",
+   "zone": "Dire Dawa urban",
+   "woreda": "Addis Ketema (DD)",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Addis Ketema (DD) woreda (approx.) – survey area 7"
+  },
+  "Acbd1b5a1604c": {
+   "region_name": "Dire Dawa",
+   "zone": "Dire Dawa urban",
+   "woreda": "Addis Ketema (DD)",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Addis Ketema (DD) woreda (approx.) – survey area 8"
+  },
+  "A566480a66583": {
+   "region_name": "Dire Dawa",
+   "zone": "Dire Dawa urban",
+   "woreda": "Addis Ketema (DD)",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Addis Ketema (DD) woreda (approx.) – survey area 9"
+  },
+  "A620c021413aa": {
+   "region_name": "Dire Dawa",
+   "zone": "Dire Dawa urban",
+   "woreda": "Addis Ketema (DD)",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Addis Ketema (DD) woreda (approx.) – survey area 10"
+  },
+  "A0c56d5298fc0": {
+   "region_name": "Dire Dawa",
+   "zone": "Dire Dawa urban",
+   "woreda": "Addis Ketema (DD)",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Addis Ketema (DD) woreda (approx.) – survey area 11"
+  },
+  "A04b3e609063f": {
+   "region_name": "Dire Dawa",
+   "zone": "Dire Dawa urban",
+   "woreda": "Addis Ketema (DD)",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Addis Ketema (DD) woreda (approx.) – survey area 12"
+  },
+  "A0ea828ddb297": {
+   "region_name": "Dire Dawa",
+   "zone": "Dire Dawa urban",
+   "woreda": "Addis Ketema (DD)",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Addis Ketema (DD) woreda (approx.) – survey area 13"
+  },
+  "A68d3e2a6e30d": {
+   "region_name": "Dire Dawa",
+   "zone": "Dire Dawa urban",
+   "woreda": "Addis Ketema (DD)",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Addis Ketema (DD) woreda (approx.) – survey area 14"
+  },
+  "A20cf1a94f86c": {
+   "region_name": "Dire Dawa",
+   "zone": "Dire Dawa urban",
+   "woreda": "Addis Ketema (DD)",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Addis Ketema (DD) woreda (approx.) – survey area 15"
+  },
+  "Ab2734cf7b852": {
+   "region_name": "Dire Dawa",
+   "zone": "Dire Dawa urban",
+   "woreda": "Addis Ketema (DD)",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Addis Ketema (DD) woreda (approx.) – survey area 16"
+  },
+  "A51c716d45532": {
+   "region_name": "Dire Dawa",
+   "zone": "Dire Dawa urban",
+   "woreda": "Addis Ketema (DD)",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Addis Ketema (DD) woreda (approx.) – survey area 17"
+  },
+  "A6c1ba5ab6410": {
+   "region_name": "Dire Dawa",
+   "zone": "Dire Dawa urban",
+   "woreda": "Addis Ketema (DD)",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Addis Ketema (DD) woreda (approx.) – survey area 18"
+  },
+  "Ac2cff466c84c": {
+   "region_name": "Dire Dawa",
+   "zone": "Dire Dawa urban",
+   "woreda": "Addis Ketema (DD)",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Addis Ketema (DD) woreda (approx.) – survey area 19"
+  },
+  "Ad863e48fb491": {
+   "region_name": "Dire Dawa",
+   "zone": "Dire Dawa urban",
+   "woreda": "Addis Ketema (DD)",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Addis Ketema (DD) woreda (approx.) – survey area 20"
+  },
+  "A7d0ed282b922": {
+   "region_name": "Dire Dawa",
+   "zone": "Dire Dawa urban",
+   "woreda": "Addis Ketema (DD)",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Addis Ketema (DD) woreda (approx.) – survey area 21"
+  },
+  "A2c6d1d172d60": {
+   "region_name": "Dire Dawa",
+   "zone": "Dire Dawa urban",
+   "woreda": "Addis Ketema (DD)",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Addis Ketema (DD) woreda (approx.) – survey area 22"
+  },
+  "A37aa06355f11": {
+   "region_name": "Dire Dawa",
+   "zone": "Dire Dawa urban",
+   "woreda": "Addis Ketema (DD)",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Addis Ketema (DD) woreda (approx.) – survey area 23"
+  },
+  "Ad112f03a6ace": {
+   "region_name": "Dire Dawa",
+   "zone": "Dire Dawa urban",
+   "woreda": "Addis Ketema (DD)",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Addis Ketema (DD) woreda (approx.) – survey area 24"
+  },
+  "A2b2ebc745dcf": {
+   "region_name": "Dire Dawa",
+   "zone": "Dire Dawa urban",
+   "woreda": "Addis Ketema (DD)",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Addis Ketema (DD) woreda (approx.) – survey area 25"
+  },
+  "A228a0c8c0994": {
+   "region_name": "Dire Dawa",
+   "zone": "Dire Dawa urban",
+   "woreda": "Addis Ketema (DD)",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Addis Ketema (DD) woreda (approx.) – survey area 26"
+  },
+  "Af63d0fd1890b": {
+   "region_name": "Dire Dawa",
+   "zone": "Dire Dawa urban",
+   "woreda": "Addis Ketema (DD)",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Addis Ketema (DD) woreda (approx.) – survey area 27"
+  },
+  "Aebbbf98ac316": {
+   "region_name": "Dire Dawa",
+   "zone": "Dire Dawa urban",
+   "woreda": "Addis Ketema (DD)",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Addis Ketema (DD) woreda (approx.) – survey area 28"
+  },
+  "A8c93c48ac30a": {
+   "region_name": "Dire Dawa",
+   "zone": "Dire Dawa urban",
+   "woreda": "Addis Ketema (DD)",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Addis Ketema (DD) woreda (approx.) – survey area 29"
+  },
+  "A32bc284ae308": {
+   "region_name": "Dire Dawa",
+   "zone": "Dire Dawa urban",
+   "woreda": "Addis Ketema (DD)",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Addis Ketema (DD) woreda (approx.) – survey area 30"
+  },
+  "Acc30ced0082f": {
+   "region_name": "Dire Dawa",
+   "zone": "Dire Dawa urban",
+   "woreda": "Addis Ketema (DD)",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Addis Ketema (DD) woreda (approx.) – survey area 31"
+  },
+  "Aaf51e1651890": {
+   "region_name": "Dire Dawa",
+   "zone": "Dire Dawa urban",
+   "woreda": "Addis Ketema (DD)",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Addis Ketema (DD) woreda (approx.) – survey area 32"
+  },
+  "A7d97b056b3d2": {
+   "region_name": "Dire Dawa",
+   "zone": "Dire Dawa urban",
+   "woreda": "Addis Ketema (DD)",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Addis Ketema (DD) woreda (approx.) – survey area 33"
+  },
+  "A78fecd476837": {
+   "region_name": "Dire Dawa",
+   "zone": "Dire Dawa urban",
+   "woreda": "Addis Ketema (DD)",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Addis Ketema (DD) woreda (approx.) – survey area 34"
+  },
+  "A1b9a622ca89a": {
+   "region_name": "Dire Dawa",
+   "zone": "Dire Dawa urban",
+   "woreda": "Addis Ketema (DD)",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Addis Ketema (DD) woreda (approx.) – survey area 35"
+  },
+  "Ac946cbb24cc2": {
+   "region_name": "Dire Dawa",
+   "zone": "Dire Dawa urban",
+   "woreda": "Addis Ketema (DD)",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Addis Ketema (DD) woreda (approx.) – survey area 36"
+  },
+  "A0198fcf18da8": {
+   "region_name": "Dire Dawa",
+   "zone": "Dire Dawa urban",
+   "woreda": "Addis Ketema (DD)",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Addis Ketema (DD) woreda (approx.) – survey area 37"
+  },
+  "A2181bf68cf3d": {
+   "region_name": "Dire Dawa",
+   "zone": "Dire Dawa urban",
+   "woreda": "Addis Ketema (DD)",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Addis Ketema (DD) woreda (approx.) – survey area 38"
+  },
+  "A623c38a67f1d": {
+   "region_name": "Dire Dawa",
+   "zone": "Dire Dawa urban",
+   "woreda": "Addis Ketema (DD)",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Addis Ketema (DD) woreda (approx.) – survey area 39"
+  },
+  "Ad3abd89b02f2": {
+   "region_name": "Dire Dawa",
+   "zone": "Dire Dawa urban",
+   "woreda": "Addis Ketema (DD)",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Addis Ketema (DD) woreda (approx.) – survey area 40"
+  },
+  "A31ba5bc18869": {
+   "region_name": "Dire Dawa",
+   "zone": "Dire Dawa urban",
+   "woreda": "Addis Ketema (DD)",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Addis Ketema (DD) woreda (approx.) – survey area 41"
+  },
+  "A9156dd7fa7ce": {
+   "region_name": "Dire Dawa",
+   "zone": "Dire Dawa urban",
+   "woreda": "Addis Ketema (DD)",
+   "zone_verified": true,
+   "woreda_verified": false,
+   "label": "Addis Ketema (DD) woreda (approx.) – survey area 42"
+  }
+ }
+}

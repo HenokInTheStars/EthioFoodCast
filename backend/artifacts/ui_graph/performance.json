@@ -1,0 +1,66 @@
+{
+ "model": "GCN ensemble (GCNPlus, 5 members), trained on the 14-question agricultural form",
+ "holdout_seed0": {
+  "pr_auc": 0.9108673600848485,
+  "roc_auc": 0.87366652967139,
+  "recall": 0.8020477815699659,
+  "precision": 0.8483754512635379,
+  "f1": 0.8245614035087719,
+  "precision_at_25pct": 0.9421487603305785,
+  "recall_at_precision_70": 0.9658703071672355,
+  "brier": 0.13982565870113106,
+  "accuracy": 0.7933884297520661,
+  "n": 484,
+  "positive_rate": 0.6053719008264463,
+  "tn": 149,
+  "fp": 42,
+  "fn": 58,
+  "tp": 235
+ },
+ "five_split": {
+  "key": "gcn_form_agri14",
+  "label": "GCN ensemble, 14-question agricultural form",
+  "seed_accuracy": [
+   0.7934,
+   0.7598,
+   0.7785,
+   0.8103,
+   0.7798
+  ],
+  "accuracy_mean": 0.7844,
+  "roc_auc_mean": 0.8555,
+  "pr_auc_mean": 0.8816,
+  "recall_mean": 0.8437,
+  "precision_mean": 0.8018,
+  "f1_mean": 0.8205,
+  "accuracy_sd": 0.0188
+ },
+ "answers": [
+  "n_children",
+  "n_working_age",
+  "n_elderly",
+  "land_total_area",
+  "land_any_irrigated",
+  "crop_diversity",
+  "crop_any_damage",
+  "harvest_any_shortfall",
+  "livestock_cattle",
+  "livestock_small_ruminants",
+  "livestock_poultry",
+  "econ_has_nonfarm_business",
+  "econ_psnp",
+  "econ_total_assets"
+ ],
+ "min_answers": 9,
+ "threshold": 0.5211760401725769,
+ "baseline_rate": 0.6054,
+ "training": {
+  "households": 4837,
+  "areas": 427,
+  "features": 25,
+  "answers": 14,
+  "inputs_year": "2018/19 (ESS Wave 4) household, land, crop, livestock and livelihood answers + the area's 2018 and 2019 rainfall/NDVI",
+  "outcome_year": "2021/22 (ESS Wave 5) FIES food insecurity"
+ },
+ "split": "Every 4th household per survey area held out (75/25); validation carved the same way from training."
+}

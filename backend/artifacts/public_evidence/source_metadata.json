@@ -1,0 +1,174 @@
+{
+  "retrieved_at": "2026-10-20T14:50:20.454729+00:00",
+  "sources": [
+    {
+      "id": "moa-ethiopia",
+      "name": "FDRE Ministry of Agriculture",
+      "publisher_url": "https://www.moa.gov.et/",
+      "content_type": "Update",
+      "feed_url": "https://www.moa.gov.et/feed/",
+      "reuse_terms_url": null,
+      "rights_notes": null,
+      "rights_status": "unverified",
+      "offline_content_policy": "metadata_only",
+      "retrieved_at": "2026-10-20T14:50:20.454729+00:00",
+      "items": [
+        {
+          "id": "https://www.moa.gov.et/%e1%89%a5%e1%88%94%e1%88%ab%e1%8b%8a-%e1%8b%a8%e1%8a%a0%e1%8b%b0%e1%88%bd-%e1%8c%8d%e1%89%a5%e1%88%ad%e1%8a%93-%e1%88%b5%e1%89%b5%e1%88%ab%e1%89%b4%e1%8c%82-%e1%88%88%e1%8c%8d%e1%89%a5%e1%88%ad/",
+          "title": "ብሔራዊ የአዳሽ ግብርና ስትራቴጂ ለግብርናው ዘርፍ እድገት ያለው ሚና",
+          "url": "https://www.moa.gov.et/%e1%89%a5%e1%88%94%e1%88%ab%e1%8b%8a-%e1%8b%a8%e1%8a%a0%e1%8b%b0%e1%88%bd-%e1%8c%8d%e1%89%a5%e1%88%ad%e1%8a%93-%e1%88%b5%e1%89%b5%e1%88%ab%e1%89%b4%e1%8c%82-%e1%88%88%e1%8c%8d%e1%89%a5%e1%88%ad/",
+          "published_at": "2026-10-20T13:35:14+00:00",
+          "language": "am",
+          "content_type": "Update"
+        },
+        {
+          "id": "https://www.moa.gov.et/%e1%8b%a8%e1%8c%8d%e1%89%a5%e1%88%ad%e1%8a%93-%e1%88%9d%e1%88%ad%e1%89%b5-%e1%8b%8d%e1%88%8d-%e1%8a%a0%e1%88%9d%e1%88%ab%e1%89%bd%e1%8a%93-%e1%8a%a0%e1%88%b5%e1%88%98%e1%88%ab%e1%89%bd%e1%8a%95/",
+          "title": "የግብርና ምርት ውል አምራችና አስመራችን ተጠቃሚ ያደርጋል",
+          "url": "https://www.moa.gov.et/%e1%8b%a8%e1%8c%8d%e1%89%a5%e1%88%ad%e1%8a%93-%e1%88%9d%e1%88%ad%e1%89%b5-%e1%8b%8d%e1%88%8d-%e1%8a%a0%e1%88%9d%e1%88%ab%e1%89%bd%e1%8a%93-%e1%8a%a0%e1%88%b5%e1%88%98%e1%88%ab%e1%89%bd%e1%8a%95/",
+          "published_at": "2026-10-19T13:44:08+00:00",
+          "language": "am",
+          "content_type": "Update"
+        },
+        {
+          "id": "https://www.moa.gov.et/%e1%8a%a2%e1%89%b5%e1%8b%ae%e1%8c%b5%e1%8b%ab-%e1%89%a0%e1%89%b0%e1%89%a3%e1%89%a0%e1%88%a9%e1%89%b5-%e1%88%98%e1%8a%95%e1%8c%8d%e1%88%b5%e1%89%b3%e1%89%b5-%e1%8b%a8%e1%88%9d%e1%8c%8d%e1%89%a5/",
+          "title": "ኢትዮጵያ በተባበሩት መንግስታት የምግብና እርሻ ድርጅት “100 Women Heroes” የዓለም አቀፍ ዕውቅና አገኘች",
+          "url": "https://www.moa.gov.et/%e1%8a%a2%e1%89%b5%e1%8b%ae%e1%8c%b5%e1%8b%ab-%e1%89%a0%e1%89%b0%e1%89%a3%e1%89%a0%e1%88%a9%e1%89%b5-%e1%88%98%e1%8a%95%e1%8c%8d%e1%88%b5%e1%89%b3%e1%89%b5-%e1%8b%a8%e1%88%9d%e1%8c%8d%e1%89%a5/",
+          "published_at": "2026-10-15T18:07:57+00:00",
+          "language": "am",
+          "content_type": "Update"
+        },
+        {
+          "id": "https://www.moa.gov.et/%e1%8b%a8%e1%8a%a2%e1%89%b5%e1%8b%ae%e1%8c%b5%e1%8b%ab%e1%8a%95-%e1%89%b3%e1%8b%b3%e1%88%b8-%e1%8a%83%e1%8b%ad%e1%88%8d-%e1%88%88%e1%88%9b%e1%88%b3%e1%8b%b0%e1%8c%8d-%e1%8b%ab%e1%88%88%e1%88%98/",
+          "title": "የኢትዮጵያን ታዳሸ ኃይል ለማሳደግ ያለመ ጉባዔ",
+          "url": "https://www.moa.gov.et/%e1%8b%a8%e1%8a%a2%e1%89%b5%e1%8b%ae%e1%8c%b5%e1%8b%ab%e1%8a%95-%e1%89%b3%e1%8b%b3%e1%88%b8-%e1%8a%83%e1%8b%ad%e1%88%8d-%e1%88%88%e1%88%9b%e1%88%b3%e1%8b%b0%e1%8c%8d-%e1%8b%ab%e1%88%88%e1%88%98/",
+          "published_at": "2026-10-15T13:05:08+00:00",
+          "language": "am",
+          "content_type": "Update"
+        },
+        {
+          "id": "https://www.moa.gov.et/%e1%8c%8d%e1%89%a5%e1%88%ad%e1%8a%93-%e1%88%9a%e1%8a%92%e1%88%b5%e1%89%b4%e1%88%ad-%e1%8a%a5%e1%8a%93-%e1%8b%a8%e1%89%a5%e1%88%ab%e1%8b%9a%e1%88%8d-%e1%8c%8d%e1%89%a5%e1%88%ad%e1%8a%93-%e1%88%9d/",
+          "title": "ግብርና ሚኒስቴር እና የብራዚል ግብርና ምርምር ኮርፖሬሽን በጥጥ ልማት ላይ በጋራ መስራት በሚያስችላቸው ጉዳዮች ላይ ተወያዩ",
+          "url": "https://www.moa.gov.et/%e1%8c%8d%e1%89%a5%e1%88%ad%e1%8a%93-%e1%88%9a%e1%8a%92%e1%88%b5%e1%89%b4%e1%88%ad-%e1%8a%a5%e1%8a%93-%e1%8b%a8%e1%89%a5%e1%88%ab%e1%8b%9a%e1%88%8d-%e1%8c%8d%e1%89%a5%e1%88%ad%e1%8a%93-%e1%88%9d/",
+          "published_at": "2026-10-15T13:01:35+00:00",
+          "language": "am",
+          "content_type": "Update"
+        },
+        {
+          "id": "https://www.moa.gov.et/%e1%89%a0%e1%8c%8d%e1%89%a5%e1%88%ad%e1%8a%93%e1%8b%8d-%e1%8b%98%e1%88%ad%e1%8d%8d-%e1%8b%a8%e1%88%9a%e1%8d%88%e1%88%88%e1%8c%88%e1%8b%8d%e1%8a%95-%e1%88%88%e1%8b%8d%e1%8c%a5-%e1%8a%a5%e1%8a%93/",
+          "title": "በግብርናው ዘርፍ የሚፈለገውን ለውጥ እና ሽግግር ለማምጣት ሴቶችን ማብቃት ለነገ የማይተው ጉዳይ ነው",
+          "url": "https://www.moa.gov.et/%e1%89%a0%e1%8c%8d%e1%89%a5%e1%88%ad%e1%8a%93%e1%8b%8d-%e1%8b%98%e1%88%ad%e1%8d%8d-%e1%8b%a8%e1%88%9a%e1%8d%88%e1%88%88%e1%8c%88%e1%8b%8d%e1%8a%95-%e1%88%88%e1%8b%8d%e1%8c%a5-%e1%8a%a5%e1%8a%93/",
+          "published_at": "2026-10-15T12:57:48+00:00",
+          "language": "am",
+          "content_type": "Update"
+        },
+        {
+          "id": "https://www.moa.gov.et/%e1%8b%a8%e1%8c%8d%e1%89%a5%e1%88%ad%e1%8a%93-%e1%88%9d%e1%88%ad%e1%89%b5-%e1%8b%8d%e1%88%8d-%e1%88%88%e1%8c%89%e1%88%8e-%e1%88%9d%e1%88%ad%e1%89%b3%e1%88%9b%e1%8a%90%e1%89%b5-%e1%8a%a5%e1%8a%93/",
+          "title": "የግብርና ምርት ውል ለጉሎ ምርታማነት እና ለአምራቾች ተጠቃሚነት",
+          "url": "https://www.moa.gov.et/%e1%8b%a8%e1%8c%8d%e1%89%a5%e1%88%ad%e1%8a%93-%e1%88%9d%e1%88%ad%e1%89%b5-%e1%8b%8d%e1%88%8d-%e1%88%88%e1%8c%89%e1%88%8e-%e1%88%9d%e1%88%ad%e1%89%b3%e1%88%9b%e1%8a%90%e1%89%b5-%e1%8a%a5%e1%8a%93/",
+          "published_at": "2026-10-14T11:02:22+00:00",
+          "language": "am",
+          "content_type": "Update"
+        },
+        {
+          "id": "https://www.moa.gov.et/%e1%8b%a8%e1%89%b0%e1%88%a8%e1%8c%85%e1%8a%90%e1%89%b5-%e1%89%b3%e1%88%aa%e1%8a%ad%e1%8a%95-%e1%8b%a8%e1%89%80%e1%8b%a8%e1%88%a8%e1%8b%8d-%e1%8b%a8%e1%88%b5%e1%8a%95%e1%8b%b4-%e1%88%8d%e1%88%9b/",
+          "title": "የተረጅነት ታሪክን የቀየረው የስንዴ ልማት ዕመርታ",
+          "url": "https://www.moa.gov.et/%e1%8b%a8%e1%89%b0%e1%88%a8%e1%8c%85%e1%8a%90%e1%89%b5-%e1%89%b3%e1%88%aa%e1%8a%ad%e1%8a%95-%e1%8b%a8%e1%89%80%e1%8b%a8%e1%88%a8%e1%8b%8d-%e1%8b%a8%e1%88%b5%e1%8a%95%e1%8b%b4-%e1%88%8d%e1%88%9b/",
+          "published_at": "2026-10-14T05:58:29+00:00",
+          "language": "am",
+          "content_type": "Update"
+        },
+        {
+          "id": "https://www.moa.gov.et/%f0%9d%97%98%f0%9d%98%81%f0%9d%97%b5%f0%9d%97%b6%f0%9d%97%bc%f0%9d%97%bd%f0%9d%97%b6%f0%9d%97%ae-%f0%9d%97%ae%f0%9d%97%bb%f0%9d%97%b1-%f0%9d%97%96%f0%9d%97%b5%f0%9d%97%b6%f0%9d%97%bb%f0%9d%97%ae/",
+          "title": "𝗘𝘁𝗵𝗶𝗼𝗽𝗶𝗮 𝗮𝗻𝗱 𝗖𝗵𝗶𝗻𝗮 𝗘𝘅𝗽𝗹𝗼𝗿𝗲 𝗘𝗻𝗵𝗮𝗻𝗰𝗲𝗱 𝗖𝗼𝗼𝗽𝗲𝗿𝗮𝘁𝗶𝗼𝗻 𝗶𝗻 𝗔𝗴𝗿𝗶𝗰𝘂𝗹𝘁𝘂𝗿𝗮𝗹 𝗠𝗲𝗰𝗵𝗮𝗻𝗶𝘇𝗮𝘁𝗶𝗼𝗻",
+          "url": "https://www.moa.gov.et/%f0%9d%97%98%f0%9d%98%81%f0%9d%97%b5%f0%9d%97%b6%f0%9d%97%bc%f0%9d%97%bd%f0%9d%97%b6%f0%9d%97%ae-%f0%9d%97%ae%f0%9d%97%bb%f0%9d%97%b1-%f0%9d%97%96%f0%9d%97%b5%f0%9d%97%b6%f0%9d%97%bb%f0%9d%97%ae/",
+          "published_at": "2026-10-13T17:06:34+00:00",
+          "language": "en",
+          "content_type": "Update"
+        },
+        {
+          "id": "https://www.moa.gov.et/%e1%8b%a8%e1%8b%b5%e1%88%ad%e1%89%85-%e1%88%b5%e1%8c%8b%e1%89%b5-%e1%8a%a0%e1%88%b5%e1%89%b0%e1%8b%b3%e1%8b%b0%e1%88%ad-%e1%88%98%e1%88%a3%e1%88%aa%e1%8b%ab-%e1%8b%a8%e1%88%86%e1%8a%90%e1%8b%8d/",
+          "title": "የድርቅ ስጋት አስተዳደር መሣሪያ የሆነው የእንስሳት መድን አገልግሎት በኢትዮጵያ",
+          "url": "https://www.moa.gov.et/%e1%8b%a8%e1%8b%b5%e1%88%ad%e1%89%85-%e1%88%b5%e1%8c%8b%e1%89%b5-%e1%8a%a0%e1%88%b5%e1%89%b0%e1%8b%b3%e1%8b%b0%e1%88%ad-%e1%88%98%e1%88%a3%e1%88%aa%e1%8b%ab-%e1%8b%a8%e1%88%86%e1%8a%90%e1%8b%8d/",
+          "published_at": "2026-10-13T07:48:12+00:00",
+          "language": "am",
+          "content_type": "Update"
+        }
+      ]
+    },
+    {
+      "id": "wfp-ethiopia",
+      "name": "World Food Programme - Ethiopia publications",
+      "publisher_url": "https://www.wfp.org/countries/ethiopia",
+      "content_type": "Publication",
+      "listing_url": "https://www.wfp.org/countries/ethiopia",
+      "reuse_terms_url": "https://cdn.wfp.org/legal/terms",
+      "rights_notes": "WFP allows personal, non-commercial copies with attribution, but forbids redistribution and compiling or creating derivative works. Automated offline indexing remains disabled.",
+      "rights_status": "conditional",
+      "offline_content_policy": "metadata_only",
+      "retrieved_at": "2026-10-20T14:50:20.454729+00:00",
+      "items": [
+        {
+          "id": "https://www.wfp.org/publications/strengthening-early-warning-systems-anticipatory-action-sewaa-project-mid-term-0",
+          "title": "Strengthening Early Warning Systems for Anticipatory Action - SEWAA project: mid-term achievements",
+          "url": "https://www.wfp.org/publications/strengthening-early-warning-systems-anticipatory-action-sewaa-project-mid-term-0",
+          "published_at": "2026-07-14T00:00:00+00:00",
+          "language": "en",
+          "content_type": "Publication"
+        },
+        {
+          "id": "https://www.wfp.org/publications/ethiopia-usda-mcgovern-dole-school-feeding-programme-2024-2029-evaluations",
+          "title": "Ethiopia, USDA McGovern-Dole School Feeding Programme 2024-2029: Evaluations",
+          "url": "https://www.wfp.org/publications/ethiopia-usda-mcgovern-dole-school-feeding-programme-2024-2029-evaluations",
+          "published_at": "2026-03-12T00:00:00+00:00",
+          "language": "en",
+          "content_type": "Publication"
+        },
+        {
+          "id": "https://www.wfp.org/publications/ethiopia-final-evaluation-rural-resilience-initiative-tigray-and-amhara-regions",
+          "title": "Ethiopia, Final Evaluation of the Rural Resilience Initiative in Tigray and Amhara Regions",
+          "url": "https://www.wfp.org/publications/ethiopia-final-evaluation-rural-resilience-initiative-tigray-and-amhara-regions",
+          "published_at": "2025-10-29T00:00:00+00:00",
+          "language": "en",
+          "content_type": "Publication"
+        },
+        {
+          "id": "https://www.wfp.org/publications/ethiopia-food-education-and-child-nutrition-2019-2024-evaluations",
+          "title": "Ethiopia, Food for Education and Child Nutrition 2019-2024: Evaluations",
+          "url": "https://www.wfp.org/publications/ethiopia-food-education-and-child-nutrition-2019-2024-evaluations",
+          "published_at": "2025-10-02T00:00:00+00:00",
+          "language": "en",
+          "content_type": "Publication"
+        },
+        {
+          "id": "https://www.wfp.org/publications/regional-office-eastern-and-southern-africa-nourishing-futures-wfps-humanitarian",
+          "title": "Regional Office for Eastern and Southern Africa - Nourishing Futures: WFP’s Humanitarian Response 2024",
+          "url": "https://www.wfp.org/publications/regional-office-eastern-and-southern-africa-nourishing-futures-wfps-humanitarian",
+          "published_at": "2025-07-18T00:00:00+00:00",
+          "language": "en",
+          "content_type": "Publication"
+        },
+        {
+          "id": "https://www.wfp.org/publications/annual-country-reports-ethiopia",
+          "title": "Annual Country Reports - Ethiopia",
+          "url": "https://www.wfp.org/publications/annual-country-reports-ethiopia",
+          "published_at": "2025-03-27T00:00:00+00:00",
+          "language": "en",
+          "content_type": "Publication"
+        }
+      ]
+    },
+    {
+      "id": "fao-ethiopia-news",
+      "name": "FAO Ethiopia news",
+      "publisher_url": "https://www.fao.org/ethiopia/news/en/",
+      "content_type": "News",
+      "listing_url": "https://www.fao.org/ethiopia/news/en/",
+      "reuse_terms_url": "https://www.fao.org/contact-us/terms/en",
+      "rights_notes": "FAO website content may be reused for non-commercial research with attribution; repository publications have separate item-specific terms. No article records are currently listed.",
+      "rights_status": "conditional",
+      "offline_content_policy": "metadata_only",
+      "retrieved_at": "2026-10-20T14:50:20.454729+00:00",
+      "items": []
+    }
+  ]
+}

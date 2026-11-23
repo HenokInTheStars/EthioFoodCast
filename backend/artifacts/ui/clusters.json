@@ -1,0 +1,37 @@
+[
+ {
+  "cluster": 0,
+  "name_": "Typical smallholder",
+  "n": 1008,
+  "pct": 51.8,
+  "food_insecure_rate": 0.669
+ },
+ {
+  "cluster": 4,
+  "name_": "Livestock-holding / Market-isolated",
+  "n": 129,
+  "pct": 6.6,
+  "food_insecure_rate": 0.597
+ },
+ {
+  "cluster": 1,
+  "name_": "Land-rich / Diversified-cropping",
+  "n": 402,
+  "pct": 20.7,
+  "food_insecure_rate": 0.517
+ },
+ {
+  "cluster": 2,
+  "name_": "Irrigated",
+  "n": 184,
+  "pct": 9.5,
+  "food_insecure_rate": 0.5
+ },
+ {
+  "cluster": 3,
+  "name_": "Better-off / Diverse-diet",
+  "n": 222,
+  "pct": 11.4,
+  "food_insecure_rate": 0.36
+ }
+]

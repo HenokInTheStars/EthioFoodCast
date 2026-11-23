@@ -1,0 +1,46 @@
+[
+ {
+  "code": 1,
+  "name": "Tigray"
+ },
+ {
+  "code": 2,
+  "name": "Afar"
+ },
+ {
+  "code": 3,
+  "name": "Amhara"
+ },
+ {
+  "code": 4,
+  "name": "Oromia"
+ },
+ {
+  "code": 5,
+  "name": "Somali"
+ },
+ {
+  "code": 6,
+  "name": "Benishangul-Gumuz"
+ },
+ {
+  "code": 7,
+  "name": "SNNP"
+ },
+ {
+  "code": 12,
+  "name": "Gambela"
+ },
+ {
+  "code": 13,
+  "name": "Harari"
+ },
+ {
+  "code": 14,
+  "name": "Addis Ababa"
+ },
+ {
+  "code": 15,
+  "name": "Dire Dawa"
+ }
+]

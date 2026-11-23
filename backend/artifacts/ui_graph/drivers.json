@@ -1,0 +1,177 @@
+{
+ "method": "GCN occlusion: change in the ensemble probability when an answer is withheld (imputed as missing), and when the area neighbourhood is replaced by the average area. Averaged over held-out households. Describes model behaviour, not causes.",
+ "fields": [
+  {
+   "field": "area_context",
+   "mean_abs": 0.277,
+   "mean_signed": 0.027,
+   "share_increasing": 0.5496,
+   "group": "Neighbourhood (graph context)"
+  },
+  {
+   "field": "dependency_ratio",
+   "mean_abs": 0.0452,
+   "mean_signed": 0.0285,
+   "share_increasing": 0.6004,
+   "group": "Household"
+  },
+  {
+   "field": "econ_total_assets",
+   "mean_abs": 0.0429,
+   "mean_signed": 0.0061,
+   "share_increasing": 0.5165,
+   "group": "Livelihood and income"
+  },
+  {
+   "field": "livestock_tlu",
+   "mean_abs": 0.0375,
+   "mean_signed": -0.0373,
+   "share_increasing": 0.0165,
+   "group": "Livestock"
+  },
+  {
+   "field": "livestock_cattle",
+   "mean_abs": 0.0307,
+   "mean_signed": -0.0304,
+   "share_increasing": 0.0207,
+   "group": "Livestock"
+  },
+  {
+   "field": "crop_diversity",
+   "mean_abs": 0.0275,
+   "mean_signed": 0.0249,
+   "share_increasing": 0.6983,
+   "group": "Land and crops"
+  },
+  {
+   "field": "land_area_per_person",
+   "mean_abs": 0.0262,
+   "mean_signed": -0.0113,
+   "share_increasing": 0.3905,
+   "group": "Land and crops"
+  },
+  {
+   "field": "crop_any_damage",
+   "mean_abs": 0.0226,
+   "mean_signed": 0.0216,
+   "share_increasing": 0.4628,
+   "group": "Land and crops"
+  },
+  {
+   "field": "n_children",
+   "mean_abs": 0.0215,
+   "mean_signed": -0.0177,
+   "share_increasing": 0.188,
+   "group": "Household"
+  },
+  {
+   "field": "land_total_area",
+   "mean_abs": 0.0204,
+   "mean_signed": -0.0077,
+   "share_increasing": 0.4421,
+   "group": "Land and crops"
+  },
+  {
+   "field": "livestock_tlu_per_person",
+   "mean_abs": 0.0144,
+   "mean_signed": -0.0021,
+   "share_increasing": 0.3347,
+   "group": "Livestock"
+  },
+  {
+   "field": "geo_ndvi_2018",
+   "mean_abs": 0.0144,
+   "mean_signed": 0.0036,
+   "share_increasing": 0.5826,
+   "group": "Location and environment"
+  },
+  {
+   "field": "n_working_age",
+   "mean_abs": 0.013,
+   "mean_signed": 0.0065,
+   "share_increasing": 0.3884,
+   "group": "Household"
+  },
+  {
+   "field": "livestock_small_ruminants",
+   "mean_abs": 0.0125,
+   "mean_signed": 0.0066,
+   "share_increasing": 0.3388,
+   "group": "Livestock"
+  },
+  {
+   "field": "harvest_any_shortfall",
+   "mean_abs": 0.0124,
+   "mean_signed": 0.0088,
+   "share_increasing": 0.2359,
+   "group": "Land and crops"
+  },
+  {
+   "field": "geo_rain_2018",
+   "mean_abs": 0.0115,
+   "mean_signed": 0.0002,
+   "share_increasing": 0.4731,
+   "group": "Location and environment"
+  },
+  {
+   "field": "geo_rain_2019",
+   "mean_abs": 0.0106,
+   "mean_signed": 0.0002,
+   "share_increasing": 0.5,
+   "group": "Location and environment"
+  },
+  {
+   "field": "geo_ndvi_2019",
+   "mean_abs": 0.0098,
+   "mean_signed": -0.0008,
+   "share_increasing": 0.4628,
+   "group": "Location and environment"
+  },
+  {
+   "field": "land_any_irrigated",
+   "mean_abs": 0.0094,
+   "mean_signed": 0.006,
+   "share_increasing": 0.0791,
+   "group": "Land and crops"
+  },
+  {
+   "field": "hh_size",
+   "mean_abs": 0.0092,
+   "mean_signed": -0.0055,
+   "share_increasing": 0.2769,
+   "group": "Household"
+  }
+ ],
+ "domains": [
+  {
+   "group": "Neighbourhood (graph context)",
+   "total_mean_abs": 0.277,
+   "share_pct": 40.2
+  },
+  {
+   "group": "Land and crops",
+   "total_mean_abs": 0.1186,
+   "share_pct": 17.2
+  },
+  {
+   "group": "Livestock",
+   "total_mean_abs": 0.1033,
+   "share_pct": 15.0
+  },
+  {
+   "group": "Household",
+   "total_mean_abs": 0.0932,
+   "share_pct": 13.5
+  },
+  {
+   "group": "Livelihood and income",
+   "total_mean_abs": 0.0513,
+   "share_pct": 7.4
+  },
+  {
+   "group": "Location and environment",
+   "total_mean_abs": 0.0463,
+   "share_pct": 6.7
+  }
+ ]
+}

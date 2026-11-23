@@ -1,0 +1,157 @@
+[
+ {
+  "cluster": 0,
+  "name": "Typical smallholder",
+  "n": 1008,
+  "pct": 51.8,
+  "food_insecure_rate": 0.669,
+  "profile": {
+   "land_total_area": 4489.269,
+   "livestock_tlu": 1.725,
+   "crop_diversity": 3.965,
+   "land_any_irrigated": 0.0,
+   "geo_dist_market": 56.913,
+   "geo_rain_anomaly_2019": 1.317,
+   "dependency_ratio": 1.149,
+   "cons_per_adult_eq": 10930.71,
+   "diet_n_groups": 3.778,
+   "econ_n_asset_types": 3.896
+  },
+  "z": {
+   "land_total_area": -0.33,
+   "livestock_tlu": -0.27,
+   "crop_diversity": -0.23,
+   "land_any_irrigated": -0.38,
+   "geo_dist_market": -0.13,
+   "geo_rain_anomaly_2019": -0.21,
+   "dependency_ratio": 0.07,
+   "cons_per_adult_eq": -0.26,
+   "diet_n_groups": -0.33,
+   "econ_n_asset_types": -0.33
+  }
+ },
+ {
+  "cluster": 4,
+  "name": "Livestock-holding / Market-isolated",
+  "n": 129,
+  "pct": 6.6,
+  "food_insecure_rate": 0.597,
+  "profile": {
+   "land_total_area": 2683.986,
+   "livestock_tlu": 13.58,
+   "crop_diversity": 0.395,
+   "land_any_irrigated": 0.345,
+   "geo_dist_market": 182.153,
+   "geo_rain_anomaly_2019": 1.624,
+   "dependency_ratio": 1.299,
+   "cons_per_adult_eq": 12054.14,
+   "diet_n_groups": 2.973,
+   "econ_n_asset_types": 3.0
+  },
+  "z": {
+   "land_total_area": -0.5,
+   "livestock_tlu": 2.07,
+   "crop_diversity": -1.04,
+   "land_any_irrigated": 0.67,
+   "geo_dist_market": 1.96,
+   "geo_rain_anomaly_2019": 1.4,
+   "dependency_ratio": 0.23,
+   "cons_per_adult_eq": -0.19,
+   "diet_n_groups": -0.93,
+   "econ_n_asset_types": -0.72
+  }
+ },
+ {
+  "cluster": 1,
+  "name": "Land-rich / Diversified-cropping",
+  "n": 402,
+  "pct": 20.7,
+  "food_insecure_rate": 0.517,
+  "profile": {
+   "land_total_area": 21069.39,
+   "livestock_tlu": 4.35,
+   "crop_diversity": 9.453,
+   "land_any_irrigated": 0.0,
+   "geo_dist_market": 73.007,
+   "geo_rain_anomaly_2019": 1.304,
+   "dependency_ratio": 1.059,
+   "cons_per_adult_eq": 12584.317,
+   "diet_n_groups": 4.704,
+   "econ_n_asset_types": 6.231
+  },
+  "z": {
+   "land_total_area": 1.15,
+   "livestock_tlu": 0.25,
+   "crop_diversity": 1.0,
+   "land_any_irrigated": -0.38,
+   "geo_dist_market": 0.14,
+   "geo_rain_anomaly_2019": -0.27,
+   "dependency_ratio": -0.03,
+   "cons_per_adult_eq": -0.15,
+   "diet_n_groups": 0.35,
+   "econ_n_asset_types": 0.69
+  }
+ },
+ {
+  "cluster": 2,
+  "name": "Irrigated",
+  "n": 184,
+  "pct": 9.5,
+  "food_insecure_rate": 0.5,
+  "profile": {
+   "land_total_area": 9868.945,
+   "livestock_tlu": 2.749,
+   "crop_diversity": 7.049,
+   "land_any_irrigated": 1.0,
+   "geo_dist_market": 41.24,
+   "geo_rain_anomaly_2019": 1.398,
+   "dependency_ratio": 1.045,
+   "cons_per_adult_eq": 14088.141,
+   "diet_n_groups": 4.371,
+   "econ_n_asset_types": 5.147
+  },
+  "z": {
+   "land_total_area": 0.15,
+   "livestock_tlu": -0.07,
+   "crop_diversity": 0.46,
+   "land_any_irrigated": 2.66,
+   "geo_dist_market": -0.39,
+   "geo_rain_anomaly_2019": 0.22,
+   "dependency_ratio": -0.04,
+   "cons_per_adult_eq": -0.05,
+   "diet_n_groups": 0.1,
+   "econ_n_asset_types": 0.22
+  }
+ },
+ {
+  "cluster": 3,
+  "name": "Better-off / Diverse-diet",
+  "n": 222,
+  "pct": 11.4,
+  "food_insecure_rate": 0.36,
+  "profile": {
+   "land_total_area": 3778.816,
+   "livestock_tlu": 1.322,
+   "crop_diversity": 2.581,
+   "land_any_irrigated": 0.02,
+   "geo_dist_market": 36.964,
+   "geo_rain_anomaly_2019": 1.441,
+   "dependency_ratio": 0.748,
+   "cons_per_adult_eq": 38545.681,
+   "diet_n_groups": 5.884,
+   "econ_n_asset_types": 5.797
+  },
+  "z": {
+   "land_total_area": -0.4,
+   "livestock_tlu": -0.35,
+   "crop_diversity": -0.54,
+   "land_any_irrigated": -0.31,
+   "geo_dist_market": -0.46,
+   "geo_rain_anomaly_2019": 0.44,
+   "dependency_ratio": -0.36,
+   "cons_per_adult_eq": 1.63,
+   "diet_n_groups": 1.22,
+   "econ_n_asset_types": 0.5
+  }
+ }
+]

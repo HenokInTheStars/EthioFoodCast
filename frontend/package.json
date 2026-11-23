@@ -1,0 +1,33 @@
+{
+  "name": "ethiofoodcast-web",
+  "version": "0.1.0",
+  "private": true,
+  "description": "EthioFoodCast decision-support workspace (Next.js). See ../FRONTEND_DESIGN.md.",
+  "scripts": {
+    "predev": "node scripts/copy-data.mjs",
+    "dev": "next dev --port 3001",
+    "build": "node scripts/copy-data.mjs && next build",
+    "start": "next start --port 3001",
+    "check": "tsc --noEmit",
+    "data": "node scripts/copy-data.mjs",
+    "openapi:dump": "python ../scripts/dump_openapi.py",
+    "types:api": "openapi-typescript ../openapi.json -o lib/api-types.ts"
+  },
+  "dependencies": {
+    "next": "^15.3.3",
+    "pdfjs-dist": "^6.4.299",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "zod": "^3.25.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.15.0",
+    "@types/react": "^19.1.0",
+    "@types/react-dom": "^19.1.0",
+    "openapi-typescript": "^7.9.1",
+    "typescript": "^5.8.3"
+  },
+  "engines": {
+    "node": ">=20.11"
+  }
+}

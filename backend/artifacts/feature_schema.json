@@ -1,0 +1,983 @@
+[
+ {
+  "name": "w4_region",
+  "group": "Other",
+  "dtype": "numeric",
+  "min": 2.0,
+  "max": 15.0,
+  "median_default": 6.0,
+  "allowed_values": [
+   2,
+   3,
+   4,
+   5,
+   6,
+   7,
+   12,
+   13,
+   15
+  ],
+  "required": true,
+  "shap_rank": 1,
+  "used_for": "model"
+ },
+ {
+  "name": "is_agricultural",
+  "group": "Other",
+  "dtype": "binary",
+  "min": 1.0,
+  "max": 1.0,
+  "median_default": 1.0,
+  "allowed_values": [
+   1
+  ],
+  "required": true,
+  "shap_rank": 18,
+  "used_for": "model"
+ },
+ {
+  "name": "n_holders",
+  "group": "Other",
+  "dtype": "numeric",
+  "min": 1.0,
+  "max": 3.0,
+  "median_default": 1.0,
+  "allowed_values": null,
+  "required": false,
+  "shap_rank": 27,
+  "used_for": "model"
+ },
+ {
+  "name": "hh_size",
+  "group": "Household composition",
+  "dtype": "numeric",
+  "min": 1.0,
+  "max": 19.0,
+  "median_default": 5.0,
+  "allowed_values": null,
+  "required": false,
+  "shap_rank": 46,
+  "used_for": "model"
+ },
+ {
+  "name": "n_children",
+  "group": "Other",
+  "dtype": "numeric",
+  "min": 0.0,
+  "max": 14.0,
+  "median_default": 2.0,
+  "allowed_values": null,
+  "required": false,
+  "shap_rank": 35,
+  "used_for": "model"
+ },
+ {
+  "name": "n_elderly",
+  "group": "Other",
+  "dtype": "numeric",
+  "min": 0.0,
+  "max": 3.0,
+  "median_default": 0.0,
+  "allowed_values": null,
+  "required": false,
+  "shap_rank": 71,
+  "used_for": "model"
+ },
+ {
+  "name": "n_working_age",
+  "group": "Other",
+  "dtype": "numeric",
+  "min": 0.0,
+  "max": 9.0,
+  "median_default": 2.0,
+  "allowed_values": null,
+  "required": false,
+  "shap_rank": 49,
+  "used_for": "model"
+ },
+ {
+  "name": "dependency_ratio",
+  "group": "Other",
+  "dtype": "numeric",
+  "min": 0.0,
+  "max": 6.0,
+  "median_default": 1.0,
+  "allowed_values": null,
+  "required": false,
+  "shap_rank": 25,
+  "used_for": "model"
+ },
+ {
+  "name": "head_age",
+  "group": "Household head",
+  "dtype": "numeric",
+  "min": 15.0,
+  "max": 97.0,
+  "median_default": 41.0,
+  "allowed_values": null,
+  "required": false,
+  "shap_rank": 54,
+  "used_for": "model"
+ },
+ {
+  "name": "head_is_male",
+  "group": "Household head",
+  "dtype": "binary",
+  "min": 0.0,
+  "max": 1.0,
+  "median_default": 1.0,
+  "allowed_values": [
+   0,
+   1
+  ],
+  "required": false,
+  "shap_rank": 53,
+  "used_for": "model"
+ },
+ {
+  "name": "share_female",
+  "group": "Other",
+  "dtype": "numeric",
+  "min": 0.0,
+  "max": 1.0,
+  "median_default": 0.5,
+  "allowed_values": null,
+  "required": false,
+  "shap_rank": 48,
+  "used_for": "model"
+ },
+ {
+  "name": "prior_fi_any",
+  "group": "Food-security history",
+  "dtype": "binary",
+  "min": 0.0,
+  "max": 1.0,
+  "median_default": 1.0,
+  "allowed_values": [
+   0,
+   1
+  ],
+  "required": false,
+  "shap_rank": 50,
+  "used_for": "model"
+ },
+ {
+  "name": "prior_fi_score",
+  "group": "Food-security history",
+  "dtype": "numeric",
+  "min": 0.0,
+  "max": 3.0,
+  "median_default": 1.0,
+  "allowed_values": null,
+  "required": true,
+  "shap_rank": 8,
+  "used_for": "model"
+ },
+ {
+  "name": "prior_fi_s8q01",
+  "group": "Food-security history",
+  "dtype": "binary",
+  "min": 0.0,
+  "max": 1.0,
+  "median_default": 0.0,
+  "allowed_values": [
+   0,
+   1
+  ],
+  "required": true,
+  "shap_rank": 5,
+  "used_for": "model"
+ },
+ {
+  "name": "prior_fi_s8q04",
+  "group": "Food-security history",
+  "dtype": "binary",
+  "min": 0.0,
+  "max": 1.0,
+  "median_default": 1.0,
+  "allowed_values": [
+   0,
+   1
+  ],
+  "required": false,
+  "shap_rank": 60,
+  "used_for": "model"
+ },
+ {
+  "name": "prior_fi_s8q06",
+  "group": "Food-security history",
+  "dtype": "binary",
+  "min": 0.0,
+  "max": 1.0,
+  "median_default": 0.0,
+  "allowed_values": [
+   0,
+   1
+  ],
+  "required": true,
+  "shap_rank": 11,
+  "used_for": "model"
+ },
+ {
+  "name": "prior_fi_days",
+  "group": "Food-security history",
+  "dtype": "numeric",
+  "min": 0.0,
+  "max": 7.0,
+  "median_default": 0.0,
+  "allowed_values": null,
+  "required": true,
+  "shap_rank": 17,
+  "used_for": "model"
+ },
+ {
+  "name": "cons_total_annual",
+  "group": "Consumption",
+  "dtype": "numeric",
+  "min": 440.0,
+  "max": 944110.75,
+  "median_default": 37677.4297,
+  "allowed_values": null,
+  "required": true,
+  "shap_rank": 19,
+  "used_for": "model"
+ },
+ {
+  "name": "cons_per_adult_eq",
+  "group": "Consumption",
+  "dtype": "numeric",
+  "min": 571.6536,
+  "max": 200045.5312,
+  "median_default": 10890.7344,
+  "allowed_values": null,
+  "required": true,
+  "shap_rank": 10,
+  "used_for": "model"
+ },
+ {
+  "name": "cons_food_annual",
+  "group": "Consumption",
+  "dtype": "numeric",
+  "min": 0.0,
+  "max": 932649.7617,
+  "median_default": 29675.7067,
+  "allowed_values": null,
+  "required": false,
+  "shap_rank": 39,
+  "used_for": "model"
+ },
+ {
+  "name": "adult_equivalents",
+  "group": "Other",
+  "dtype": "numeric",
+  "min": 0.74,
+  "max": 13.41,
+  "median_default": 3.66,
+  "allowed_values": null,
+  "required": false,
+  "shap_rank": 52,
+  "used_for": "model"
+ },
+ {
+  "name": "cons_quintile",
+  "group": "Consumption",
+  "dtype": "numeric",
+  "min": 1.0,
+  "max": 5.0,
+  "median_default": 3.0,
+  "allowed_values": [
+   1,
+   2,
+   3,
+   4,
+   5
+  ],
+  "required": true,
+  "shap_rank": 3,
+  "used_for": "model"
+ },
+ {
+  "name": "cons_food_share",
+  "group": "Consumption",
+  "dtype": "numeric",
+  "min": 0.0,
+  "max": 0.9981,
+  "median_default": 0.8321,
+  "allowed_values": null,
+  "required": false,
+  "shap_rank": 22,
+  "used_for": "model"
+ },
+ {
+  "name": "econ_any_assistance",
+  "group": "Economic",
+  "dtype": "binary",
+  "min": 0.0,
+  "max": 1.0,
+  "median_default": 0.0,
+  "allowed_values": [
+   0,
+   1
+  ],
+  "required": false,
+  "shap_rank": 30,
+  "used_for": "model"
+ },
+ {
+  "name": "econ_psnp",
+  "group": "Economic",
+  "dtype": "binary",
+  "min": 0.0,
+  "max": 1.0,
+  "median_default": 0.0,
+  "allowed_values": [
+   0,
+   1
+  ],
+  "required": false,
+  "shap_rank": 61,
+  "used_for": "model"
+ },
+ {
+  "name": "econ_free_food",
+  "group": "Economic",
+  "dtype": "binary",
+  "min": 0.0,
+  "max": 1.0,
+  "median_default": 0.0,
+  "allowed_values": [
+   0,
+   1
+  ],
+  "required": false,
+  "shap_rank": 56,
+  "used_for": "model"
+ },
+ {
+  "name": "econ_n_asset_types",
+  "group": "Economic",
+  "dtype": "numeric",
+  "min": 0.0,
+  "max": 18.0,
+  "median_default": 4.0,
+  "allowed_values": null,
+  "required": true,
+  "shap_rank": 4,
+  "used_for": "model"
+ },
+ {
+  "name": "econ_total_assets",
+  "group": "Economic",
+  "dtype": "numeric",
+  "min": 0.0,
+  "max": 102.0,
+  "median_default": 6.0,
+  "allowed_values": null,
+  "required": true,
+  "shap_rank": 9,
+  "used_for": "model"
+ },
+ {
+  "name": "econ_borrowed",
+  "group": "Economic",
+  "dtype": "binary",
+  "min": 0.0,
+  "max": 1.0,
+  "median_default": 0.0,
+  "allowed_values": [
+   0,
+   1
+  ],
+  "required": false,
+  "shap_rank": 51,
+  "used_for": "model"
+ },
+ {
+  "name": "econ_credit_refused",
+  "group": "Economic",
+  "dtype": "binary",
+  "min": 0.0,
+  "max": 1.0,
+  "median_default": 0.0,
+  "allowed_values": [
+   0,
+   1
+  ],
+  "required": false,
+  "shap_rank": 70,
+  "used_for": "model"
+ },
+ {
+  "name": "econ_has_nonfarm_business",
+  "group": "Economic",
+  "dtype": "binary",
+  "min": 0.0,
+  "max": 1.0,
+  "median_default": 0.0,
+  "allowed_values": [
+   0,
+   1
+  ],
+  "required": false,
+  "shap_rank": 57,
+  "used_for": "model"
+ },
+ {
+  "name": "econ_n_nonfarm_types",
+  "group": "Economic",
+  "dtype": "numeric",
+  "min": 0.0,
+  "max": 3.0,
+  "median_default": 0.0,
+  "allowed_values": null,
+  "required": false,
+  "shap_rank": 62,
+  "used_for": "model"
+ },
+ {
+  "name": "geo_dist_road",
+  "group": "Location and environment",
+  "dtype": "numeric",
+  "min": 0.0,
+  "max": 112.6,
+  "median_default": 10.4,
+  "allowed_values": null,
+  "required": false,
+  "shap_rank": 23,
+  "used_for": "model"
+ },
+ {
+  "name": "geo_dist_market",
+  "group": "Location and environment",
+  "dtype": "numeric",
+  "min": 1.9,
+  "max": 291.5,
+  "median_default": 52.4,
+  "allowed_values": null,
+  "required": true,
+  "shap_rank": 7,
+  "used_for": "model"
+ },
+ {
+  "name": "geo_dist_popcenter",
+  "group": "Location and environment",
+  "dtype": "numeric",
+  "min": 1.9,
+  "max": 128.9,
+  "median_default": 21.3,
+  "allowed_values": null,
+  "required": false,
+  "shap_rank": 31,
+  "used_for": "model"
+ },
+ {
+  "name": "geo_dist_admhq",
+  "group": "Location and environment",
+  "dtype": "numeric",
+  "min": 0.0,
+  "max": 0.6,
+  "median_default": 0.1,
+  "allowed_values": null,
+  "required": true,
+  "shap_rank": 14,
+  "used_for": "model"
+ },
+ {
+  "name": "geo_elevation",
+  "group": "Location and environment",
+  "dtype": "numeric",
+  "min": 236.0,
+  "max": 3257.0,
+  "median_default": 1809.0,
+  "allowed_values": null,
+  "required": true,
+  "shap_rank": 20,
+  "used_for": "model"
+ },
+ {
+  "name": "geo_slope_pct",
+  "group": "Location and environment",
+  "dtype": "numeric",
+  "min": 1.0,
+  "max": 46.0,
+  "median_default": 13.0,
+  "allowed_values": null,
+  "required": false,
+  "shap_rank": 45,
+  "used_for": "model"
+ },
+ {
+  "name": "geo_pop_density",
+  "group": "Location and environment",
+  "dtype": "numeric",
+  "min": 0.0,
+  "max": 3300.0,
+  "median_default": 180.0,
+  "allowed_values": null,
+  "required": false,
+  "shap_rank": 59,
+  "used_for": "model"
+ },
+ {
+  "name": "geo_cropshare",
+  "group": "Location and environment",
+  "dtype": "numeric",
+  "min": 0.0,
+  "max": 76.0,
+  "median_default": 32.0,
+  "allowed_values": null,
+  "required": false,
+  "shap_rank": 28,
+  "used_for": "model"
+ },
+ {
+  "name": "geo_rain_2018",
+  "group": "Location and environment",
+  "dtype": "numeric",
+  "min": 217.0,
+  "max": 1630.0,
+  "median_default": 776.0,
+  "allowed_values": null,
+  "required": false,
+  "shap_rank": 37,
+  "used_for": "model"
+ },
+ {
+  "name": "geo_rain_2019",
+  "group": "Location and environment",
+  "dtype": "numeric",
+  "min": 282.0,
+  "max": 1812.0,
+  "median_default": 1073.0,
+  "allowed_values": null,
+  "required": false,
+  "shap_rank": 29,
+  "used_for": "model"
+ },
+ {
+  "name": "geo_rain_long_term_avg",
+  "group": "Location and environment",
+  "dtype": "numeric",
+  "min": 235.0,
+  "max": 1526.0,
+  "median_default": 753.0,
+  "allowed_values": null,
+  "required": false,
+  "shap_rank": 41,
+  "used_for": "model"
+ },
+ {
+  "name": "geo_ndvi_avg",
+  "group": "Location and environment",
+  "dtype": "numeric",
+  "min": 0.106,
+  "max": 0.372,
+  "median_default": 0.226,
+  "allowed_values": null,
+  "required": false,
+  "shap_rank": 36,
+  "used_for": "model"
+ },
+ {
+  "name": "geo_ndvi_max",
+  "group": "Location and environment",
+  "dtype": "numeric",
+  "min": 0.193,
+  "max": 0.665,
+  "median_default": 0.41,
+  "allowed_values": null,
+  "required": false,
+  "shap_rank": 40,
+  "used_for": "model"
+ },
+ {
+  "name": "geo_ndvi_2018",
+  "group": "Location and environment",
+  "dtype": "numeric",
+  "min": 0.085,
+  "max": 0.39,
+  "median_default": 0.19,
+  "allowed_values": null,
+  "required": false,
+  "shap_rank": 47,
+  "used_for": "model"
+ },
+ {
+  "name": "geo_ndvi_2019",
+  "group": "Location and environment",
+  "dtype": "numeric",
+  "min": 0.052,
+  "max": 0.255,
+  "median_default": 0.123,
+  "allowed_values": null,
+  "required": false,
+  "shap_rank": 44,
+  "used_for": "model"
+ },
+ {
+  "name": "geo_wetness_index",
+  "group": "Location and environment",
+  "dtype": "numeric",
+  "min": 0.0,
+  "max": 36.0,
+  "median_default": 12.0,
+  "allowed_values": null,
+  "required": false,
+  "shap_rank": 26,
+  "used_for": "model"
+ },
+ {
+  "name": "geo_rain_anomaly_2018",
+  "group": "Location and environment",
+  "dtype": "numeric",
+  "min": 0.7956,
+  "max": 1.9607,
+  "median_default": 1.0275,
+  "allowed_values": null,
+  "required": false,
+  "shap_rank": 21,
+  "used_for": "model"
+ },
+ {
+  "name": "geo_rain_anomaly_2019",
+  "group": "Location and environment",
+  "dtype": "numeric",
+  "min": 0.9315,
+  "max": 2.0273,
+  "median_default": 1.332,
+  "allowed_values": null,
+  "required": false,
+  "shap_rank": 33,
+  "used_for": "model"
+ },
+ {
+  "name": "geo_ndvi_anomaly",
+  "group": "Location and environment",
+  "dtype": "numeric",
+  "min": 0.2872,
+  "max": 0.9173,
+  "median_default": 0.5353,
+  "allowed_values": null,
+  "required": false,
+  "shap_rank": 38,
+  "used_for": "model"
+ },
+ {
+  "name": "diet_n_items_unknown",
+  "group": "Diet and food consumption",
+  "dtype": "numeric",
+  "min": 0.0,
+  "max": 50.0,
+  "median_default": 0.0,
+  "allowed_values": null,
+  "required": false,
+  "shap_rank": 69,
+  "used_for": "model"
+ },
+ {
+  "name": "diet_n_items",
+  "group": "Diet and food consumption",
+  "dtype": "numeric",
+  "min": 0.0,
+  "max": 31.0,
+  "median_default": 8.0,
+  "allowed_values": null,
+  "required": true,
+  "shap_rank": 16,
+  "used_for": "model"
+ },
+ {
+  "name": "diet_cereals",
+  "group": "Diet and food consumption",
+  "dtype": "binary",
+  "min": 0.0,
+  "max": 1.0,
+  "median_default": 1.0,
+  "allowed_values": [
+   0,
+   1
+  ],
+  "required": false,
+  "shap_rank": 63,
+  "used_for": "model"
+ },
+ {
+  "name": "diet_pulses_nuts",
+  "group": "Diet and food consumption",
+  "dtype": "binary",
+  "min": 0.0,
+  "max": 1.0,
+  "median_default": 1.0,
+  "allowed_values": [
+   0,
+   1
+  ],
+  "required": true,
+  "shap_rank": 13,
+  "used_for": "model"
+ },
+ {
+  "name": "diet_seeds",
+  "group": "Diet and food consumption",
+  "dtype": "binary",
+  "min": 0.0,
+  "max": 1.0,
+  "median_default": 0.0,
+  "allowed_values": [
+   0,
+   1
+  ],
+  "required": false,
+  "shap_rank": 24,
+  "used_for": "model"
+ },
+ {
+  "name": "diet_vegetables",
+  "group": "Diet and food consumption",
+  "dtype": "binary",
+  "min": 0.0,
+  "max": 1.0,
+  "median_default": 1.0,
+  "allowed_values": [
+   0,
+   1
+  ],
+  "required": false,
+  "shap_rank": 55,
+  "used_for": "model"
+ },
+ {
+  "name": "diet_fruit",
+  "group": "Diet and food consumption",
+  "dtype": "binary",
+  "min": 0.0,
+  "max": 1.0,
+  "median_default": 0.0,
+  "allowed_values": [
+   0,
+   1
+  ],
+  "required": true,
+  "shap_rank": 2,
+  "used_for": "model"
+ },
+ {
+  "name": "diet_roots",
+  "group": "Diet and food consumption",
+  "dtype": "binary",
+  "min": 0.0,
+  "max": 1.0,
+  "median_default": 1.0,
+  "allowed_values": [
+   0,
+   1
+  ],
+  "required": false,
+  "shap_rank": 32,
+  "used_for": "model"
+ },
+ {
+  "name": "diet_meat_fish",
+  "group": "Diet and food consumption",
+  "dtype": "binary",
+  "min": 0.0,
+  "max": 1.0,
+  "median_default": 0.0,
+  "allowed_values": [
+   0,
+   1
+  ],
+  "required": true,
+  "shap_rank": 12,
+  "used_for": "model"
+ },
+ {
+  "name": "diet_dairy",
+  "group": "Diet and food consumption",
+  "dtype": "binary",
+  "min": 0.0,
+  "max": 1.0,
+  "median_default": 0.0,
+  "allowed_values": [
+   0,
+   1
+  ],
+  "required": false,
+  "shap_rank": 43,
+  "used_for": "model"
+ },
+ {
+  "name": "diet_eggs",
+  "group": "Diet and food consumption",
+  "dtype": "binary",
+  "min": 0.0,
+  "max": 1.0,
+  "median_default": 0.0,
+  "allowed_values": [
+   0,
+   1
+  ],
+  "required": false,
+  "shap_rank": 58,
+  "used_for": "model"
+ },
+ {
+  "name": "diet_n_groups",
+  "group": "Diet and food consumption",
+  "dtype": "numeric",
+  "min": 0.0,
+  "max": 9.0,
+  "median_default": 4.0,
+  "allowed_values": null,
+  "required": true,
+  "shap_rank": 15,
+  "used_for": "model"
+ },
+ {
+  "name": "diet_purchased_item_fraction",
+  "group": "Diet and food consumption",
+  "dtype": "numeric",
+  "min": 0.0,
+  "max": 0.5254,
+  "median_default": 0.0847,
+  "allowed_values": null,
+  "required": true,
+  "shap_rank": 6,
+  "used_for": "model"
+ },
+ {
+  "name": "diet_purchased_n_observed",
+  "group": "Diet and food consumption",
+  "dtype": "numeric",
+  "min": 9.0,
+  "max": 59.0,
+  "median_default": 59.0,
+  "allowed_values": null,
+  "required": false,
+  "shap_rank": 66,
+  "used_for": "model"
+ },
+ {
+  "name": "diet_own_item_fraction",
+  "group": "Diet and food consumption",
+  "dtype": "numeric",
+  "min": 0.0,
+  "max": 0.4167,
+  "median_default": 0.0345,
+  "allowed_values": null,
+  "required": false,
+  "shap_rank": 42,
+  "used_for": "model"
+ },
+ {
+  "name": "diet_own_n_observed",
+  "group": "Diet and food consumption",
+  "dtype": "numeric",
+  "min": 9.0,
+  "max": 59.0,
+  "median_default": 59.0,
+  "allowed_values": null,
+  "required": false,
+  "shap_rank": 64,
+  "used_for": "model"
+ },
+ {
+  "name": "diet_gift_item_fraction",
+  "group": "Diet and food consumption",
+  "dtype": "numeric",
+  "min": 0.0,
+  "max": 0.2373,
+  "median_default": 0.0,
+  "allowed_values": null,
+  "required": false,
+  "shap_rank": 68,
+  "used_for": "model"
+ },
+ {
+  "name": "diet_gift_n_observed",
+  "group": "Diet and food consumption",
+  "dtype": "numeric",
+  "min": 9.0,
+  "max": 59.0,
+  "median_default": 59.0,
+  "allowed_values": null,
+  "required": false,
+  "shap_rank": 65,
+  "used_for": "model"
+ },
+ {
+  "name": "diet_purchase_birr_7d",
+  "group": "Diet and food consumption",
+  "dtype": "numeric",
+  "min": 0.0,
+  "max": 5024.0,
+  "median_default": 140.0,
+  "allowed_values": null,
+  "required": false,
+  "shap_rank": 34,
+  "used_for": "model"
+ },
+ {
+  "name": "diet_spending_n_observed",
+  "group": "Diet and food consumption",
+  "dtype": "numeric",
+  "min": 9.0,
+  "max": 59.0,
+  "median_default": 59.0,
+  "allowed_values": null,
+  "required": false,
+  "shap_rank": 67,
+  "used_for": "model"
+ },
+ {
+  "name": "land_total_area",
+  "group": "Farm profile (segmentation only)",
+  "dtype": "numeric",
+  "min": 0.0,
+  "max": 175185.3,
+  "median_default": 4522.0,
+  "allowed_values": null,
+  "required": false,
+  "shap_rank": null,
+  "used_for": "cluster"
+ },
+ {
+  "name": "livestock_tlu",
+  "group": "Farm profile (segmentation only)",
+  "dtype": "numeric",
+  "min": 0.0,
+  "max": 83.0,
+  "median_default": 1.77,
+  "allowed_values": null,
+  "required": false,
+  "shap_rank": null,
+  "used_for": "cluster"
+ },
+ {
+  "name": "crop_diversity",
+  "group": "Farm profile (segmentation only)",
+  "dtype": "numeric",
+  "min": 0.0,
+  "max": 27.0,
+  "median_default": 4.0,
+  "allowed_values": null,
+  "required": false,
+  "shap_rank": null,
+  "used_for": "cluster"
+ },
+ {
+  "name": "land_any_irrigated",
+  "group": "Farm profile (segmentation only)",
+  "dtype": "binary",
+  "min": 0.0,
+  "max": 1.0,
+  "median_default": 0.0,
+  "allowed_values": [
+   0,
+   1
+  ],
+  "required": false,
+  "shap_rank": null,
+  "used_for": "cluster"
+ }
+]

@@ -1,0 +1,33 @@
+# EthioFoodCast — serving requirements
+#
+# This is what the Streamlit developer installs. It is everything needed to
+# import `backend.py`, load `artifacts/model_bundle.joblib`, score households
+# and run the test suite — and nothing else. Retraining the model needs the
+# extra packages in requirements-dev.txt.
+#
+# THE SCIKIT-LEARN PIN IS LOAD-BEARING. The bundle is a pickle of fitted
+# scikit-learn objects. Installing a different minor version does not warn and
+# recover — it fails at load with an AttributeError deep inside pickle
+# (1.9 removed the private class 1.6 wrote into the ColumnTransformer). Do not
+# relax this bound without re-running pipelines/10_export_ui.py.
+
+numpy>=1.26,<2.3
+pandas~=2.2.3
+scipy~=1.13
+scikit-learn==1.6.1        # must match the version the bundle was pickled with
+joblib~=1.4
+shap~=0.46                 # TreeSHAP, for the per-household explanations
+
+# Storage / tooling
+pyarrow~=16.0
+PyYAML~=6.0
+pytest~=8.2                # to run tests/ and confirm the handover is intact
+
+# The UI layer itself. The model does not import it.
+streamlit>=1.40,<2
+
+# Optional HTTP wrapper (api_server.py) for non-Python frontends such as the
+# web demo. It only calls Service; Streamlit apps do not need it.
+fastapi>=0.110,<1
+uvicorn>=0.29,<1
+httpx>=0.27,<1             # FastAPI TestClient, for tests/test_api_server.py
