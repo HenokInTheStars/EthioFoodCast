@@ -68,7 +68,7 @@ export default function OverviewPage() {
         assistance.
       </p>
 
-      <div className="grid" style={{ marginBottom: "var(--rhythm)" }}>
+      <div className="grid stat-grid" style={{ marginBottom: "var(--rhythm)" }}>
         <div className="card">
           <h3>Households scored</h3>
           <div className="stat">{int(distribution.n_households)}</div>

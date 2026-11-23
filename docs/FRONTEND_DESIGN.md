@@ -91,13 +91,16 @@ to the score card and a spinner is never used.
 
 ## Design tokens
 
-- **Surface** off-white paper, never pure white; warm slate chrome. No dark mode in v1 (fights
-  print, turns the ramp into a game HUD).
+- **Surface** white cards on a cool grey page, a deep navy header and footer (`#0b2a45`), in
+  the register of international-development institutions. No dark mode in v1 (fights print,
+  turns the ramp into a game HUD).
 - **Risk ramp** four steps, dry straw to deep clay, monotonic in lightness so it survives
   greyscale print and colour-vision deficiency. **No red/green**: green reads "eligible/safe",
   red reads "punished", and this gets printed.
-- **Accent** one terracotta, for interaction only, never for risk.
-- **Type** sans with `Noto Sans Ethiopic` in the stack from day one; Latin digits only;
+- **Accent** one blue (`#1a5d97`), for interaction only (links, buttons, focus, selection), never
+  for risk. Blue interaction against a straw-to-clay risk ramp means a control can never be read
+  as a risk level.
+- **Type** Inter with `Noto Sans Ethiopic`, both self-hosted by `next/font`; Latin digits only;
   `font-variant-numeric: tabular-nums` globally.
 - **Numbers** 3 decimals maximum. `0.5211760401725769` renders `0.52`. Raw float precision
   implies accuracy the model does not claim.

@@ -21,10 +21,12 @@ export function ApiStatus() {
         ? "Scoring service unreachable"
         : "Checking scoring service";
 
+  const state = apiReachable === true ? "ok" : apiReachable === false ? "down" : "pending";
+
   return (
-    <span className="api-status" title={`${label} \u2014 ${clientApiUrl()}`} role="status">
-      {apiReachable === true ? "\u25cf" : apiReachable === false ? "\u25cb" : "\u25cc"} {label}
-      {apiReachable === false ? <span className="faint"> ({clientApiUrl()})</span> : null}
+    <span className="api-status" title={`${label} — ${clientApiUrl()}`} role="status">
+      <span className={`status-dot ${state}`} aria-hidden="true" />
+      {label}
     </span>
   );
 }

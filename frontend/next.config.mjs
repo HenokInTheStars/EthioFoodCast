@@ -16,6 +16,9 @@ const nextConfig = {
   reactStrictMode: true,
   poweredByHeader: false,
   output: process.env.NEXT_OUTPUT === "standalone" ? "standalone" : undefined,
+  // Optional separate build folder, so a verification build never overwrites the
+  // .next folder a running `npm run dev` is using. Defaults to .next.
+  distDir: process.env.NEXT_DIST_DIR || ".next",
   outputFileTracingRoot: here,
 };
 

@@ -65,13 +65,6 @@ export function OfflineSupport() {
       title={guidance}
     >
       {label}
-      <span className="offline-support-detail">
-        {!productionBuild
-          ? " · offline cache requires production build"
-          : controlled
-            ? " · offline support enabled"
-            : " · offline support starting"}
-      </span>
     </span>
   );
 }

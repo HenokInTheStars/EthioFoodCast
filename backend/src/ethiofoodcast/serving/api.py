@@ -120,12 +120,7 @@ class Service:
             return self.bundle.predict(household)       # raises InvalidHousehold
         problems = consistency_problems(household)
         if problems:
-            labels = self.field_labels()
-            readable = []
-            for problem in problems:
-                field = problem.split(":", 1)[0]
-                readable.append(problem.replace(field, labels[field], 1) if field in labels else problem)
-            raise InvalidHousehold("; ".join(readable))
+            raise InvalidHousehold(self._readable("; ".join(problems)))
         # Which model scores this request: the graph model when a survey area is given,
         # otherwise the legacy ExtraTrees bundle. Each is judged against its OWN schema.
         area = household.get("area_id")
@@ -151,12 +146,16 @@ class Service:
             # Summaries (coping score, dependency ratio, food groups...) are computed from the
             # underlying answers exactly as in training; keep only those this model knows.
             household = {k: v for k, v in derive(household).items() if k in household or k in schema}
-        if self.graph is not None:
-            known = set(schema)
-            result = self.graph.predict(household, self.bundle, original=original,
-                                        derive_fn=lambda h: {k: v for k, v in derive(h).items() if k in h or k in known})
-        else:
-            result = self.bundle.predict(household)
+        try:
+            if self.graph is not None:
+                known = set(schema)
+                result = self.graph.predict(household, self.bundle, original=original,
+                                            derive_fn=lambda h: {k: v for k, v in derive(h).items() if k in h or k in known})
+            else:
+                result = self.bundle.predict(household)
+        except InvalidHousehold as error:
+            # Name each field the way the form labels it, not by its schema name.
+            raise InvalidHousehold(self._readable(str(error))) from error
         if n_answered < minimum and result.get("probability") is not None:
             # Only this check blocks the estimate (the model's own check counted region or summaries).
             result.update(probability=None, risk_band="Insufficient data", sufficient_data=False,
@@ -171,7 +170,24 @@ class Service:
                 + ", ".join(labels.get(k, k) for k in set_aside[:8]) + ("..." if len(set_aside) > 8 else "")]
         # Reported as questions answered about the household, not model inputs.
         result["n_predictive_supplied"] = n_answered
+        # `feature` is display text (the documented contract); graph factors arrive
+        # with the schema name in it, so give them the form's label. `source_field`
+        # keeps the schema name for joining. The legacy no-area response is unchanged.
+        if use_graph:
+            labels = self.field_labels()
+            for factor in result.get("top_factors") or []:
+                if factor.get("feature") == factor.get("source_field"):
+                    factor["feature"] = labels.get(factor["source_field"], factor["feature"])
         return result
+
+    def _readable(self, message: str) -> str:
+        """Replace a leading schema field name in each '; '-separated problem with its label."""
+        labels = self.field_labels()
+        parts = []
+        for part in message.split("; "):
+            field, sep, rest = part.partition(":")
+            parts.append(f"{labels[field]}:{rest}" if sep and field in labels else part)
+        return "; ".join(parts)
 
     def areas(self) -> list[dict]:
         """Supported surveyed areas; send the opaque `id` as optional area_id.

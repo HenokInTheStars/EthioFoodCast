@@ -56,44 +56,61 @@ export function AreaSearch({
   const selected = areas.find((area) => area.id === value);
 
   return (
-    <div className="field area-field">
-      <label htmlFor="area-search">{label}</label>
-      <input
-        id="area-search"
-        type="search"
-        autoComplete="off"
-        placeholder="Search by woreda, zone or region — 427 areas"
-        value={query}
-        onChange={(event) => setQuery(event.target.value)}
-      />
+    <div className="area-field">
+      <label htmlFor="area-search" className="area-field-label">
+        {label}
+      </label>
       <p className="help">{help}</p>
+      <div className="search-input">
+        <svg viewBox="0 0 20 20" aria-hidden="true" focusable="false">
+          <circle cx="8.5" cy="8.5" r="5.5" fill="none" stroke="currentColor" strokeWidth="1.8" />
+          <path d="M13 13l4 4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+        </svg>
+        <input
+          id="area-search"
+          type="search"
+          autoComplete="off"
+          placeholder={`Search ${areas.length} areas by woreda, zone or region`}
+          value={query}
+          onChange={(event) => setQuery(event.target.value)}
+        />
+      </div>
 
       {selected ? (
-        <p className="small">
-          Selected: <strong>{selected.label}</strong>
+        <div className="area-selected" role="status">
+          <span className="area-selected-label">Selected area</span>
+          <strong>{selected.label}</strong>
+          <span className="area-meta">
+            {selected.region_name}
+            {selected.zone ? ` · ${selected.zone}` : ""}
+          </span>
           {typeof selected.zone_verified === "boolean" ? (
-            <span className="faint">
-              {" "}
-              · zone {selected.zone ?? "not named"} ({selected.zone_verified ? "verified" : "inferred"}) ·
-              woreda {selected.woreda ?? "not named"} ({selected.woreda_verified ? "verified" : "inferred"})
+            <span className="area-badges">
+              <span className={selected.zone_verified ? "badge verified" : "badge"}>
+                Zone {selected.zone_verified ? "verified" : "inferred"}
+              </span>
+              <span className={selected.woreda_verified ? "badge verified" : "badge"}>
+                Woreda {selected.woreda_verified ? "verified" : "inferred"}
+              </span>
             </span>
           ) : null}
-        </p>
+        </div>
       ) : null}
 
       <ul className="area-results" aria-label="Matching areas">
         {matches.length === 0 ? (
-          <li className="small faint">No area matches “{deferred}”. Try a shorter word.</li>
+          <li className="area-empty">No area matches “{deferred}”. Try a shorter word.</li>
         ) : (
           matches.map((area) => (
             <li key={area.id}>
               <button
                 type="button"
                 className={area.id === value ? "area-option selected" : "area-option"}
+                aria-pressed={area.id === value}
                 onClick={() => onChange(area.id)}
               >
-                <span>{area.label}</span>
-                <span className="faint small">
+                <span className="area-option-name">{area.label}</span>
+                <span className="area-meta">
                   {area.region_name}
                   {area.zone ? ` · ${area.zone}` : ""}
                   {` · zone ${area.zone_verified ? "verified" : "inferred"}`}
@@ -104,9 +121,11 @@ export function AreaSearch({
           ))
         )}
       </ul>
-      {deferred.trim().length === 0 && areas.length > 40 ? (
-        <p className="small faint">Showing the first 40 of {areas.length}. Type to narrow.</p>
-      ) : null}
+      <p className="area-count">
+        {deferred.trim().length === 0 && areas.length > 40
+          ? `Showing 40 of ${areas.length} areas. Type to narrow the list.`
+          : `${matches.length} matching area${matches.length === 1 ? "" : "s"}${matches.length === 40 ? " (first 40 shown)" : ""}.`}
+      </p>
     </div>
   );
 }

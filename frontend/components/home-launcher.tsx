@@ -60,8 +60,6 @@ export function HomeLauncher() {
     }
   }
 
-  const selectedArea = areas.find((area) => area.id === areaId);
-
   return (
     <section className="card home-launcher" aria-labelledby="launcher-title">
       <h2 id="launcher-title">Start a household assessment</h2>
@@ -75,13 +73,6 @@ export function HomeLauncher() {
         onChange={setAreaId}
         help="Search by area, woreda, zone or region. Verification labels describe the area name, not the household."
       />
-      {selectedArea ? (
-        <p className="small">
-          Selected: <strong>{selectedArea.label}</strong> ({selectedArea.region_name}); zone{" "}
-          {selectedArea.zone_verified ? "verified" : "inferred"}, woreda{" "}
-          {selectedArea.woreda_verified ? "verified" : "inferred"}.
-        </p>
-      ) : null}
       <a
         className={`button-link${areaId ? "" : " disabled"}`}
         href={areaId ? "/assess" : undefined}
@@ -96,7 +87,9 @@ export function HomeLauncher() {
       >
         {hasDraft ? "Continue saved assessment" : "Start assessment"}
       </a>
-      <p className="small faint">Drafts are stored in this browser only, on this device.</p>
+      <p className="small faint">
+        {areaId ? "" : "Select a survey area above to start. "}Drafts are stored in this browser only, on this device.
+      </p>
 
       {recents.length > 0 ? (
         <div className="recent-assessments">

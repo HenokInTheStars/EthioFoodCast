@@ -106,6 +106,13 @@ export async function POST(request: NextRequest) {
     return json({ error: "Groq could not be reached. Try again later." }, 502);
   }
 
+  if (providerResponse.status === 403) {
+    // Groq answers 403 when it blocks the server's network or country (for example a VPN).
+    return json({
+      error: "Groq refused access from this server's network. This is usually a blocked VPN, proxy or "
+        + "country rather than a bad key; try another network or run the server where Groq is available.",
+    }, 502);
+  }
   if (!providerResponse.ok) {
     const errorMessage = await readGroqError(
       providerResponse,

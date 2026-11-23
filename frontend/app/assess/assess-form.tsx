@@ -319,7 +319,7 @@ export function AssessForm({ schema, meta, areas, apiBase }: Props) {
                   min={field.min ?? undefined}
                   max={field.max ?? undefined}
                   step={Number.isInteger(field.min) && Number.isInteger(field.max) ? 1 : "any"}
-                  placeholder={field.median_default === null ? "Unknown" : "Unknown / not asked"}
+                  placeholder="Unknown"
                   onChange={(event) => {
                     setAnswers((previous) => ({ ...previous, [field.name]: event.target.value }));
                     setReviewing(false);

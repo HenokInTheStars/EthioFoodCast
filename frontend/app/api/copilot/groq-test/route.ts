@@ -82,8 +82,18 @@ export async function POST(request: NextRequest) {
     return json({ error: "Could not reach Groq. Check the connection and try again later." }, 502);
   }
 
-  if (providerResponse.status === 401 || providerResponse.status === 403) {
-    return json({ error: "Groq rejected the API key or account access." }, 502);
+  if (providerResponse.status === 401) {
+    return json({ error: "Groq rejected the API key. Check GROQ_API_KEY on the server." }, 502);
+  }
+  if (providerResponse.status === 403) {
+    // Groq also answers 403 when it blocks the server's network or country (for
+    // example a VPN), with the same reply even without a key, so do not blame the key.
+    const detail = await readGroqError(providerResponse, "Access denied.");
+    return json({
+      error: `Groq refused access from this server's network or account (${detail}). `
+        + "This is usually a blocked VPN, proxy or country rather than a bad key; "
+        + "try another network or run the server where Groq is available.",
+    }, 502);
   }
   if (providerResponse.status === 404) {
     return json({ error: "Groq did not recognize the configured model ID." }, 502);
