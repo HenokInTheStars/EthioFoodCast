@@ -75,10 +75,9 @@ npm --prefix frontend run dev     :: http://localhost:3001, needs the API runnin
 
 ## Deploy
 
-The API runs on Hugging Face Spaces and the website on Vercel, both on free plans.
-`docs/DEPLOYMENT.md` has the step-by-step guide; the API is published with
-`scripts/publish_hf_space.sh <user>/<space>`. Set `ALLOWED_ORIGINS` on the API to the
-website's address. Scoring is rate-limited per visitor (settings in the guide).
+The API runs on Render (from [`render.yaml`](render.yaml)) and the website on Vercel, both
+on free plans. `docs/DEPLOYMENT.md` has the step-by-step guide. Set `ALLOWED_ORIGINS` on the
+API to the website's address. Scoring is rate-limited per visitor (settings in the guide).
 
 ## Use from Python (Streamlit)
 

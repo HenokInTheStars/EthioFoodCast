@@ -1,0 +1,24 @@
+# Render Blueprint for the EthioFoodCast API (docs/DEPLOYMENT.md, step 1).
+# Render builds backend/Dockerfile from the repository root, exactly as
+# `docker build -f backend/Dockerfile .` does locally, and passes the port in $PORT.
+services:
+  - type: web
+    name: ethiofoodcast-api
+    runtime: docker
+    plan: free
+    region: frankfurt
+    dockerfilePath: ./backend/Dockerfile
+    dockerContext: .
+    healthCheckPath: /api/health
+    autoDeploy: true
+    # Rebuild only when the API changes, not on every website edit.
+    buildFilter:
+      paths:
+        - backend/**
+        - scripts/**
+        - render.yaml
+    envVars:
+      # The website's address, e.g. https://ethiofoodcast.vercel.app. Render asks
+      # for it when the Blueprint is created; it can be left empty until then.
+      - key: ALLOWED_ORIGINS
+        sync: false
