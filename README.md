@@ -65,7 +65,17 @@ npm --prefix frontend run build   :: regenerates frontend/data from backend/arti
 npm --prefix frontend run dev     :: http://localhost:3001, needs the API running
 ```
 
+## Deploy
+
+The API runs on Hugging Face Spaces and the website on Vercel, both on free plans.
+`docs/DEPLOYMENT.md` has the step-by-step guide; the API is published with
+`scripts/publish_hf_space.sh <user>/<space>`. Set `ALLOWED_ORIGINS` on the API to the
+website's address. Scoring is rate-limited per visitor (settings in the guide).
+
 ## Use from Python (Streamlit)
+
+Streamlit is not part of the server requirements; install it with
+`pip install "streamlit>=1.40,<2"` if you build a Streamlit app.
 
 ```python
 from backend import Service

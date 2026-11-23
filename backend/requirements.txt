@@ -23,11 +23,9 @@ pyarrow~=16.0
 PyYAML~=6.0
 pytest~=8.2                # to run tests/ and confirm the handover is intact
 
-# The UI layer itself. The model does not import it.
-streamlit>=1.40,<2
-
-# Optional HTTP wrapper (api_server.py) for non-Python frontends such as the
-# web demo. It only calls Service; Streamlit apps do not need it.
+# HTTP API (api_server.py) used by the web frontend. It only calls Service.
+# A Streamlit app imports Service directly; install Streamlit separately
+# (pip install "streamlit>=1.40,<2") if you build one.
 fastapi>=0.110,<1
 uvicorn>=0.29,<1
 httpx>=0.27,<1             # FastAPI TestClient, for tests/test_api_server.py

@@ -59,6 +59,8 @@ EXPOSE 5000
 # installing either only to satisfy a healthcheck is ~15 MB of attack surface.
 # start-period covers Service() deserialising the bundles on first boot.
 HEALTHCHECK --interval=30s --timeout=10s --start-period=60s --retries=3 \
-  CMD ["python", "-c", "import sys, urllib.request; sys.exit(0 if urllib.request.urlopen('http://127.0.0.1:5000/api/health', timeout=5).status == 200 else 1)"]
+  CMD ["python", "-c", "import os, sys, urllib.request; port = os.environ.get('PORT', '5000'); sys.exit(0 if urllib.request.urlopen(f'http://127.0.0.1:{port}/api/health', timeout=5).status == 200 else 1)"]
 
-CMD ["sh", "-c", "exec python -m uvicorn api_server:app --host 0.0.0.0 --port 5000 --workers ${UVICORN_WORKERS}"]
+# Hosts such as Render pass the port in $PORT; locally and on Hugging Face it is 5000.
+# --proxy-headers so the rate limiter sees the visitor's address behind the host's proxy.
+CMD ["sh", "-c", "exec python -m uvicorn api_server:app --host 0.0.0.0 --port ${PORT:-5000} --workers ${UVICORN_WORKERS} --proxy-headers --forwarded-allow-ips='*'"]

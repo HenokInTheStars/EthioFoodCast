@@ -8,11 +8,15 @@ Run:  backend/start_api.bat from the repository root
 Docs: http://localhost:5000/docs
 """
 import math
+import os
+import time
+from collections import defaultdict, deque
 from pathlib import Path
 
 import pandas as pd
-from fastapi import Body, FastAPI, HTTPException, Query
+from fastapi import Body, FastAPI, HTTPException, Query, Request
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import JSONResponse
 from fastapi.staticfiles import StaticFiles
 
 from backend import ArtifactsMissing, InvalidHousehold, Service
@@ -20,8 +24,65 @@ from backend import ArtifactsMissing, InvalidHousehold, Service
 svc = Service()
 app = FastAPI(title="EthioFoodCast API", version="1.0",
               description="Household food-insecurity forecasting (GCN ensemble) for decision support.")
-# Local demo: any origin. Restrict this list before deploying anywhere shared.
-app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_methods=["*"], allow_headers=["*"])
+
+# ---- deployment settings (environment variables) ---------------------------
+# ALLOWED_ORIGINS     comma-separated websites allowed to call the API from a
+#                     browser, e.g. "https://ethiofoodcast.vercel.app". "*" allows any.
+# RATE_LIMIT_PREDICT  scorings per minute per client (0 disables). Default 60.
+# RATE_LIMIT_BATCH    batch uploads per minute per client (0 disables). Default 10.
+# MAX_BATCH_ROWS      rows accepted in one batch upload. Default 2000.
+LOCAL_ORIGINS = ["http://localhost:3001", "http://127.0.0.1:3001", "http://localhost:3000"]
+
+
+def allowed_origins() -> list[str]:
+    configured = [origin.strip().rstrip("/") for origin in os.getenv("ALLOWED_ORIGINS", "").split(",")]
+    configured = [origin for origin in configured if origin]
+    return configured or LOCAL_ORIGINS
+
+
+RATE_LIMITS = {
+    "/api/predict": int(os.getenv("RATE_LIMIT_PREDICT", "60")),
+    "/api/predict_batch": int(os.getenv("RATE_LIMIT_BATCH", "10")),
+}
+MAX_BATCH_ROWS = int(os.getenv("MAX_BATCH_ROWS", "2000"))
+_recent_requests: dict[tuple[str, str], deque] = defaultdict(deque)
+
+
+def client_address(request: Request) -> str:
+    # Hosting platforms put the visitor's address first in X-Forwarded-For.
+    forwarded = request.headers.get("x-forwarded-for")
+    if forwarded:
+        return forwarded.split(",")[0].strip()
+    return request.client.host if request.client else "unknown"
+
+
+@app.middleware("http")
+async def rate_limit(request: Request, call_next):
+    """A per-client sliding one-minute window on the two scoring endpoints.
+
+    In memory and per process: enough to stop a public demo being hammered, not
+    a substitute for a gateway in a real deployment.
+    """
+    limit = RATE_LIMITS.get(request.url.path, 0) if request.method == "POST" else 0
+    if limit > 0:
+        now = time.monotonic()
+        recent = _recent_requests[(request.url.path, client_address(request))]
+        while recent and recent[0] <= now - 60:
+            recent.popleft()
+        if len(recent) >= limit:
+            return JSONResponse(status_code=429, headers={"Retry-After": "60"},
+                                content={"detail": "Too many requests. Wait a minute and try again."})
+        recent.append(now)
+        if len(_recent_requests) > 10_000:  # forget idle clients
+            for key in [key for key, hits in _recent_requests.items() if not hits]:
+                del _recent_requests[key]
+    return await call_next(request)
+
+
+# Added after the rate limiter so it wraps it: a 429 still carries CORS headers
+# and the browser can read the message instead of reporting a network error.
+app.add_middleware(CORSMiddleware, allow_origins=allowed_origins(), allow_methods=["GET", "POST"],
+                   allow_headers=["Content-Type"])
 app.mount(
     "/figures",
     StaticFiles(directory=Path(__file__).resolve().parent / "reports" / "figures"),
@@ -81,6 +142,8 @@ def predict(household: dict = Body(...)):
 
 @app.post("/api/predict_batch")
 def predict_batch(rows: list[dict] = Body(...)):
+    if len(rows) > MAX_BATCH_ROWS:
+        raise HTTPException(status_code=413, detail=f"Too many rows: send at most {MAX_BATCH_ROWS} households at a time.")
     try:
         return clean(svc.predict_batch(pd.DataFrame(rows)))
     except InvalidHousehold as error:
