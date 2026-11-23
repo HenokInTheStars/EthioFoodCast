@@ -1,7 +1,10 @@
 "use client";
 
 /**
- * The interview form and its result card.
+ * The interview, as a short stepped form, and its result.
+ *
+ * Steps: survey area, one step per question group, then review and score. The
+ * steps can be visited in any order; a step bar shows how much of each is done.
  *
  * Three rules this component holds to:
  *   - A blank answer is sent as nothing at all. The backend imputes missing
@@ -17,19 +20,28 @@ import type { FormEvent } from "react";
 
 import riskDistribution from "@/data/artifacts/risk_distribution.json";
 import { AreaSearch } from "@/components/area-search";
-import { SufficiencyMeter } from "@/components/sufficiency-meter";
 import { WhatIfSandbox } from "@/components/what-if-sandbox";
 import type { Area, FieldRecord, FormSchema, HouseholdAnswers, Meta, PredictResult } from "@/lib/api";
 import { ApiError, predict } from "@/lib/api";
 import { useConnectivity } from "@/lib/connectivity";
-import { BAND_NOTE, int, num, rampClass } from "@/lib/format";
+import { int, num, rampClass } from "@/lib/format";
 import { ASSESS_DRAFT_KEY, ASSESS_RECENTS_KEY, type RecentAssessment } from "@/lib/local-data";
 import { useLens } from "@/lib/lens";
 
 type Draft = { answers: Record<string, string>; areaId: string; savedAt: string };
 type DraftStatus = "loading" | "saved" | "saving" | "unavailable";
-
 type Props = { schema: FormSchema; meta: Meta; areas: Area[]; apiBase: string };
+type Step = { id: string; title: string; description: string; fields: FieldRecord[] };
+
+const AREA_STEP = "__area";
+const REVIEW_STEP = "__review";
+
+const GROUP_DESCRIPTIONS: Record<string, string> = {
+  Household: "Who lives in the household now.",
+  "Land and crops": "The fields the household farms and this season's harvest.",
+  Livestock: "Animals the household owned 12 months ago.",
+  "Livelihood and income": "Work outside farming, the safety-net programme and household items.",
+};
 
 function isRecord(value: unknown): value is Record<string, unknown> {
   return value !== null && typeof value === "object" && !Array.isArray(value);
@@ -43,15 +55,54 @@ function isBinary(field: FieldRecord): boolean {
       field.allowed_values.includes(1));
 }
 
+/** Whole-number counts with a known range get - and + buttons. */
+function isCount(field: FieldRecord): boolean {
+  return field.min !== null && field.max !== null && Number.isInteger(field.min) && Number.isInteger(field.max);
+}
+
 function label(meta: Meta, name: string): string {
   return meta.field_labels[name] ?? name;
 }
 
-/** Areas grouped by region, so a 427-entry list stays navigable. */
+function isAnswered(answers: Record<string, string>, name: string): boolean {
+  return (answers[name] ?? "").trim() !== "";
+}
+
+function displayAnswer(field: FieldRecord, raw: string | undefined): string {
+  const value = raw?.trim();
+  if (value === undefined || value === "") return "Unknown";
+  if (isBinary(field)) return value === "1" ? "Yes" : value === "0" ? "No" : value;
+  return Number.isFinite(Number(value)) ? Number(value).toLocaleString() : value;
+}
+
 export function AssessForm({ schema, meta, areas, apiBase }: Props) {
   const groups = useMemo(() => Object.entries(schema), [schema]);
   const fields = useMemo(() => groups.flatMap(([, group]) => group), [groups]);
+  const steps = useMemo<Step[]>(
+    () => [
+      {
+        id: AREA_STEP,
+        title: "Survey area",
+        description: "Where the household was surveyed. Required: it is the largest single input to the score.",
+        fields: [],
+      },
+      ...groups.map(([group, groupFields]) => ({
+        id: group,
+        title: group,
+        description: GROUP_DESCRIPTIONS[group] ?? "",
+        fields: groupFields,
+      })),
+      {
+        id: REVIEW_STEP,
+        title: "Review and score",
+        description: "Check the area and answers, then score.",
+        fields: [],
+      },
+    ],
+    [groups],
+  );
 
+  const [stepIndex, setStepIndex] = useState(0);
   const [answers, setAnswers] = useState<Record<string, string>>({});
   const [areaId, setAreaId] = useState("");
   const [savedAt, setSavedAt] = useState<string | null>(null);
@@ -61,14 +112,16 @@ export function AssessForm({ schema, meta, areas, apiBase }: Props) {
   const { browserOnline, apiReachable, connected } = useConnectivity();
   const currentDraft = useRef({ answers, areaId });
   const draftReadyRef = useRef(false);
+  const stepTopRef = useRef<HTMLDivElement>(null);
+  const resultRef = useRef<HTMLDivElement>(null);
   const [result, setResult] = useState<PredictResult | null>(null);
   const [resultArea, setResultArea] = useState<Area | null>(null);
   const [scoredAnswers, setScoredAnswers] = useState<HouseholdAnswers | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
-  const [reviewing, setReviewing] = useState(false);
-  const [pendingAnswers, setPendingAnswers] = useState<HouseholdAnswers | null>(null);
   const selectedArea = areas.find((area) => area.id === areaId);
+  // The area step always exists, so there is always a step to show.
+  const step: Step = steps[stepIndex] ?? (steps[0] as Step);
   currentDraft.current = { answers, areaId };
   draftReadyRef.current = draftReady;
 
@@ -86,7 +139,11 @@ export function AssessForm({ schema, meta, areas, apiBase }: Props) {
           );
           setAnswers(restoredAnswers);
         }
-        if (typeof draft.areaId === "string") setAreaId(draft.areaId);
+        if (typeof draft.areaId === "string") {
+          setAreaId(draft.areaId);
+          // A draft that already has its area continues at the first question step.
+          if (draft.areaId !== "") setStepIndex(1);
+        }
         if (typeof draft.savedAt === "string") setSavedAt(draft.savedAt);
       }
       setDraftStatus("saved");
@@ -141,45 +198,79 @@ export function AssessForm({ schema, meta, areas, apiBase }: Props) {
     return () => window.removeEventListener("pagehide", persistBeforeLeaving);
   }, []);
 
+  // Ctrl/Cmd+K jumps to the area search from anywhere in the interview.
   useEffect(() => {
     function focusAreaSearch(event: KeyboardEvent) {
       if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === "k") {
         event.preventDefault();
-        document.getElementById("area-search")?.focus();
+        setStepIndex(0);
+        window.setTimeout(() => document.getElementById("area-search")?.focus(), 0);
       }
     }
     window.addEventListener("keydown", focusAreaSearch);
     return () => window.removeEventListener("keydown", focusAreaSearch);
   }, []);
 
-  const answeredFields = useMemo(
-    () => fields.filter((field) => (answers[field.name] ?? "").trim() !== ""),
-    [fields, answers],
-  );
+  useEffect(() => {
+    if (result) resultRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+  }, [result]);
+
+  const answeredFields = useMemo(() => fields.filter((field) => isAnswered(answers, field.name)), [fields, answers]);
+  const answeredCount = answeredFields.length;
+  const enough = answeredCount >= meta.min_answers;
+
   /** Summaries the backend can now calculate: all their questions are answered.
    * The values themselves are the backend's to compute, not this form's. */
   const computable = useMemo(
     () =>
       Object.entries(meta.derived_fields)
-        .filter(
-          ([, sources]) =>
-            sources.length > 0 && sources.every((source) => (answers[source] ?? "").trim() !== ""),
-        )
+        .filter(([, sources]) => sources.length > 0 && sources.every((source) => isAnswered(answers, source)))
         .map(([summary]) => summary),
     [meta.derived_fields, answers],
   );
+
+  function invalidateResult() {
+    setResult(null);
+    setResultArea(null);
+    setScoredAnswers(null);
+  }
+
+  function setAnswer(name: string, value: string) {
+    setAnswers((previous) => ({ ...previous, [name]: value }));
+    invalidateResult();
+  }
+
+  /** - and + work from the latest stored value, so fast repeated taps all count. */
+  function stepAnswer(field: FieldRecord, delta: number) {
+    const min = field.min ?? 0;
+    const max = field.max ?? Number.MAX_SAFE_INTEGER;
+    setAnswers((previous) => {
+      const raw = (previous[field.name] ?? "").trim();
+      const current = raw === "" ? null : Number(raw);
+      // From Unknown, + starts at the minimum and - does nothing.
+      if (current === null || !Number.isFinite(current)) {
+        return delta > 0 ? { ...previous, [field.name]: String(min) } : previous;
+      }
+      const next = Math.max(min, Math.min(max, Math.round(current + delta)));
+      return { ...previous, [field.name]: String(next) };
+    });
+    invalidateResult();
+  }
+
+  function goTo(index: number) {
+    setStepIndex(Math.max(0, Math.min(steps.length - 1, index)));
+    setError(null);
+    stepTopRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
 
   function clearDraft() {
     currentDraft.current = { answers: {}, areaId: "" };
     setAnswers({});
     setAreaId("");
-    setResult(null);
-    setResultArea(null);
-    setScoredAnswers(null);
+    invalidateResult();
     setError(null);
     setSavedAt(null);
-    setReviewing(false);
-    setPendingAnswers(null);
+    setStepIndex(0);
     try {
       window.localStorage.removeItem(ASSESS_DRAFT_KEY);
       setStorageMessage(null);
@@ -192,45 +283,46 @@ export function AssessForm({ schema, meta, areas, apiBase }: Props) {
     }
   }
 
-  function onSubmit(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    setResult(null);
-    setResultArea(null);
-    setScoredAnswers(null);
-    if (areaId === "") {
-      setError("Select the household's survey area. The GCN model needs it, and there is no safe default.");
-      return;
-    }
-
-    // Numbers only, and only for the questions actually answered.
-    const household: Record<string, number> = {};
+  /** Numbers only, and only for the questions actually answered. */
+  function buildHousehold(): { household: HouseholdAnswers } | { error: string; field: string } {
+    const household: HouseholdAnswers = {};
     for (const field of fields) {
       const raw = (answers[field.name] ?? "").trim();
       if (raw === "") continue;
       const value = Number(raw);
       if (!Number.isFinite(value)) {
-        setError(`${label(meta, field.name)}: enter a number, or leave the question blank if it is unknown.`);
-        return;
+        return {
+          error: `${label(meta, field.name)}: enter a number, or leave the question blank if it is unknown.`,
+          field: field.name,
+        };
       }
       household[field.name] = value;
     }
-
-    setError(null);
-    setPendingAnswers({ ...household, area_id: areaId });
-    setReviewing(true);
+    return { household: { ...household, area_id: areaId } };
   }
 
-  async function scoreReviewedAnswers() {
-    if (!pendingAnswers) return;
+  async function score() {
+    invalidateResult();
+    if (areaId === "") {
+      setError("Select the household's survey area. The model needs it, and there is no safe default.");
+      goTo(0);
+      return;
+    }
+    const built = buildHousehold();
+    if ("error" in built) {
+      setError(built.error);
+      const at = steps.findIndex((candidate) => candidate.fields.some((field) => field.name === built.field));
+      if (at >= 0) setStepIndex(at);
+      return;
+    }
+
     setBusy(true);
     setError(null);
-    setResultArea(null);
-    setReviewing(false);
     try {
-      const scored = await predict(pendingAnswers, apiBase);
+      const scored = await predict(built.household, apiBase);
       setResult(scored);
       setResultArea(selectedArea ?? null);
-      setScoredAnswers({ ...pendingAnswers });
+      setScoredAnswers({ ...built.household });
       if (selectedArea) {
         const recent: RecentAssessment = {
           scoredAt: new Date().toISOString(),
@@ -249,372 +341,611 @@ export function AssessForm({ schema, meta, areas, apiBase }: Props) {
         }
       }
     } catch (caught) {
-      setResult(null);
-      setResultArea(null);
-      setScoredAnswers(null);
+      invalidateResult();
       setError(caught instanceof ApiError ? caught.message : String(caught));
     } finally {
       setBusy(false);
     }
   }
 
-  const factorScale = result
-    ? Math.max(...result.top_factors.map((factor) => Math.abs(factor.contribution)), 0.0001)
-    : 1;
+  function onSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    // Enter moves to the next step; on the review step it scores.
+    if (step.id === REVIEW_STEP) {
+      if (connected && !busy) void score();
+    } else {
+      goTo(stepIndex + 1);
+    }
+  }
+
+  const stepAnswered = (candidate: Step) =>
+    candidate.fields.filter((field) => isAnswered(answers, field.name)).length;
+  const stepDone = (candidate: Step) =>
+    candidate.id === AREA_STEP
+      ? areaId !== ""
+      : candidate.id === REVIEW_STEP
+        ? result !== null
+        : candidate.fields.length > 0 && stepAnswered(candidate) === candidate.fields.length;
+
+  const connectionLabel = !browserOnline
+    ? "Offline"
+    : apiReachable === false
+      ? "Scoring service unavailable"
+      : connected
+        ? "Scoring service connected"
+        : "Checking connection";
+  const draftLabel =
+    draftStatus === "loading"
+      ? "Restoring this device's draft…"
+      : draftStatus === "saving"
+        ? "Saving on this device…"
+        : draftStatus === "unavailable"
+          ? storageMessage
+          : savedAt
+            ? `Draft saved on this device at ${new Date(savedAt).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}`
+            : "Answers are kept in this browser, on this device.";
+  const scoreLabel = busy
+    ? "Scoring…"
+    : !browserOnline
+      ? "Scoring unavailable offline"
+      : apiReachable === false
+        ? "Scoring service unavailable"
+        : connected
+          ? "Score this household"
+          : "Checking scoring service…";
+  const progressPct = fields.length > 0 ? Math.min(100, (answeredCount / fields.length) * 100) : 0;
+  const neededPct = fields.length > 0 ? Math.min(100, (meta.min_answers / fields.length) * 100) : 0;
+
+  const progress = (
+    <div className={enough ? "progress-meter ok" : "progress-meter"}>
+      <div className="progress-meter-head">
+        <strong>
+          {answeredCount} of {fields.length} answered
+        </strong>
+        <span>{enough ? "Enough to score" : `${meta.min_answers} needed`}</span>
+      </div>
+      <div className="progress-track" aria-hidden="true">
+        <span className="progress-fill" style={{ width: `${progressPct}%` }} />
+        <span className="progress-needed" style={{ left: `${neededPct}%` }} />
+      </div>
+    </div>
+  );
 
   return (
-    <form onSubmit={onSubmit}>
-      <div className="assessment-inputs">
-      <p className="small notice">
-        Do not enter names, phone numbers, household identifiers, or other identifying details. Only the
-        survey answers and selected area are used for scoring.
-      </p>
-      <fieldset>
-        <legend>Survey area (required)</legend>
-        <AreaSearch
-          areas={areas}
-          value={areaId}
-          onChange={(id) => {
-            setAreaId(id);
-            setReviewing(false);
-            setResult(null);
-            setResultArea(null);
-            setScoredAnswers(null);
-          }}
-          help="Names are approximate; check the verification labels. Across the evaluation set, area context accounts for about 40.2% of total model sensitivity; that is not an individual household's share."
-        />
-      </fieldset>
-
-      {groups.map(([group, groupFields]) => (
-        <fieldset key={group}>
-          <legend>{group}</legend>
-          {groupFields.map((field) => (
-            <div className="field" key={field.name}>
-              <label htmlFor={field.name}>{label(meta, field.name)}</label>
-              {isBinary(field) || (field.allowed_values !== null && field.allowed_values.length > 0) ? (
-                <select
-                  id={field.name}
-                  value={answers[field.name] ?? ""}
-                  onChange={(event) => {
-                    setAnswers((previous) => ({ ...previous, [field.name]: event.target.value }));
-                    setReviewing(false);
-                    setResult(null);
-                    setResultArea(null);
-                    setScoredAnswers(null);
-                  }}
-                >
-                  <option value="">Unknown</option>
-                  {(field.allowed_values ?? [0, 1]).map((value) => (
-                    <option value={value} key={value}>
-                      {isBinary(field) ? (value === 1 ? "Yes" : "No") : value}
-                    </option>
-                  ))}
-                </select>
-              ) : (
-                <input
-                  id={field.name}
-                  type="number"
-                  inputMode="decimal"
-                  value={answers[field.name] ?? ""}
-                  min={field.min ?? undefined}
-                  max={field.max ?? undefined}
-                  step={Number.isInteger(field.min) && Number.isInteger(field.max) ? 1 : "any"}
-                  placeholder="Unknown"
-                  onChange={(event) => {
-                    setAnswers((previous) => ({ ...previous, [field.name]: event.target.value }));
-                    setReviewing(false);
-                    setResult(null);
-                    setResultArea(null);
-                    setScoredAnswers(null);
-                  }}
-                />
-              )}
-              {meta.field_help[field.name] ? <p className="help">{meta.field_help[field.name]}</p> : null}
-            </div>
-          ))}
-        </fieldset>
-      ))}
-
-      <SufficiencyMeter supplied={answeredFields.length} needed={meta.min_answers} expected={fields.length} />
-
-      {computable.length > 0 ? (
-        <p className="small faint">
-          Enough answers for the service to calculate: {computable.map((summary) => label(meta, summary)).join(", ")}.
-          Ratios and scores are computed by the model service, never in this form.
-        </p>
-      ) : null}
-
-      <div className="assessment-state" role="status" aria-live="polite">
-        <span className={`connection-pill ${connected ? "online" : "offline"}`}>
-          {!browserOnline
-            ? "Offline"
-            : apiReachable === false
-              ? "Scoring service unavailable"
-              : connected
-                ? "Online"
-                : "Checking connection"}
-        </span>
-        <span className="small muted">
-          {draftStatus === "loading"
-            ? "Restoring this device's draft…"
-            : draftStatus === "saving"
-              ? "Saving draft on this device…"
-              : draftStatus === "unavailable"
-                ? storageMessage
-                : savedAt
-                  ? `Draft saved on this device at ${new Date(savedAt).toLocaleString()}.`
-                  : "No saved draft yet. Answers are kept in this browser, on this device."}
-        </span>
-      </div>
-      {!connected ? (
-        <p className="small notice" role="status">
-          {browserOnline
-            ? apiReachable === false
-              ? "The scoring service is unreachable. You can continue entering and reviewing answers; scoring will be available when the service reconnects."
-              : "Checking the scoring service. You can continue entering and reviewing answers; wait for the service connection before scoring."
-            : "You can enter and review answers offline. Scoring requires a connection. Answers remain on this device and are never queued for upload; reconnect before confirming the score."}
-        </p>
-      ) : null}
-        <p className="small faint">
-          Derived summaries are calculated by the service, not treated as additional answers. Livestock units are
-          approximate: cattle 0.6 TLU, sheep/goats 0.1 TLU, and chickens 0.01 TLU.
-        </p>
-
-        <p style={{ display: "flex", gap: "0.75rem", alignItems: "center" }}>
-          <button type="submit" disabled={busy}>
-            Review answers
-          </button>
-          <button type="button" className="secondary" onClick={clearDraft}>
-            Clear answers
-          </button>
-        </p>
-
-        {reviewing && pendingAnswers ? (
-          <section className="card answer-review" aria-labelledby="answer-review-title">
-            <h2 id="answer-review-title">Check before scoring</h2>
-            <p className="small muted">
-              Confirm the surveyed area and recorded answers. Unknown answers remain blank; the service does not
-              interpret them as zero.
-            </p>
-            <p className="small">
-              <strong>Survey area:</strong> {selectedArea?.label ?? "Not selected"}
-              {selectedArea
-                ? ` · ${selectedArea.region_name} · zone ${selectedArea.zone ?? "not named"} (${selectedArea.zone_verified ? "verified" : "inferred"}) · woreda ${selectedArea.woreda ?? "not named"} (${selectedArea.woreda_verified ? "verified" : "inferred"})`
-                : ""}
-            </p>
-            <dl className="answer-review-list">
-              {fields.map((field) => {
-                const value = answers[field.name]?.trim();
+    <form onSubmit={onSubmit} className="assess" noValidate>
+      <div className="assess-layout">
+        <div className="assess-main assessment-inputs">
+          <div ref={stepTopRef} className="assess-anchor" />
+          <nav className="stepper" aria-label="Interview steps">
+            <ol>
+              {steps.map((candidate, index) => {
+                const done = stepDone(candidate);
+                const current = index === stepIndex;
                 return (
-                  <div key={field.name}>
-                    <dt>{label(meta, field.name)}</dt>
-                    <dd>{value === undefined || value === "" ? "Unknown / not answered" : value}</dd>
-                  </div>
+                  <li key={candidate.id}>
+                    <button
+                      type="button"
+                      className={`step-link${current ? " current" : ""}${done ? " done" : ""}`}
+                      aria-current={current ? "step" : undefined}
+                      onClick={() => goTo(index)}
+                    >
+                      <span className="step-number" aria-hidden="true">
+                        {done && !current ? "✓" : index + 1}
+                      </span>
+                      <span className="step-text">
+                        <span className="step-title">{candidate.title}</span>
+                        <span className="step-meta">
+                          {candidate.id === AREA_STEP
+                            ? areaId
+                              ? "Selected"
+                              : "Required"
+                            : candidate.id === REVIEW_STEP
+                              ? enough
+                                ? "Ready"
+                                : `${meta.min_answers} answers needed`
+                              : `${stepAnswered(candidate)} of ${candidate.fields.length}`}
+                        </span>
+                      </span>
+                    </button>
+                  </li>
                 );
               })}
+            </ol>
+          </nav>
+
+          <section className="step-panel" aria-labelledby="step-title">
+            <header className="step-header">
+              <p className="step-eyebrow">
+                Step {stepIndex + 1} of {steps.length}
+              </p>
+              <h2 id="step-title">{step.title}</h2>
+              {step.description ? <p className="step-description">{step.description}</p> : null}
+            </header>
+
+            {step.id === AREA_STEP ? (
+              <div className="step-body">
+                <p className="notice small">
+                  Do not enter names, phone numbers, household identifiers or other identifying details. Only the
+                  survey answers and the selected area are used for scoring.
+                </p>
+                <AreaSearch
+                  areas={areas}
+                  value={areaId}
+                  onChange={(id) => {
+                    setAreaId(id);
+                    invalidateResult();
+                  }}
+                  help="Names are approximate; check the verification labels. Across the evaluation set, area context accounts for about 40.2% of total model sensitivity; that is not an individual household's share."
+                />
+              </div>
+            ) : step.id === REVIEW_STEP ? (
+              <div className="step-body">
+                <ReviewSummary
+                  steps={steps}
+                  answers={answers}
+                  meta={meta}
+                  selectedArea={selectedArea}
+                  onEdit={goTo}
+                />
+                {computable.length > 0 ? (
+                  <p className="small faint">
+                    The service will calculate: {computable.map((summary) => label(meta, summary)).join(", ")}.
+                    Livestock units are approximate (cattle 0.6, sheep and goats 0.1, chickens 0.01 TLU).
+                  </p>
+                ) : null}
+                {!enough ? (
+                  <p className="notice small" role="status">
+                    {answeredCount} of {fields.length} questions answered. At least {meta.min_answers} are needed for
+                    a score; unanswered questions are imputed, never read as zero.
+                  </p>
+                ) : null}
+              </div>
+            ) : (
+              <div className="step-body">
+                {step.fields.map((field) => (
+                  <QuestionField
+                    key={field.name}
+                    field={field}
+                    meta={meta}
+                    value={answers[field.name] ?? ""}
+                    onChange={(value) => setAnswer(field.name, value)}
+                    onStep={(delta) => stepAnswer(field, delta)}
+                  />
+                ))}
+              </div>
+            )}
+
+            {error ? (
+              <div className="error step-error" role="alert">
+                <strong>Not scored.</strong> {error}
+              </div>
+            ) : null}
+
+            <footer className="step-footer">
+              {stepIndex > 0 ? (
+                <button type="button" className="secondary" onClick={() => goTo(stepIndex - 1)}>
+                  ← Back
+                </button>
+              ) : (
+                <span />
+              )}
+              {step.id === REVIEW_STEP ? (
+                <button type="button" onClick={() => void score()} disabled={busy || !connected}>
+                  {scoreLabel}
+                </button>
+              ) : (
+                <button type="button" onClick={() => goTo(stepIndex + 1)}>
+                  Next: {steps[stepIndex + 1]?.title} →
+                </button>
+              )}
+            </footer>
+          </section>
+
+          {!connected ? (
+            <p className="small notice" role="status">
+              {browserOnline
+                ? apiReachable === false
+                  ? "The scoring service is unreachable. You can keep entering and reviewing answers; scoring will be available when the service reconnects."
+                  : "Checking the scoring service. You can keep entering answers; wait for the connection before scoring."
+                : "You can enter and review answers offline. Scoring needs a connection. Answers stay on this device and are never queued for upload; reconnect before scoring."}
+            </p>
+          ) : null}
+        </div>
+
+        <aside className="assess-aside" aria-label="Assessment progress">
+          <div className="aside-card">
+            <h2 className="aside-title">This assessment</h2>
+            {progress}
+            <dl className="aside-facts">
+              <div>
+                <dt>Survey area</dt>
+                <dd>{selectedArea ? selectedArea.label : <span className="faint">Not selected</span>}</dd>
+              </div>
+              <div>
+                <dt>Connection</dt>
+                <dd>
+                  <span className={`status-dot ${connected ? "ok" : apiReachable === false || !browserOnline ? "down" : "pending"}`} />{" "}
+                  {connectionLabel}
+                </dd>
+              </div>
             </dl>
-            <div className="review-actions">
-              <button type="button" className="secondary" onClick={() => setReviewing(false)}>
-                Edit answers
-              </button>
-              <button type="button" onClick={scoreReviewedAnswers} disabled={busy || !connected}>
-                {busy
-                  ? "Scoring…"
-                  : !browserOnline
-                    ? "Scoring unavailable offline"
-                    : apiReachable === false
-                      ? "Scoring service unavailable"
-                      : connected
-                        ? "Confirm and score"
-                        : "Checking scoring service…"}
+            <p className="aside-draft">{draftLabel}</p>
+            <div className="aside-actions">
+              {step.id === REVIEW_STEP ? (
+                <button type="button" onClick={() => void score()} disabled={busy || !connected}>
+                  {scoreLabel}
+                </button>
+              ) : (
+                <button type="button" onClick={() => goTo(steps.length - 1)}>
+                  Review and score
+                </button>
+              )}
+              <button type="button" className="secondary" onClick={clearDraft}>
+                Clear answers
               </button>
             </div>
-          </section>
-        ) : null}
+          </div>
+          <p className="aside-note">
+            Scores rank households for a human follow-up assessment. They are not eligibility decisions.
+          </p>
+        </aside>
+      </div>
 
-        {error ? (
-        <div className="error" role="alert" style={{ marginBottom: "var(--rhythm)" }}>
-          <strong>Not scored.</strong> {error}
-        </div>
+      {/* Phone: progress and the next action stay within reach of the thumb. */}
+      <div className="assess-bottom-bar">
+        {progress}
+        {step.id === REVIEW_STEP ? (
+          <button type="button" onClick={() => void score()} disabled={busy || !connected}>
+            {busy ? "Scoring…" : "Score"}
+          </button>
+        ) : (
+          <button type="button" onClick={() => goTo(stepIndex + 1)}>
+            Next →
+          </button>
+        )}
+      </div>
+
+      <div ref={resultRef} className="result-anchor" />
+      {result && scoredAnswers ? (
+        <ResultCard
+          result={result}
+          meta={meta}
+          area={resultArea}
+          fields={fields}
+          scoredAnswers={scoredAnswers}
+          apiBase={apiBase}
+          onNew={clearDraft}
+          onEdit={() => goTo(1)}
+        />
       ) : null}
-        </div>
-
-        {result && scoredAnswers ? (
-          <ResultCard
-            result={result}
-            meta={meta}
-            factorScale={factorScale}
-            area={resultArea}
-            fields={fields}
-            scoredAnswers={scoredAnswers}
-            apiBase={apiBase}
-          />
-        ) : null}
     </form>
   );
 }
 
-/** The result card. Everything shown here is a field the backend returned,
- * except the bar widths, which are scaled against the largest factor in this
- * result only (a within-result comparison, not comparable across households). */
+/** One question. Yes/no as three buttons (Unknown is a real answer), counts
+ * with - and +, anything else as a plain number. */
+function QuestionField({
+  field,
+  meta,
+  value,
+  onChange,
+  onStep,
+}: {
+  field: FieldRecord;
+  meta: Meta;
+  value: string;
+  onChange: (value: string) => void;
+  onStep: (delta: number) => void;
+}) {
+  const id = field.name;
+  const help = meta.field_help[field.name];
+  const title = label(meta, field.name);
+
+  let control;
+  if (isBinary(field)) {
+    const options: [string, string][] = [
+      ["1", "Yes"],
+      ["0", "No"],
+      ["", "Unknown"],
+    ];
+    control = (
+      <div className="control segmented" role="radiogroup" aria-labelledby={`${id}-label`}>
+        {options.map(([optionValue, optionLabel]) => {
+          const checked = value === optionValue;
+          return (
+            <button
+              key={optionLabel}
+              type="button"
+              role="radio"
+              aria-checked={checked}
+              className={`seg-option${checked ? " checked" : ""}${optionValue === "" ? " unknown" : ""}`}
+              onClick={() => onChange(optionValue)}
+            >
+              {optionLabel}
+            </button>
+          );
+        })}
+      </div>
+    );
+  } else if (isCount(field)) {
+    const current = value.trim() === "" ? null : Number(value);
+    const min = field.min ?? 0;
+    const max = field.max ?? Number.MAX_SAFE_INTEGER;
+    control = (
+      <div className="control">
+        <div className="number-stepper">
+          <button
+            type="button"
+            className="stepper-btn"
+            aria-label={`Decrease ${title}`}
+            onClick={() => onStep(-1)}
+            disabled={current === null || current <= min}
+          >
+            −
+          </button>
+          <input
+            id={id}
+            type="number"
+            inputMode="numeric"
+            value={value}
+            min={field.min ?? undefined}
+            max={field.max ?? undefined}
+            step={1}
+            placeholder="Unknown"
+            onChange={(event) => onChange(event.target.value)}
+          />
+          <button
+            type="button"
+            className="stepper-btn"
+            aria-label={`Increase ${title}`}
+            onClick={() => onStep(1)}
+            disabled={current !== null && current >= max}
+          >
+            +
+          </button>
+        </div>
+        {value.trim() !== "" ? (
+          <button type="button" className="clear-answer" onClick={() => onChange("")}>
+            Set to unknown
+          </button>
+        ) : null}
+      </div>
+    );
+  } else {
+    const squareMetres = /\(m²\)/.test(title) && value.trim() !== "" && Number.isFinite(Number(value));
+    control = (
+      <div className="control">
+        <input
+          id={id}
+          type="number"
+          inputMode="decimal"
+          value={value}
+          min={field.min ?? undefined}
+          max={field.max ?? undefined}
+          step="any"
+          placeholder="Unknown"
+          onChange={(event) => onChange(event.target.value)}
+        />
+        {squareMetres ? (
+          <span className="unit-hint">≈ {num(Number(value) / 10000, 2)} ha</span>
+        ) : null}
+        {value.trim() !== "" ? (
+          <button type="button" className="clear-answer" onClick={() => onChange("")}>
+            Set to unknown
+          </button>
+        ) : null}
+      </div>
+    );
+  }
+
+  return (
+    <div className="field question">
+      <label id={`${id}-label`} htmlFor={isBinary(field) ? undefined : id}>
+        {title}
+      </label>
+      {control}
+      {help ? <p className="help">{help}</p> : null}
+    </div>
+  );
+}
+
+function ReviewSummary({
+  steps,
+  answers,
+  meta,
+  selectedArea,
+  onEdit,
+}: {
+  steps: Step[];
+  answers: Record<string, string>;
+  meta: Meta;
+  selectedArea: Area | undefined;
+  onEdit: (index: number) => void;
+}) {
+  return (
+    <div className="review">
+      <section className="review-group">
+        <header>
+          <h3>Survey area</h3>
+          <button type="button" className="link-button" onClick={() => onEdit(0)}>
+            Edit
+          </button>
+        </header>
+        {selectedArea ? (
+          <p className="review-area">
+            <strong>{selectedArea.label}</strong>
+            <span className="faint">
+              {" "}
+              · {selectedArea.region_name}
+              {selectedArea.zone ? ` · ${selectedArea.zone}` : ""} · zone{" "}
+              {selectedArea.zone_verified ? "verified" : "inferred"} · woreda{" "}
+              {selectedArea.woreda_verified ? "verified" : "inferred"}
+            </span>
+          </p>
+        ) : (
+          <p className="review-missing">Not selected. The model needs the survey area.</p>
+        )}
+      </section>
+      {steps.map((candidate, index) =>
+        candidate.fields.length === 0 ? null : (
+          <section className="review-group" key={candidate.id}>
+            <header>
+              <h3>{candidate.title}</h3>
+              <button type="button" className="link-button" onClick={() => onEdit(index)}>
+                Edit
+              </button>
+            </header>
+            <dl className="review-list">
+              {candidate.fields.map((field) => {
+                const answered = isAnswered(answers, field.name);
+                return (
+                  <div key={field.name}>
+                    <dt>{label(meta, field.name)}</dt>
+                    <dd className={answered ? undefined : "unknown"}>{displayAnswer(field, answers[field.name])}</dd>
+                  </div>
+                );
+              })}
+            </dl>
+          </section>
+        ),
+      )}
+    </div>
+  );
+}
+
+/** The result. Everything shown is a field the backend returned, except the bar
+ * widths, which compare factors within this result only. */
 function ResultCard({
   result,
   meta,
-  factorScale,
   area,
   fields,
   scoredAnswers,
   apiBase,
+  onNew,
+  onEdit,
 }: {
   result: PredictResult;
   meta: Meta;
-  factorScale: number;
   area: Area | null;
   fields: FieldRecord[];
   scoredAnswers: HouseholdAnswers;
   apiBase: string;
+  onNew: () => void;
+  onEdit: () => void;
 }) {
   const { lens } = useLens();
-  const factorLimit = lens === "review" ? undefined : 3;
-  const shownFactors = result.top_factors.slice(0, factorLimit);
-  const areaFactor = shownFactors.find((factor) => factor.source_field === "area_context");
-  const householdFactors = shownFactors.filter((factor) => factor.source_field !== "area_context");
+  const scored = result.probability !== null;
+  const tone = rampClass(result.risk_band).replace("ramp-", "tone-");
   const factorLabel = (factor: PredictResult["top_factors"][number]) =>
     meta.field_labels[factor.source_field] ?? factor.feature;
-  const factorBar = (factor: PredictResult["top_factors"][number]) => (
-    <li key={factor.encoded_name}>
-      <span>{factorLabel(factor)}</span>
-      <span className="track" aria-hidden="true">
-        <span
-          className={`fill ${factor.direction === "increases risk" ? "up" : "down"}`}
-          style={{
-            display: "block",
-            width: `${factorScale > 0 ? (Math.abs(factor.contribution) / factorScale) * 100 : 0}%`,
-          }}
-        />
-      </span>
-      <span className="faint small">
-        {factor.direction} · {num(Math.abs(factor.contribution) * 100, 1)} pp
-      </span>
-    </li>
-  );
-  return (
-    <section className="result-output" style={{ marginTop: "var(--rhythm)" }}>
-      <div className="card" style={{ marginBottom: "var(--rhythm)" }}>
-        <h3>{result.probability === null ? "Follow up: insufficient answers" : `${result.risk_band} risk — assess`}</h3>
-        <p style={{ display: "flex", alignItems: "baseline", gap: "0.75rem", flexWrap: "wrap" }}>
-          <span className={`chip ${rampClass(result.risk_band)}`} style={{ fontSize: "1rem" }}>
-            {result.risk_band}
+  const areaFactor = result.top_factors.find((factor) => factor.source_field === "area_context");
+  const householdFactors = result.top_factors
+    .filter((factor) => factor.source_field !== "area_context")
+    .slice(0, lens === "review" ? undefined : 3);
+  const factorScale = Math.max(...result.top_factors.map((factor) => Math.abs(factor.contribution)), 0.0001);
+  const headline = !scored
+    ? "Not enough answers to score"
+    : result.flagged
+      ? "Prioritise for a follow-up assessment"
+      : "Not flagged for priority follow-up";
+
+  const factorRow = (factor: PredictResult["top_factors"][number]) => {
+    const up = factor.direction === "increases risk";
+    const points = num(Math.abs(factor.contribution) * 100, 1);
+    return (
+      <li key={factor.encoded_name} className={up ? "reason up" : "reason down"}>
+        <span className="reason-icon" aria-hidden="true">
+          {up ? "▲" : "▼"}
+        </span>
+        <span className="reason-text">
+          <span className="reason-name">{factorLabel(factor)}</span>
+          <span className="reason-effect">
+            {up ? "Raises" : "Lowers"} the score by {points} {points === "1" ? "point" : "points"} compared with
+            leaving it unknown
           </span>
-          {lens !== "field" && result.probability !== null ? (
-            <span className="faint small">score {num(result.probability, lens === "review" ? 4 : 2)}</span>
-          ) : null}
-        </p>
-        <p className="small muted">{BAND_NOTE}</p>
-        <p className="small muted">{result.band_meaning}</p>
-        <p className="small">
-          {result.flagged ? "Flagged: " : "Not flagged: "}
-          {result.flag_meaning}
-          {result.threshold === null ? "" : ` Threshold ${num(result.threshold, 3)}.`}
-        </p>
-        <p className="small faint">
-          Answered {int(result.n_features_supplied)} of {int(result.n_features_expected)} questions, of which{" "}
-          {int(result.n_predictive_supplied)} affect the score.
-        </p>
-        <p className="small muted">
-          The held-out baseline was {num(riskDistribution.observed_rate * 100, 1)}% food insecure. Scores and bands
-          are descriptive and are not eligibility decisions.
-        </p>
-        {result.cluster ? (
-          <p className="small muted">
-            Household segment: <strong>{result.cluster.name}</strong> (cluster {int(result.cluster.id)}). A
-            descriptive group, not a category of need.
+        </span>
+        <span className="reason-bar" aria-hidden="true">
+          <span style={{ width: `${(Math.abs(factor.contribution) / factorScale) * 100}%` }} />
+        </span>
+      </li>
+    );
+  };
+
+  return (
+    <section className="result" aria-labelledby="result-title">
+      <div className={`result-hero ${tone}`}>
+        <div className="result-band">
+          <span className="result-band-label">Risk band</span>
+          <span className="result-band-value">{result.risk_band}</span>
+          <span className="result-band-note">descriptive, not calibrated</span>
+        </div>
+        <div className="result-summary">
+          <p className="result-eyebrow">Assessment result</p>
+          <h2 id="result-title">{headline}</h2>
+          <p className="result-lede">
+            {scored
+              ? result.flagged
+                ? "The score is above the model's operating threshold, so this household would be on the list for a human follow-up assessment."
+                : "The score is below the model's operating threshold. A low score is not evidence that the household is food secure."
+              : `Only ${int(result.n_predictive_supplied)} questions were answered about the household; at least ${int(meta.min_answers)} are needed. Answer more questions and score again.`}
           </p>
-        ) : null}
+          {scored && result.probability !== null ? (
+            <ScoreScale probability={result.probability} threshold={result.threshold} showNumbers={lens !== "field"} />
+          ) : null}
+          <ul className="result-facts">
+            <li>{num(riskDistribution.observed_rate * 100, 0)}% of evaluated households were food insecure</li>
+            <li>Bands describe the score; they are not calibrated categories</li>
+            <li>Reasons are model sensitivities, not causes</li>
+          </ul>
+        </div>
       </div>
 
-      {!result.sufficient_data ? (
-        <div className="error" style={{ marginBottom: "var(--rhythm)" }}>
-          <p>
-            <strong>Too few answers for a reliable score.</strong> The score above is shown for
-            completeness; treat it as a question to follow up, not an assessment.
-          </p>
-        </div>
-      ) : null}
-
-      {result.top_factors.length > 0 ? (
-        <div className="card" style={{ marginBottom: "var(--rhythm)" }}>
-          <h3>Model sensitivities</h3>
-          <p className="small muted">
-            These are one-at-a-time comparisons from the model, not causes, predictions of what would happen if
-            circumstances changed, or recommendations. Values are percentage-point differences in the estimated
-            probability; the bars do not add up to the score.
-          </p>
-          {householdFactors.length > 0 ? (
-            <section className="factor-group" aria-labelledby="household-sensitivity-title">
-              <h4 id="household-sensitivity-title">Household answers</h4>
-              <p className="small muted">
-                Each comparison leaves one recorded answer unknown, recalculates any derived summary, and scores
-                again while holding the other inputs fixed. “Increases” or “reduces” describes the score
-                difference from that unknown-answer comparison; it does not show a real-world cause.
-              </p>
-              <ul className="bars">{householdFactors.map(factorBar)}</ul>
-            </section>
-          ) : null}
-          <section className="factor-group area-context-panel" aria-labelledby="area-sensitivity-title">
-            <h4 id="area-sensitivity-title">Survey-area context</h4>
-            <p className="small">
-              Scored area: <strong>{area?.label ?? "Selected survey area"}</strong>
-              {area?.region_name ? ` · ${area.region_name}` : ""}
-              {area?.zone ? ` · ${area.zone}` : ""}
-              {area?.woreda ? ` · ${area.woreda}` : ""}
-            </p>
-            <p className="small muted">
-              This is the graph model’s learned context for the surveyed area and its connected areas. It describes
-              where the household was surveyed, not an action the household took. The 40.2% area-context figure is
-              aggregate model sensitivity across the evaluation set; it is not this household’s share of its score.
-            </p>
-            {areaFactor ? (
-              <>
-                <p className="small muted">
-                  For this result, the model compared the selected area with the average prediction across supported
-                  areas for the same answers. This is a model comparison, not evidence that the area caused the
-                  household’s circumstances.
-                </p>
-                <ul className="bars">{factorBar(areaFactor)}</ul>
-              </>
+      {scored ? (
+        <div className="result-grid">
+          <div className="card">
+            <h3>What moved the score</h3>
+            {householdFactors.length > 0 ? (
+              <ul className="reasons">{householdFactors.map(factorRow)}</ul>
             ) : (
-              <p className="small faint">
-                Area context is not among the {int(shownFactors.length)} sensitivities shown here. That does not mean
-                area context had no effect.
-              </p>
+              <p className="small muted">No household answer was among the strongest sensitivities.</p>
             )}
-          </section>
+            <p className="small faint">
+              Each line leaves one answer unknown and scores again with everything else fixed. The lines do not add
+              up to the score.
+            </p>
+          </div>
+          <div className="card area-context-panel">
+            <h3>Where the household was surveyed</h3>
+            <p className="area-context-name">
+              <strong>{area?.label ?? "Selected survey area"}</strong>
+              <span className="faint small">
+                {[area?.region_name, area?.zone].filter(Boolean).join(" · ")}
+              </span>
+            </p>
+            {areaFactor ? <ul className="reasons">{factorRow(areaFactor)}</ul> : null}
+            <p className="small muted">
+              The model's learned context for this area and its neighbours, compared with the average area for the
+              same answers. It describes where the household was surveyed, not something the household did.
+            </p>
+          </div>
         </div>
       ) : null}
-
-      <WhatIfSandbox
-        baselineResult={result}
-        baselineAnswers={scoredAnswers}
-        fields={fields}
-        meta={meta}
-        apiBase={apiBase}
-      />
 
       {result.recommendations.length > 0 ? (
-        <div className="card" style={{ marginBottom: "var(--rhythm)" }}>
-          <h3>Follow-up prompts</h3>
+        <div className="card result-section">
+          <h3>Topics to cover in the follow-up</h3>
           <p className="small muted">
-            Prompts generated from the answers that crossed a threshold. They are questions to ask, not
-            actions to take.
+            Prompts raised by answers that crossed a threshold. They are questions to ask, not actions to take.
           </p>
-          <ul className="plain">
+          <ul className="prompts">
             {result.recommendations.map((recommendation) => (
               <li key={recommendation.id}>
-                <span className="tag">{recommendation.category}</span> {recommendation.prompt}{" "}
-                <span className="faint small">
-                  ({meta.field_labels[recommendation.triggered_by] ?? recommendation.triggered_by}
-                  {recommendation.value === null ? "" : ` = ${num(recommendation.value, 2)}`})
+                <span className="prompt-category">{recommendation.category}</span>
+                <span className="prompt-text">{recommendation.prompt}</span>
+                <span className="prompt-source">
+                  From: {meta.field_labels[recommendation.triggered_by] ?? recommendation.triggered_by}
+                  {recommendation.value === null ? "" : ` = ${num(recommendation.value, 2)}`}
                 </span>
               </li>
             ))}
@@ -622,46 +953,123 @@ function ResultCard({
         </div>
       ) : null}
 
-      {result.warnings.length > 0 ? (
-        <div className="card" style={{ marginBottom: "var(--rhythm)" }}>
-          <h3>Warnings</h3>
-          <ul className="plain small">
-            {result.warnings.map((warning) => (
-              <li key={warning}>{warning}</li>
-            ))}
-          </ul>
-        </div>
+      {scored ? (
+        <WhatIfSandbox
+          baselineResult={result}
+          baselineAnswers={scoredAnswers}
+          fields={fields}
+          meta={meta}
+          apiBase={apiBase}
+        />
       ) : null}
 
-      {lens === "review" ? (
-        <p className="footnote small">
-          <span className="tag">Provenance</span> Live prediction from the deployed service; threshold{" "}
-          {result.threshold === null ? "not available" : num(result.threshold, 3)}. The score is a model estimate,
-          not a calibrated measure of certainty.
-        </p>
-      ) : null}
-      <button type="button" className="secondary print-action" onClick={() => window.print()}>
-        Print assessment card
-      </button>
-
-      <details className="small">
-        <summary>Limits of this result</summary>
-        <ul className="plain" style={{ marginTop: "0.5rem" }}>
+      <details className="card result-details">
+        <summary>Details, warnings and limits</summary>
+        <dl className="detail-list">
+          {result.cluster ? (
+            <div>
+              <dt>Household profile</dt>
+              <dd>
+                {result.cluster.name} (a descriptive group, not a category of need)
+              </dd>
+            </div>
+          ) : null}
+          <div>
+            <dt>Flag</dt>
+            <dd>
+              {result.flagged ? "Flagged. " : "Not flagged. "}
+              {result.flag_meaning}
+            </dd>
+          </div>
+          <div>
+            <dt>Band meaning</dt>
+            <dd>{result.band_meaning}</dd>
+          </div>
+          {scored ? (
+            <div>
+              <dt>Model score</dt>
+              <dd>
+                {num(result.probability, 4)}
+                {result.threshold === null ? "" : ` (threshold ${num(result.threshold, 3)})`}
+              </dd>
+            </div>
+          ) : null}
+          <div>
+            <dt>Questions answered</dt>
+            <dd>
+              {int(result.n_predictive_supplied)} about the household (minimum {int(meta.min_answers)})
+            </dd>
+          </div>
+          <div>
+            <dt>Model</dt>
+            <dd>
+              {String(result.model_version.model ?? "unknown")}
+              {Array.isArray(result.model_version.answers) ? ` · ${result.model_version.answers.length} questions` : ""}
+            </dd>
+          </div>
+        </dl>
+        {result.warnings.length > 0 ? (
+          <>
+            <h4>Warnings</h4>
+            <ul className="plain small">
+              {result.warnings.map((warning) => (
+                <li key={warning}>{warning}</li>
+              ))}
+            </ul>
+          </>
+        ) : null}
+        <h4>Limits of this result</h4>
+        <ul className="plain small">
           {result.caveats.map((caveat) => (
             <li key={caveat} className="muted">
               {caveat}
             </li>
           ))}
         </ul>
-        <p className="faint small">
-          Model: {String(result.model_version.model ?? "unknown")}
-          {Array.isArray(result.model_version.answers)
-            ? ` \u00b7 ${result.model_version.answers.length} questions`
-            : ""}
-          {result.threshold === null ? "" : ` \u00b7 threshold ${num(result.threshold, 3)}`}. Compare every
-          score against the baseline rate in the page footer before acting on it.
-        </p>
       </details>
+
+      <div className="result-actions">
+        <button type="button" className="secondary print-action" onClick={() => window.print()}>
+          Print assessment card
+        </button>
+        <button type="button" className="secondary" onClick={onEdit}>
+          Edit answers
+        </button>
+        <button type="button" onClick={onNew}>
+          Start a new assessment
+        </button>
+      </div>
     </section>
+  );
+}
+
+/** Where the score sits on 0-1, with the operating threshold marked. The numbers
+ * are hidden in the field lens, which leads with words, not a probability. */
+function ScoreScale({
+  probability,
+  threshold,
+  showNumbers,
+}: {
+  probability: number;
+  threshold: number | null;
+  showNumbers: boolean;
+}) {
+  return (
+    <figure className="score-scale" aria-label={`Model score ${num(probability, 2)} on a scale from 0 to 1`}>
+      <div className="score-track">
+        {threshold !== null ? (
+          <span className="score-threshold" style={{ left: `${threshold * 100}%` }}>
+            <span>Threshold</span>
+          </span>
+        ) : null}
+        <span className="score-marker" style={{ left: `${probability * 100}%` }}>
+          {showNumbers ? <span>{num(probability, 2)}</span> : null}
+        </span>
+      </div>
+      <figcaption>
+        <span>Lower score</span>
+        <span>Higher score</span>
+      </figcaption>
+    </figure>
   );
 }

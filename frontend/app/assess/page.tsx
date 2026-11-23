@@ -25,9 +25,10 @@ export default async function AssessPage() {
       <>
         <h1>Assess a household</h1>
         <p className="muted">
-          {int(Object.values(schema).reduce((total, group) => total + group.length, 0))} questions, grouped as
-          the interview asks them. The survey area is required: it is the largest single input to the score.
-          Leave any question blank if it was not asked or not known.
+          A short interview: the survey area, then{" "}
+          {int(Object.values(schema).reduce((total, group) => total + group.length, 0))} questions in{" "}
+          {int(Object.keys(schema).length)} steps. Leave a question as Unknown if it was not asked or not known; it
+          is never read as zero.
         </p>
         <AssessForm schema={schema} meta={meta} areas={areas} apiBase={clientApiUrl()} />
       </>
