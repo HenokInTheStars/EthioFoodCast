@@ -10,6 +10,14 @@ segment and rule-based follow-up categories.
 The intake form has 14 questions (at least 9 must be answered); household size,
 dependency ratio, livestock units and per-person values are calculated.
 
+## Team
+
+| Name | Role |
+|---|---|
+| Henok Solomon | Data and frontend |
+| Niyat Debesay | Machine learning and backend |
+| Amina Aman | Product and analytics |
+
 ## Run
 
 Needs Python 3.11 or 3.12 (the Docker image uses 3.11). The first run creates the repository-root `.venv` and installs
