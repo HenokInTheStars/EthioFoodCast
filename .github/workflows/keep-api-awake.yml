@@ -1,0 +1,40 @@
+# Keeps the free Render API from sleeping, so visitors do not wait about a minute
+# for it to start. Render's free plan sleeps a service after 15 minutes without
+# requests; this asks for /api/health every 10 minutes from 06:00 to 23:00 UTC
+# (09:00 to 02:00 in Ethiopia), which stays well inside Render's free monthly hours.
+# Actions minutes are free for public repositories; a private repository would use
+# about 3,000 of its 2,000 free minutes a month, after which runs simply stop.
+#
+# GitHub may start scheduled runs a few minutes late when it is busy, so the
+# first visit can still occasionally be slow. Run it by hand from the Actions tab
+# ("Run workflow") before a demo. Scheduled workflows pause after 60 days without
+# a commit to the repository; any push re-enables them.
+name: Keep API awake
+
+on:
+  schedule:
+    - cron: "*/10 6-22 * * *"
+  workflow_dispatch:
+
+permissions: {}
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Ping the API health check
+        env:
+          API_URL: https://ethiofoodcast-api.onrender.com
+        run: |
+          # A sleeping service can take about a minute to answer, so allow retries.
+          for attempt in 1 2 3; do
+            if curl --fail --silent --show-error --max-time 90 "$API_URL/api/health"; then
+              echo
+              echo "API is awake."
+              exit 0
+            fi
+            echo "Attempt $attempt failed; retrying in 20 seconds."
+            sleep 20
+          done
+          echo "::warning::The API did not answer its health check."
