@@ -615,15 +615,69 @@ p {
   line-height: 1.6;
 }
 
-.footer-team {
-  margin-top: 1rem;
-  padding-top: 0.9rem;
+.footer-team-row {
   border-top: 1px solid rgba(255, 255, 255, 0.12);
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: 1.5rem 1.25rem 1.6rem;
 }
 
-.footer-team strong {
+.footer-team-row h2 {
+  color: var(--chrome-ink);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin: 0 0 1rem;
+}
+
+.footer-people {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.25rem 2rem;
+}
+
+.footer-person {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.footer-person-name {
   color: var(--chrome-ink);
   font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.footer-person-role {
+  font-size: 0.8125rem;
+}
+
+.footer-person-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem 1.1rem;
+  margin-top: 0.45rem;
+}
+
+.footer-person-links a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  min-height: 2rem;
+  color: var(--chrome-ink-soft);
+  text-decoration: none;
+}
+
+.footer-person-links a:hover {
+  color: var(--chrome-ink);
+  text-decoration: underline;
+}
+
+.footer-person-links svg {
+  flex: none;
 }
 
 .footer-links h2 {
@@ -682,6 +736,10 @@ p {
 
   .footer-about {
     grid-column: 1 / -1;
+  }
+
+  .footer-people {
+    grid-template-columns: minmax(0, 1fr);
   }
 }
 

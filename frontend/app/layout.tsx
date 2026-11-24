@@ -4,6 +4,7 @@ import { Inter, Noto_Sans_Ethiopic } from "next/font/google";
 
 import "./globals.css";
 import { BrandMark } from "@/components/brand-mark";
+import { FooterTeam } from "@/components/footer-team";
 import { OfflineSupport } from "@/components/offline-support";
 import { SiteHeader } from "@/components/site-header";
 import { ConnectivityProvider } from "@/lib/connectivity";
@@ -86,10 +87,6 @@ export default function RootLayout({ children }: { children: ReactNode }) {
                 Decision support for prioritising household food-security follow-up in Ethiopia. Scores rank
                 households for a human assessment; they are not eligibility decisions.
               </p>
-              <p className="footer-team">
-                Built by <strong>Henok Solomon</strong>, <strong>Niyat Debesay</strong> and{" "}
-                <strong>Amina Aman</strong>.
-              </p>
             </div>
             {FOOTER_LINKS.map((group) => (
               <nav key={group.heading} className="footer-links" aria-label={group.heading}>
@@ -104,6 +101,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
               </nav>
             ))}
           </div>
+          <FooterTeam />
           <div className="site-footer-base">
             <p>
               Baseline: <strong>{pct(distribution.observed_rate)}</strong> of the{" "}

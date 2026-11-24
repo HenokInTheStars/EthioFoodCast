@@ -26,8 +26,8 @@ The tool is designed for people who plan or carry out household visits: programm
 
 EthioFoodCast was built by a team of three:
 
-| Name | Role |
-|---|---|
-| Henok Solomon | Data and frontend |
-| Niyat Debesay | Machine learning and backend |
-| Amina Aman | Product and analytics |
+| Name | Role | Profiles |
+|---|---|---|
+| Henok Solomon | Data and frontend | [LinkedIn](https://www.linkedin.com/in/henok-solomon-ai/) · [GitHub](https://github.com/HenokInTheStars) |
+| Niyat Debesay | Machine learning and backend | [LinkedIn](https://www.linkedin.com/in/niyat-debesay-6890b5285/) · [GitHub](https://github.com/niyatdebesay) |
+| Amina Aman | Product and analytics | [LinkedIn](https://www.linkedin.com/in/amina-aman-6a475333a/) · [GitHub](https://github.com/aminaaman44) |
