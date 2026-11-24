@@ -1,5 +1,5 @@
 import { RampChip } from "./ramp-chip";
-import { FactorBars, type Factor } from "./factor-bars";
+import type { Factor } from "./factor-bars";
 
 /**
  * RegionCard -- one region, present whether or not it was surveyed.

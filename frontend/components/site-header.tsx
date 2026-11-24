@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 
@@ -80,13 +81,13 @@ export function SiteHeader() {
   return (
     <header className="site-header" ref={headerRef}>
       <div className="site-header-inner">
-        <a href="/" className="brand" aria-label="EthioFoodCast, overview">
+        <Link href="/" className="brand" aria-label="EthioFoodCast, overview">
           <BrandMark />
           <span className="brand-text">
             <span className="brand-name">EthioFoodCast</span>
             <span className="brand-tagline">Household food-security forecasting · Ethiopia</span>
           </span>
-        </a>
+        </Link>
 
         <button
           type="button"

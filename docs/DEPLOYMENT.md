@@ -29,6 +29,10 @@ Deploy the API first: the website needs its address.
 Every push that changes `backend/`, `scripts/` or `render.yaml` redeploys automatically. A
 free service sleeps after 15 minutes without visits; the first request after that takes
 about a minute while it starts.
+[`.github/workflows/keep-api-awake.yml`](../.github/workflows/keep-api-awake.yml) pings
+`/api/health` every 10 minutes from 06:00 to 23:00 UTC to keep it awake; before a demo, run it
+by hand from the repository's **Actions** tab. GitHub Actions minutes are free only for public
+repositories.
 
 Hugging Face Spaces also works if your account can create Docker Spaces:
 `scripts/publish_hf_space.sh <user>/<space>` publishes the same image there.

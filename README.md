@@ -1,18 +1,105 @@
-<img src="frontend/public/logo.svg" alt="EthioFoodCast logo" width="88">
+<p align="center">
+  <img src="frontend/public/logo.svg" alt="EthioFoodCast logo" width="96">
+</p>
 
-# EthioFoodCast
+<h1 align="center">EthioFoodCast</h1>
 
-**Live:** https://ethio-food-cast.vercel.app
+<p align="center">
+  <strong>Find the Ethiopian farming households most likely to face food insecurity, so field teams know whom to visit first.</strong>
+</p>
 
-Forecasts whether an Ethiopian agricultural household will be food insecure in
-2021/22 from its 2018/19 situation: the household, its land and crops, its
-livestock and its livelihood, plus its survey area's rainfall and vegetation. The
-model is a graph neural network (GCN ensemble) that combines each household with
-its survey area and nearby areas. It also returns explanations, a vulnerability
-segment and rule-based follow-up categories.
+<p align="center">
+  <a href="https://ethio-food-cast.vercel.app"><img alt="Live demo" src="https://img.shields.io/badge/live%20demo-ethio--food--cast.vercel.app-1a5d97"></a>
+  <a href="LICENSE"><img alt="MIT licence" src="https://img.shields.io/badge/licence-MIT-0b2a45"></a>
+  <img alt="Python 3.11" src="https://img.shields.io/badge/python-3.11-b4632b">
+  <img alt="Next.js 15" src="https://img.shields.io/badge/next.js-15-e0b071">
+</p>
 
-The intake form has 14 questions (at least 9 must be answered); household size,
-dependency ratio, livestock units and per-person values are calculated.
+EthioFoodCast scores a farming household from a 14-question interview and the area where it
+was surveyed, explains what moved the score, and ranks households so programme staff can plan
+follow-up visits. A graph neural network trained on the World Bank's Ethiopia household panel
+learned how a household's situation in 2018/19 relates to whether it reported food insecurity
+three years later. The score supports a human assessment; it never decides who receives help.
+
+**Try it:** https://ethio-food-cast.vercel.app (the API sleeps when idle, so the first score
+can take about a minute).
+
+<p align="center">
+  <img src="docs/screenshots/home.png" alt="EthioFoodCast home page with the key figures" width="900">
+</p>
+
+## Results
+
+Tested on farming households the model never saw while it was trained: in every survey area,
+every fourth household was set aside before training, and this was repeated five times.
+
+| Measure | Result |
+|---|---|
+| Accuracy (average of five test splits) | **78.4%** (± 1.9) |
+| Food-insecure households found (recall) | **84.4%** |
+| Flagged households that were food insecure (precision) | **80.2%** |
+| ROC-AUC | **0.86** |
+| Baseline: share of test households food insecure | 61% |
+| Training data | 4,837 households in 427 survey areas |
+
+In a like-for-like comparison the graph neural network came out ahead of extra trees, LightGBM
+and logistic regression (77.0% accuracy against 76.6%, 74.8% and 67.9%).
+Limits, the regions without enough data, and how to read a score are set out in the
+[Knowledge centre](https://ethio-food-cast.vercel.app/knowledge/accuracy-and-limits).
+
+## What it does
+
+<table>
+  <tr>
+    <td width="50%"><img src="docs/screenshots/assess-result.png" alt="An assessment result with its risk band and score"></td>
+    <td width="50%"><img src="docs/screenshots/assess-explain.png" alt="An AI explanation of a result with numbered sources"></td>
+  </tr>
+  <tr>
+    <td><strong>Assess a household.</strong> A short stepped interview, scored on the spot, with the answers that moved the score, the survey area's effect, follow-up topics and a what-if comparison.</td>
+    <td><strong>Explain this result.</strong> A plain-language explanation written by AI from the result, its region and profile figures and the documentation, citing a source for every sentence.</td>
+  </tr>
+  <tr>
+    <td><img src="docs/screenshots/knowledge-answer.png" alt="A cited answer in the knowledge centre"></td>
+    <td><img src="docs/screenshots/regional-map.png" alt="Regional map of predicted risk"></td>
+  </tr>
+  <tr>
+    <td><strong>Ask the knowledge centre.</strong> Questions about the data, the model and its results are answered from the project's own articles and figures, with citations; questions they cannot answer are refused.</td>
+    <td><strong>Explore the results.</strong> Risk by region and household profile, a ranked planning list with a capacity slider, batch scoring from a CSV, and an offline-capable interface for field use.</td>
+  </tr>
+</table>
+
+## How it works
+
+```
+ESS 2018/19 + ESPS 2021/22 survey panel (World Bank LSMS-ISA)
+        │  cleaning, features, food-insecurity label (FIES)
+        ▼
+Graph neural network ensemble ── households linked to their survey area and nearby areas
+        │  exported model + result files
+        ▼
+FastAPI scoring service (Render)  ◄────  Next.js website (Vercel)  ────►  Groq
+  /api/predict, /api/predict_batch        dashboards built from the          cited answers via
+                                          result files; knowledge centre     retrieval-augmented
+                                                                             generation
+```
+
+- **Model.** A graph convolutional network ensemble over households and survey areas, with
+  satellite rainfall and vegetation for each area. Reasons come from occlusion: leave one
+  answer unknown and score again.
+- **API.** FastAPI in Docker, with input validation, rate limits and CORS.
+- **Website.** Next.js 15 and TypeScript. Dashboards are static pages built from the model's
+  result files, validated at build time.
+- **AI.** Retrieval-augmented generation over the documentation and the model's results. Every
+  sentence must cite a source, and the server rejects answers whose citations do not check out.
+- **Privacy.** No household identifiers or coordinates are shipped; small regions are
+  suppressed; the AI never receives interview answers.
+
+| Layer | Tools |
+|---|---|
+| Model | Python, NumPy/SciPy graph convolutional network ensemble, scikit-learn, LightGBM baselines, SHAP |
+| API | FastAPI, Uvicorn, Docker, Render |
+| Website | Next.js 15, React 19, TypeScript, zod, Vercel |
+| AI | Groq, keyword retrieval with citation checking |
 
 ## Team
 
@@ -21,6 +108,26 @@ dependency ratio, livestock units and per-person values are calculated.
 | Henok Solomon | Data and frontend | [LinkedIn](https://www.linkedin.com/in/henok-solomon-ai/) · [GitHub](https://github.com/HenokInTheStars) |
 | Niyat Debesay | Machine learning and backend | [LinkedIn](https://www.linkedin.com/in/niyat-debesay-6890b5285/) · [GitHub](https://github.com/niyatdebesay) |
 | Amina Aman | Product and analytics | [LinkedIn](https://www.linkedin.com/in/amina-aman-6a475333a/) · [GitHub](https://github.com/aminaaman44) |
+
+## Licence, data and citation
+
+The code is released under the [MIT licence](LICENSE). The survey data is not included: it is
+published by the Ethiopian Statistical Service and the World Bank under their own terms (see
+[Data sources and how to cite](frontend/content/knowledge/08-sources-and-citation.md)). To
+cite EthioFoodCast, use GitHub's "Cite this repository" button ([`CITATION.cff`](CITATION.cff)).
+
+EthioFoodCast is an independent project, not an official product of any government or agency.
+
+---
+
+# For developers
+
+The model takes a household's 2018/19 situation (the household, its land and crops, its
+livestock and its livelihood, plus its survey area's rainfall and vegetation) and returns the
+probability that it reported food insecurity in 2021/22, with explanations, a household
+profile and rule-based follow-up topics. The intake form has 14 questions (at least 9 must be
+answered); household size, dependency ratio, livestock units and per-person values are
+calculated.
 
 ## Run
 
@@ -81,7 +188,7 @@ npm --prefix frontend run dev     :: http://localhost:3001, needs the API runnin
 
 The API runs on Render (from [`render.yaml`](render.yaml)) and the website on Vercel, both
 on free plans. `docs/DEPLOYMENT.md` has the step-by-step guide. Set `ALLOWED_ORIGINS` on the
-API to the website's address. Scoring is rate-limited per visitor (settings in the guide).
+API to the website's address. A scheduled GitHub Action keeps the free API from sleeping during the day. Scoring is rate-limited per visitor (settings in the guide).
 
 ## Use from Python (Streamlit)
 

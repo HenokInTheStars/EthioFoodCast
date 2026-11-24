@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from "next";
+import Link from "next/link";
 import type { ReactNode } from "react";
 import { Inter, Noto_Sans_Ethiopic } from "next/font/google";
 
@@ -18,10 +19,37 @@ import { int, pct } from "@/lib/format";
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter", display: "swap" });
 const ethiopic = Noto_Sans_Ethiopic({ subsets: ["ethiopic"], variable: "--font-ethiopic", display: "swap" });
 
+// The public address, for absolute links in link previews. Vercel provides its
+// production domain; NEXT_PUBLIC_SITE_URL overrides it (for example a custom domain).
+const siteUrl =
+  process.env.NEXT_PUBLIC_SITE_URL
+  ?? (process.env.VERCEL_PROJECT_PRODUCTION_URL ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}` : undefined)
+  ?? "https://ethio-food-cast.vercel.app";
+
+const description =
+  "Ranks Ethiopian farming households by their risk of food insecurity so field teams know whom to visit first. "
+  + "A graph neural network trained on World Bank survey data, with plain-language explanations and cited AI answers.";
+
 export const metadata: Metadata = {
+  metadataBase: new URL(siteUrl),
   title: { default: "EthioFoodCast", template: "%s — EthioFoodCast" },
-  description:
-    "Decision support for prioritising food-security outreach in Ethiopia. Descriptive risk scores from the 14-question agricultural form; not eligibility determinations.",
+  description,
+  applicationName: "EthioFoodCast",
+  authors: [{ name: "Henok Solomon" }, { name: "Niyat Debesay" }, { name: "Amina Aman" }],
+  openGraph: {
+    type: "website",
+    siteName: "EthioFoodCast",
+    title: "EthioFoodCast — household food-security forecasting for Ethiopia",
+    description,
+    locale: "en_GB",
+    images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "EthioFoodCast logo with key results" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "EthioFoodCast — household food-security forecasting for Ethiopia",
+    description,
+    images: ["/og-image.png"],
+  },
   manifest: "/manifest.webmanifest",
   icons: {
     icon: [
@@ -86,10 +114,10 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <footer className="site-footer">
           <div className="site-footer-inner">
             <div className="footer-about">
-              <a href="/" className="footer-brand">
+              <Link href="/" className="footer-brand">
                 <BrandMark size={28} />
                 <span>EthioFoodCast</span>
-              </a>
+              </Link>
               <p>
                 Decision support for prioritising household food-security follow-up in Ethiopia. Scores rank
                 households for a human assessment; they are not eligibility decisions.

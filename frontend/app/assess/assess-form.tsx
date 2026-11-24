@@ -926,7 +926,7 @@ function ResultCard({
             </p>
             {areaFactor ? <ul className="reasons">{factorRow(areaFactor)}</ul> : null}
             <p className="small muted">
-              The model's learned context for this area and its neighbours, compared with the average area for the
+              The model&apos;s learned context for this area and its neighbours, compared with the average area for the
               same answers. It describes where the household was surveyed, not something the household did.
             </p>
           </div>

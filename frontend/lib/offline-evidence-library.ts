@@ -104,7 +104,7 @@ export async function commitDocumentImport(
       const transaction = database.transaction(STORE_NAME, "readwrite");
       const store = transaction.objectStore(STORE_NAME);
       const request = store.getAll();
-      let removed: OfflineEvidenceDocument[] = [];
+      const removed: OfflineEvidenceDocument[] = [];
       let failure: Error | null = null;
 
       request.onsuccess = () => {

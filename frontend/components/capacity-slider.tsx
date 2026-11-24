@@ -1,7 +1,5 @@
 "use client";
 
-import { useState } from "react";
-
 /**
  * CapacitySlider -- how many households this team can actually follow up.
  *

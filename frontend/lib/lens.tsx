@@ -57,7 +57,7 @@ export function LensProvider({
   // make the server and client markup disagree.
   useEffect(() => {
     const stored = window.localStorage.getItem(LENS_KEY);
-    if (stored && LENSES.some((entry) => entry.id === stored)) setLens(stored as Lens);
+    if (stored && LENSES.some((entry) => entry.id === stored)) setLensState(stored as Lens);
   }, []);
 
   // Mirror onto <html> so CSS can scale density for the whole shell.
