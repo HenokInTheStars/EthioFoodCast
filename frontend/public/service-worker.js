@@ -1,4 +1,4 @@
-const CACHE_NAME = "ethiofoodcast-shell-v6";
+const CACHE_NAME = "ethiofoodcast-shell-v7";
 const APP_ROUTES = new Set([
   "/",
   "/assess",
@@ -22,6 +22,7 @@ self.addEventListener("install", (event) => {
         "/icon.svg",
         "/icon-192.png",
         "/icon-512.png",
+        "/apple-touch-icon.png",
         "/pdf.worker.mjs",
       ]))
       .then(() => self.skipWaiting()),

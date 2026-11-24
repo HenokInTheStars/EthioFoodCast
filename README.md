@@ -1,4 +1,8 @@
+<img src="frontend/public/logo.svg" alt="EthioFoodCast logo" width="88">
+
 # EthioFoodCast
+
+**Live:** https://ethio-food-cast.vercel.app
 
 Forecasts whether an Ethiopian agricultural household will be food insecure in
 2021/22 from its 2018/19 situation: the household, its land and crops, its
