@@ -30,7 +30,7 @@ Every push that changes `backend/`, `scripts/` or `render.yaml` redeploys automa
 free service sleeps after 15 minutes without visits; the first request after that takes
 about a minute while it starts.
 [`.github/workflows/keep-api-awake.yml`](../.github/workflows/keep-api-awake.yml) pings
-`/api/health` every 10 minutes from 06:00 to 23:00 UTC to keep it awake; before a demo, run it
+`/api/health` every 10 minutes (at :07, :17, ...) from 06:00 to 23:00 UTC to keep it awake; before a demo, run it
 by hand from the repository's **Actions** tab. GitHub Actions minutes are free only for public
 repositories.
 

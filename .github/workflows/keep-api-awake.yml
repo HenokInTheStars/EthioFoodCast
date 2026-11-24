@@ -1,6 +1,6 @@
 # Keeps the free Render API from sleeping, so visitors do not wait about a minute
 # for it to start. Render's free plan sleeps a service after 15 minutes without
-# requests; this asks for /api/health every 10 minutes from 06:00 to 23:00 UTC
+# requests; this asks for /api/health every 10 minutes (at :07, :17, ...) from 06:00 to 23:00 UTC
 # (09:00 to 02:00 in Ethiopia), which stays well inside Render's free monthly hours.
 # Actions minutes are free for public repositories; a private repository would use
 # about 3,000 of its 2,000 free minutes a month, after which runs simply stop.
@@ -13,7 +13,9 @@ name: Keep API awake
 
 on:
   schedule:
-    - cron: "*/10 6-22 * * *"
+    # Minutes 7, 17, 27...: GitHub delays or drops scheduled runs most often at
+    # the top of the hour and on round minutes.
+    - cron: "7-59/10 6-22 * * *"
   workflow_dispatch:
 
 permissions: {}
