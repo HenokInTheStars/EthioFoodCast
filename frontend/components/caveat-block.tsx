@@ -35,28 +35,3 @@ export function CaveatBlock({ caveats, provenance, title = "What this number is 
     </aside>
   );
 }
-
-/**
- * The two facts the brief says must accompany every risk figure. Kept here so
- * no screen can quietly drop one of them.
- */
-export function AlwaysVisibleFacts({ observedRate }: { observedRate: number | null }) {
-  return (
-    <ul className="plain facts">
-      <li className="small">
-        {observedRate === null ? "—" : `${Math.round(observedRate * 100)}%`} of test households were
-        food insecure, so always answering &ldquo;insecure&rdquo; would be right{" "}
-        {observedRate === null ? "—" : `${Math.round(observedRate * 100)}%`} of the time. The model has
-        to beat that to be useful.
-      </li>
-      <li className="small">
-        Risk levels are labels for ranges of the score, not categories of need. A household just below
-        a cut-off is not meaningfully different from one just above it.
-      </li>
-      <li className="small">
-        The listed reasons show which answers moved <em>this</em> score. They are not causes, and they
-        do not add up to the score.
-      </li>
-    </ul>
-  );
-}

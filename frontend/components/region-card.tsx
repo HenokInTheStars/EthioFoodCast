@@ -1,6 +1,3 @@
-import { RampChip } from "./ramp-chip";
-import type { Factor } from "./factor-bars";
-
 /**
  * RegionCard -- one region, present whether or not it was surveyed.
  *
@@ -62,50 +59,5 @@ export function RegionCard({ row }: { row: RegionRow }) {
       </p>
       {row.top_cluster ? <p className="small faint">Most common profile: {row.top_cluster}</p> : null}
     </article>
-  );
-}
-
-/**
- * RankTable -- the ordered list, which the brief calls "the product".
- *
- * Rank is the largest glyph in a row; probability is small. Rows expand to the
- * top factors and the support categories, which is the handoff to a real
- * questionnaire. 484 rows need no virtualisation.
- *
- * `ranked` must already be sorted by probability, descending.
- */
-export function RankRow({
-  rank,
-  household,
-}: {
-  rank: number;
-  household: {
-    surrogate_id: string;
-    region: string;
-    area_label?: string;
-    probability: number | null;
-    risk_band: string;
-    flagged?: boolean;
-    cluster?: string | null;
-    top_factors?: Factor[];
-    support_categories?: string[];
-  };
-}) {
-  return (
-    <tr className="rank-row">
-      <td className="rank-cell">
-        <strong className="rank">{rank}</strong>
-        <span className="small faint">{household.surrogate_id}</span>
-      </td>
-      <td className="tabular small">{household.probability === null ? "—" : household.probability.toFixed(3)}</td>
-      <td>
-        <RampChip band={household.risk_band} />
-      </td>
-      <td className="small">
-        {household.region}
-        {household.area_label ? <span className="faint"> · {household.area_label}</span> : null}
-      </td>
-      <td className="small faint">{household.cluster ?? "—"}</td>
-    </tr>
   );
 }

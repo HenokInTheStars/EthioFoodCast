@@ -154,14 +154,10 @@ export type PredictResult = {
   model_version: Record<string, unknown>;
 };
 
-export type Health = { status: string; model: string | null };
-
 /** Where the browser should call. Re-exported so pages import one thing. */
 export const apiBaseUrl = clientApiUrl;
 
 // ------------------------------------------------------------------ calls
-
-export const getHealth = (base = serverApiUrl()) => request<Health>(base, "/api/health");
 
 export const getMeta = (base = serverApiUrl()) => request<Meta>(base, "/api/meta");
 

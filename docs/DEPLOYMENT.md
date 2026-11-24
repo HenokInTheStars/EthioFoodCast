@@ -34,9 +34,6 @@ about a minute while it starts.
 by hand from the repository's **Actions** tab. GitHub Actions minutes are free only for public
 repositories.
 
-Hugging Face Spaces also works if your account can create Docker Spaces:
-`scripts/publish_hf_space.sh <user>/<space>` publishes the same image there.
-
 ## 2. Website on Vercel
 
 1. Create a free account at vercel.com and sign in with GitHub.

@@ -11,8 +11,7 @@
     "check": "tsc --noEmit",
     "lint": "eslint .",
     "data": "node scripts/copy-data.mjs",
-    "openapi:dump": "python ../scripts/dump_openapi.py",
-    "types:api": "openapi-typescript ../openapi.json -o lib/api-types.ts"
+    "openapi:dump": "python ../scripts/dump_openapi.py"
   },
   "dependencies": {
     "next": "^15.3.3",
@@ -29,7 +28,6 @@
     "eslint": "^9.39.5",
     "eslint-config-next": "^15.5.27",
     "marked": "^15.0.12",
-    "openapi-typescript": "^7.9.1",
     "typescript": "^5.8.3"
   },
   "engines": {

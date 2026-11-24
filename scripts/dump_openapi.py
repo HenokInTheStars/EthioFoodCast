@@ -1,9 +1,8 @@
 """Write the HTTP API's OpenAPI document to openapi.json at the repository root.
 
-Used by the frontend's type generation:
+A reference copy of the API's endpoints and fields:
 
-    npm --prefix frontend run openapi:dump   # this script
-    npm --prefix frontend run types:api      # openapi.json -> frontend/lib/api-types.ts
+    npm --prefix frontend run openapi:dump
 
 Importing the API builds the Service, so run it with the backend requirements
 installed (for example the repository-root .venv).
